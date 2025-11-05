@@ -1,78 +1,122 @@
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type'
 };
-
-Deno.serve(async (req: Request) => {
-  if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders });
-  }
-
+// --- Main Edge Function ---
+serve(async (req)=>{
+  if (req.method === "OPTIONS") return new Response(null, {
+    headers: corsHeaders
+  });
   try {
-    const { 
-      bookingId, 
-      amount, 
-      type, 
-      razorpayPaymentId, 
-      razorpayOrderId,
-      userId 
-    } = await req.json();
-
-    // Import Supabase client
-    const { createClient } = await import('https://esm.sh/@supabase/supabase-js@2');
-    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-    const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
-    const supabase = createClient(supabaseUrl, supabaseKey);
-
-    // Store payment history
-    const { data, error } = await supabase
-      .from('payment_history')
-      .insert({
-        user_id: userId,
-        booking_id: bookingId,
-        amount: amount,
-        payment_status: 'Success',
-        transaction_id: razorpayPaymentId,
-        razorpay_payment_id: razorpayPaymentId,
-        razorpay_order_id: razorpayOrderId,
-        type: type,
-        payment_date: new Date().toISOString()
-      })
-      .select()
-      .single();
-
-    if (error) {
-      console.error('Error storing payment:', error);
-      throw error;
+    // --- 1. Environment Variables & Setup ---
+    const GEMINI_API_KEY = Deno.env.get("GEMINI_API_KEY");
+    if (!GEMINI_API_KEY) {
+      throw new Error("GEMINI_API_KEY is not set. Cannot call Gemini API.");
     }
+    const { messages } = await req.json();
+    // --- 2. Dynamic Context & System Message (INJECTING WEBSITE CONTEXT) ---
+    const currentDate = new Date().toLocaleDateString("en-IN", {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+    const systemInstructionContent = `
+**CRITICAL CONTEXT: Today's date is ${currentDate}.** 📅
 
-    // Update booking status to 'paid'
-    const bookingTable = type === 'Tool Booking' ? 'tool_bookings' : 'warehouse_bookings';
-    const { error: updateError } = await supabase
-      .from(bookingTable)
-      .update({ status: 'paid' })
-      .eq('id', bookingId);
+You are a highly capable, specialized **AI Assistant for KrishiSanjivni**. Your primary role is to serve farmers, agricultural students, and industry professionals in India. While you are fully capable of answering *any* general knowledge question (like Gemini/ChatGPT), your expertise must always prioritize **KrishiSanjivni's services** and general agriculture.
 
-    if (updateError) {
-      console.error('Error updating booking:', updateError);
-    }
+**🎯 KRISHISANJIVNI CORE MISSION & SERVICES:**
+* **Persona:** You are an **expert, multilingual (English/Hindi), practical, and actionable** agricultural advisor.
+* **Website Overview:** KrishiSanjivni is a comprehensive farming website dedicated to empowering the agricultural community.
+* **Core Features:**
+    * **Machinery & Storage:** Provides **tools for rent** (e.g., tractors, seed drills) and **warehouses for rent** (storage solutions).
+    * **Testing & Analysis:** Offers services for **soil and crop testing** and analysis.
+    * **Community & Support:** Features a dedicated **community** to connect users and solve problems collaboratively. Provides **real-time 24/7 AI chatbot support** (Yourself!).
+    * **Market Data:** Supplies **real-time market prices** of food items and fertilizers.
+    * **Information Hub:** Gives **real-time weather updates** and comprehensive information on **all Government Schemes and Yojnas**.
 
-    return new Response(
-      JSON.stringify({ success: true, payment: data }),
-      {
-        status: 200,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+***CRITICAL INSTRUCTION: FACTUAL & DATE-BASED GROUNDING***
+1.  **DATE ENFORCEMENT (NON-NEGOTIABLE):** If the user asks for the current date or time, you MUST respond ONLY with the exact date and day provided in the CRITICAL CONTEXT above fro time use INDIAN standard.
+2.  **MANDATORY SEARCH:** For ANY question related to **Current Events, News, Sports Scores (like Asia Cup winners), or Facts** that should have occurred *before* the current date, you **MUST** use the provided **Google Search tool** to find the result.
+3.  **DO NOT** mention a "knowledge cut-off" or state that an event "has not happened yet." Provide the real-time answer.
+4.  **Response Style:** Use **bullets, headings, bold highlights, and emojis** for formatting.
+`;
+    // --- 3. Prepare Gemini API Request Body (CORRECTED REST STRUCTURE) ---
+    const geminiMessages = messages.map((msg: any)=>({
+        role: msg.role === 'assistant' ? 'model' : 'user',
+        parts: [
+          {
+            text: msg.content
+          }
+        ]
+      }));
+    const requestBody = {
+      // **CORRECTED STRUCTURE for System Instruction**
+      systemInstruction: {
+        parts: [
+          {
+            text: systemInstructionContent
+          }
+        ]
+      },
+      contents: geminiMessages,
+      tools: [
+        {
+          googleSearch: {}
+        }
+      ],
+      generationConfig: {
+        temperature: 0.7
       }
-    );
-  } catch (err: any) {
-    console.error('Error in record-payment:', err);
-    return new Response(
-      JSON.stringify({ error: err.message || 'Internal Server Error' }),
-      {
+    };
+    // --- 4. Direct Call to Google Gemini API ---
+    const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
+    const response = await fetch(GEMINI_API_URL, {
+      method: "POST",
+      headers: {
+        "x-goog-api-key": GEMINI_API_KEY,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(requestBody)
+    });
+    // --- 5. Error Handling and Response Extraction ---
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Gemini API Error:", errorText);
+      return new Response(JSON.stringify({
+        error: `Gemini API Error (${response.status}): ${errorText}`
+      }), {
         status: 500,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        headers: {
+          ...corsHeaders,
+          "Content-Type": "application/json"
+        }
+      });
+    }
+    const data = await response.json();
+    const assistantMessage = data?.candidates?.[0]?.content?.parts?.[0]?.text || "An internal error occurred, and the model did not generate a response.";
+    // --- 6. Return Final Successful Response ---
+    return new Response(JSON.stringify({
+      message: assistantMessage,
+      conversationId: null
+    }), {
+      headers: {
+        ...corsHeaders,
+        "Content-Type": "application/json"
       }
-    );
+    });
+  } catch (error) {
+    console.error("Critical Error in Edge Function:", error);
+    return new Response(JSON.stringify({
+      error: error instanceof Error ? error.message : 'Unknown critical error during function execution.'
+    }), {
+      status: 500,
+      headers: {
+        ...corsHeaders,
+        "Content-Type": "application/json"
+      }
+    });
   }
 });

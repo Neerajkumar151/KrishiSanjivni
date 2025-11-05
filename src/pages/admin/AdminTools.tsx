@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
+import { ImageUpload } from '@/components/ui/image-upload';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Switch } from '@/components/ui/switch';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
@@ -292,13 +293,11 @@ export const AdminTools: React.FC = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="image_url">Image URL</Label>
-                <Input
-                  id="image_url"
-                  type="url"
+                <ImageUpload
                   value={formData.image_url}
-                  onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
-                  placeholder="https://example.com/image.jpg"
+                  onChange={(url) => setFormData({ ...formData, image_url: url })}
+                  bucket="tool-images"
+                  label="Tool Image"
                 />
               </div>
 
@@ -406,13 +405,11 @@ export const AdminTools: React.FC = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="edit-image_url">Image URL</Label>
-                <Input
-                  id="edit-image_url"
-                  type="url"
+                <ImageUpload
                   value={formData.image_url}
-                  onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
-                  placeholder="https://example.com/image.jpg"
+                  onChange={(url) => setFormData({ ...formData, image_url: url })}
+                  bucket="tool-images"
+                  label="Tool Image"
                 />
               </div>
 

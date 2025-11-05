@@ -639,7 +639,6 @@
 
 
 
-
 import React, { useEffect, useState } from 'react';
 import { useAdminCheck } from '@/hooks/useAdminCheck';
 import { supabase } from '@/integrations/supabase/client';
@@ -648,12 +647,13 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Switch } from '@/components/ui/switch'; // <--- Import Switch
+import { Switch } from '@/components/ui/switch';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
-import { Plus, Trash2, Search, Edit, Filter } from 'lucide-react';
+import { Plus, Trash2, Search, Edit } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useAuth } from '@/contexts/AuthContext';
+import { ImageUpload } from '@/components/ui/image-upload';
 
 interface Warehouse {
   id: string;
@@ -664,13 +664,25 @@ interface Warehouse {
   available_space_sqft: number;
   image_url: string | null;
   features: string[] | null;
-  availability: boolean; // <--- ADDED: availability field
+  availability: boolean;
+  created_at?: string;
+  updated_at?: string;
+}
+
+interface StorageOption {
+  id?: string;
+  warehouse_id?: string;
+  storage_type: 'normal' | 'cold' | 'hot';
+  size_category?: 'small' | 'medium' | 'large' | 'custom';
+  price_per_sqft_day: number;
+  price_per_sqft_month: number;
+  space_sqft?: number | null;
+  min_custom_space_sqft?: number | null;
+  max_custom_space_sqft?: number | null;
 }
 
 interface WarehouseWithStorage extends Warehouse {
-  storage_options?: {
-    storage_type: 'normal' | 'cold' | 'hot';
-  }[];
+  storage_options?: StorageOption[];
 }
 
 export const AdminWarehouses: React.FC = () => {
@@ -683,7 +695,7 @@ export const AdminWarehouses: React.FC = () => {
   const [availabilityFilter, setAvailabilityFilter] = useState<string>('all');
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-  const [editingWarehouse, setEditingWarehouse] = useState<Warehouse | null>(null);
+  const [editingWarehouse, setEditingWarehouse] = useState<WarehouseWithStorage | null>(null);
   const { toast } = useToast();
 
   const [formData, setFormData] = useState({
@@ -693,11 +705,45 @@ export const AdminWarehouses: React.FC = () => {
     total_space_sqft: '',
     available_space_sqft: '',
     image_url: '',
-    features: ''
+    features: '',
+    storage_type: 'normal',
+    price_per_sqft_day: '',
+    price_per_sqft_month: ''
   });
 
   useEffect(() => {
     fetchWarehouses();
+    
+    // Setup realtime subscription
+    const channel = supabase
+      .channel('warehouse-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'warehouses'
+        },
+        () => {
+          fetchWarehouses();
+        }
+      )
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'warehouse_storage_options'
+        },
+        () => {
+          fetchWarehouses();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   const fetchWarehouses = async () => {
@@ -705,12 +751,11 @@ export const AdminWarehouses: React.FC = () => {
       .from('warehouses')
       .select(`
         *,
-        storage_options:warehouse_storage_options(storage_type)
+        storage_options:warehouse_storage_options(storage_type, price_per_sqft_day, price_per_sqft_month, id)
       `)
       .order('created_at', { ascending: false });
 
     if (error) {
-      console.error('Error fetching warehouses:', error);
       toast({
         title: 'Error',
         description: 'Failed to fetch warehouses',
@@ -719,7 +764,7 @@ export const AdminWarehouses: React.FC = () => {
       return;
     }
 
-    setWarehouses(data || []);
+    setWarehouses((data as any) || []);
   };
 
   const handleAddWarehouse = async (e: React.FormEvent) => {
@@ -734,8 +779,8 @@ export const AdminWarehouses: React.FC = () => {
       return;
     }
 
-    const totalSpace = parseInt(formData.total_space_sqft);
-    const availableSpace = parseInt(formData.available_space_sqft);
+    const totalSpace = parseInt(formData.total_space_sqft || '0');
+    const availableSpace = parseInt(formData.available_space_sqft || '0');
 
     if (availableSpace > totalSpace) {
       toast({
@@ -750,7 +795,7 @@ export const AdminWarehouses: React.FC = () => {
       ? formData.features.split(',').map(f => f.trim()).filter(f => f)
       : null;
 
-    const { error } = await supabase
+    const { data: insertedWarehouse, error: insertError } = await supabase
       .from('warehouses')
       .insert({
         name: formData.name,
@@ -760,17 +805,42 @@ export const AdminWarehouses: React.FC = () => {
         available_space_sqft: availableSpace,
         image_url: formData.image_url || null,
         features: features,
-        owner_id: user.id
-      });
+        owner_id: user.id,
+        availability: true
+      })
+      .select()
+      .single();
 
-    if (error) {
-      console.error('Error adding warehouse:', error);
+    if (insertError || !insertedWarehouse) {
       toast({
         title: 'Error',
-        description: 'Failed to add warehouse: ' + error.message,
+        description: 'Failed to add warehouse: ' + (insertError?.message || 'Unknown'),
         variant: 'destructive'
       });
       return;
+    }
+
+    const dayPrice = parseFloat(formData.price_per_sqft_day || '0');
+    const monthPrice = parseFloat(formData.price_per_sqft_month || '0');
+
+    if (!isNaN(dayPrice) && !isNaN(monthPrice)) {
+      const { error: storageError } = await supabase
+        .from('warehouse_storage_options')
+        .insert([{
+          warehouse_id: insertedWarehouse.id,
+          storage_type: formData.storage_type as 'normal' | 'cold' | 'hot',
+          size_category: 'medium' as const,
+          price_per_sqft_day: dayPrice,
+          price_per_sqft_month: monthPrice
+        }]);
+
+      if (storageError) {
+        toast({
+          title: 'Warning',
+          description: 'Warehouse added but failed to add storage option: ' + storageError.message,
+          variant: 'destructive'
+        });
+      }
     }
 
     toast({
@@ -785,7 +855,10 @@ export const AdminWarehouses: React.FC = () => {
       total_space_sqft: '',
       available_space_sqft: '',
       image_url: '',
-      features: ''
+      features: '',
+      storage_type: 'normal',
+      price_per_sqft_day: '',
+      price_per_sqft_month: ''
     });
     setIsAddDialogOpen(false);
     fetchWarehouses();
@@ -793,11 +866,11 @@ export const AdminWarehouses: React.FC = () => {
 
   const handleEditWarehouse = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!editingWarehouse) return;
 
-    const totalSpace = parseInt(formData.total_space_sqft);
-    const availableSpace = parseInt(formData.available_space_sqft);
+    const totalSpace = parseInt(formData.total_space_sqft || '0');
+    const availableSpace = parseInt(formData.available_space_sqft || '0');
 
     if (availableSpace > totalSpace) {
       toast({
@@ -812,7 +885,7 @@ export const AdminWarehouses: React.FC = () => {
       ? formData.features.split(',').map(f => f.trim()).filter(f => f)
       : null;
 
-    const { error } = await supabase
+    const { error: updateError } = await supabase
       .from('warehouses')
       .update({
         name: formData.name,
@@ -825,13 +898,55 @@ export const AdminWarehouses: React.FC = () => {
       })
       .eq('id', editingWarehouse.id);
 
-    if (error) {
+    if (updateError) {
       toast({
         title: 'Error',
-        description: 'Failed to update warehouse: ' + error.message,
+        description: 'Failed to update warehouse: ' + updateError.message,
         variant: 'destructive'
       });
       return;
+    }
+
+    const dayPrice = parseFloat(formData.price_per_sqft_day || '0');
+    const monthPrice = parseFloat(formData.price_per_sqft_month || '0');
+
+    const existingOption = (editingWarehouse.storage_options && editingWarehouse.storage_options[0]) || null;
+
+    if (existingOption && existingOption.id) {
+      const { error: storageUpdateError } = await supabase
+        .from('warehouse_storage_options')
+        .update({
+          storage_type: formData.storage_type as 'normal' | 'cold' | 'hot',
+          price_per_sqft_day: dayPrice,
+          price_per_sqft_month: monthPrice
+        })
+        .eq('id', existingOption.id);
+
+      if (storageUpdateError) {
+        toast({
+          title: 'Warning',
+          description: 'Warehouse updated but failed to update storage option: ' + storageUpdateError.message,
+          variant: 'destructive'
+        });
+      }
+    } else {
+      const { error: storageInsertError } = await supabase
+        .from('warehouse_storage_options')
+        .insert([{
+          warehouse_id: editingWarehouse.id,
+          storage_type: formData.storage_type as 'normal' | 'cold' | 'hot',
+          size_category: 'medium' as const,
+          price_per_sqft_day: dayPrice,
+          price_per_sqft_month: monthPrice
+        }]);
+
+      if (storageInsertError) {
+        toast({
+          title: 'Warning',
+          description: 'Warehouse updated but failed to add storage option: ' + storageInsertError.message,
+          variant: 'destructive'
+        });
+      }
     }
 
     toast({
@@ -844,7 +959,8 @@ export const AdminWarehouses: React.FC = () => {
     fetchWarehouses();
   };
 
-  const openEditDialog = (warehouse: Warehouse) => {
+  const openEditDialog = (warehouse: WarehouseWithStorage) => {
+    const option = (warehouse.storage_options && warehouse.storage_options[0]) || null;
     setEditingWarehouse(warehouse);
     setFormData({
       name: warehouse.name,
@@ -853,12 +969,14 @@ export const AdminWarehouses: React.FC = () => {
       total_space_sqft: warehouse.total_space_sqft.toString(),
       available_space_sqft: warehouse.available_space_sqft.toString(),
       image_url: warehouse.image_url || '',
-      features: warehouse.features?.join(', ') || ''
+      features: warehouse.features?.join(', ') || '',
+      storage_type: option?.storage_type || 'normal',
+      price_per_sqft_day: option ? option.price_per_sqft_day.toString() : '',
+      price_per_sqft_month: option ? option.price_per_sqft_month.toString() : ''
     });
     setIsEditDialogOpen(true);
   };
 
-  // <--- ADDED: toggleAvailability function
   const toggleAvailability = async (warehouseId: string, currentAvailability: boolean) => {
     const { error } = await supabase
       .from('warehouses')
@@ -881,7 +999,6 @@ export const AdminWarehouses: React.FC = () => {
 
     fetchWarehouses();
   };
-  // ADDED: toggleAvailability function --->
 
   const deleteWarehouse = async (warehouseId: string) => {
     if (!confirm('Are you sure you want to delete this warehouse?')) return;
@@ -914,22 +1031,32 @@ export const AdminWarehouses: React.FC = () => {
     return types.join(', ');
   };
 
+  const getPriceDay = (warehouse: WarehouseWithStorage): string => {
+    const opt = warehouse.storage_options && warehouse.storage_options[0];
+    return opt && opt.price_per_sqft_day != null ? `₹${parseFloat(opt.price_per_sqft_day.toString()).toLocaleString('en-IN')}` : 'N/A';
+  };
+
+  const getPriceMonth = (warehouse: WarehouseWithStorage): string => {
+    const opt = warehouse.storage_options && warehouse.storage_options[0];
+    return opt && opt.price_per_sqft_month != null ? `₹${parseFloat(opt.price_per_sqft_month.toString()).toLocaleString('en-IN')}` : 'N/A';
+  };
+
   const locations = [...new Set(warehouses.map(w => w.location))];
 
   const filteredWarehouses = warehouses.filter(warehouse => {
-    const matchesSearch = 
+    const matchesSearch =
       warehouse.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       warehouse.location.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    const matchesStorageType = storageTypeFilter === 'all' || 
+
+    const matchesStorageType = storageTypeFilter === 'all' ||
       (warehouse.storage_options && warehouse.storage_options.some(opt => opt.storage_type === storageTypeFilter));
-    
+
     const matchesLocation = locationFilter === 'all' || warehouse.location === locationFilter;
-    
+
     const matchesAvailability = availabilityFilter === 'all' ||
       (availabilityFilter === 'available' && warehouse.available_space_sqft > 0) ||
       (availabilityFilter === 'full' && warehouse.available_space_sqft === 0);
-    
+
     return matchesSearch && matchesStorageType && matchesLocation && matchesAvailability;
   });
 
@@ -944,7 +1071,7 @@ export const AdminWarehouses: React.FC = () => {
           <h1 className="text-4xl font-bold mb-2">Manage Warehouses</h1>
           <p className="text-muted-foreground">View and manage all warehouses ({warehouses.length} total)</p>
         </div>
-        
+
         <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
           <DialogTrigger asChild>
             <Button>
@@ -1019,13 +1146,11 @@ export const AdminWarehouses: React.FC = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="image_url">Image URL</Label>
-                <Input
-                  id="image_url"
-                  type="url"
+                <ImageUpload
                   value={formData.image_url}
-                  onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
-                  placeholder="https://example.com/warehouse.jpg"
+                  onChange={(url) => setFormData({ ...formData, image_url: url })}
+                  bucket="warehouse-images"
+                  label="Warehouse Image"
                 />
               </div>
 
@@ -1039,6 +1164,48 @@ export const AdminWarehouses: React.FC = () => {
                 />
               </div>
 
+              <div className="grid grid-cols-3 gap-4">
+                <div className="space-y-2">
+                  <Label>Storage Type</Label>
+                  <Select value={formData.storage_type} onValueChange={(val) => setFormData({ ...formData, storage_type: val })}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select Storage Type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="normal">Normal</SelectItem>
+                      <SelectItem value="cold">Cold</SelectItem>
+                      <SelectItem value="hot">Hot</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="price_day">Price per Sqft (Day) *</Label>
+                  <Input
+                    id="price_day"
+                    type="number"
+                    required
+                    min="0"
+                    step="0.01"
+                    value={formData.price_per_sqft_day}
+                    onChange={(e) => setFormData({ ...formData, price_per_sqft_day: e.target.value })}
+                    placeholder="10"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="price_month">Price per Sqft (Month) *</Label>
+                  <Input
+                    id="price_month"
+                    type="number"
+                    required
+                    min="0"
+                    step="0.01"
+                    value={formData.price_per_sqft_month}
+                    onChange={(e) => setFormData({ ...formData, price_per_sqft_month: e.target.value })}
+                    placeholder="300"
+                  />
+                </div>
+              </div>
+
               <div className="flex gap-3 pt-4">
                 <Button type="submit" className="flex-1">Add Warehouse</Button>
                 <Button type="button" variant="outline" onClick={() => setIsAddDialogOpen(false)}>
@@ -1049,7 +1216,6 @@ export const AdminWarehouses: React.FC = () => {
           </DialogContent>
         </Dialog>
 
-        {/* Edit Warehouse Dialog */}
         <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
           <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
@@ -1118,13 +1284,11 @@ export const AdminWarehouses: React.FC = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="edit-image_url">Image URL</Label>
-                <Input
-                  id="edit-image_url"
-                  type="url"
+                <ImageUpload
                   value={formData.image_url}
-                  onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
-                  placeholder="https://example.com/warehouse.jpg"
+                  onChange={(url) => setFormData({ ...formData, image_url: url })}
+                  bucket="warehouse-images"
+                  label="Warehouse Image"
                 />
               </div>
 
@@ -1136,6 +1300,48 @@ export const AdminWarehouses: React.FC = () => {
                   onChange={(e) => setFormData({ ...formData, features: e.target.value })}
                   placeholder="e.g., Temperature Control, 24/7 Security, CCTV"
                 />
+              </div>
+
+              <div className="grid grid-cols-3 gap-4">
+                <div className="space-y-2">
+                  <Label>Storage Type</Label>
+                  <Select value={formData.storage_type} onValueChange={(val) => setFormData({ ...formData, storage_type: val })}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select Storage Type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="normal">Normal</SelectItem>
+                      <SelectItem value="cold">Cold</SelectItem>
+                      <SelectItem value="hot">Hot</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="edit-price_day">Price per Sqft (Day) *</Label>
+                  <Input
+                    id="edit-price_day"
+                    type="number"
+                    required
+                    min="0"
+                    step="0.01"
+                    value={formData.price_per_sqft_day}
+                    onChange={(e) => setFormData({ ...formData, price_per_sqft_day: e.target.value })}
+                    placeholder="10"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="edit-price_month">Price per Sqft (Month) *</Label>
+                  <Input
+                    id="edit-price_month"
+                    type="number"
+                    required
+                    min="0"
+                    step="0.01"
+                    value={formData.price_per_sqft_month}
+                    onChange={(e) => setFormData({ ...formData, price_per_sqft_month: e.target.value })}
+                    placeholder="300"
+                  />
+                </div>
               </div>
 
               <div className="flex gap-3 pt-4">
@@ -1162,7 +1368,6 @@ export const AdminWarehouses: React.FC = () => {
           </div>
         </div>
 
-        {/* Filters */}
         <div className="flex flex-wrap gap-4">
           <div className="w-48">
             <Select value={storageTypeFilter} onValueChange={setStorageTypeFilter}>
@@ -1222,8 +1427,10 @@ export const AdminWarehouses: React.FC = () => {
                 <TableHead>Total Space (sqft)</TableHead>
                 <TableHead>Available Space (sqft)</TableHead>
                 <TableHead>Storage Type</TableHead>
+                <TableHead>Price/Sqft (Day)</TableHead>
+                <TableHead>Price/Sqft (Month)</TableHead>
                 <TableHead>Features</TableHead>
-                <TableHead>Available</TableHead> {/* <--- ADDED Table Head */}
+                <TableHead>Available</TableHead>
                 <TableHead>Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -1244,6 +1451,8 @@ export const AdminWarehouses: React.FC = () => {
                   <TableCell>
                     <span className="text-sm capitalize">{getStorageType(warehouse)}</span>
                   </TableCell>
+                  <TableCell>{getPriceDay(warehouse)}</TableCell>
+                  <TableCell>{getPriceMonth(warehouse)}</TableCell>
                   <TableCell>
                     <div className="text-sm">
                       {warehouse.features && warehouse.features.length > 0
@@ -1256,7 +1465,7 @@ export const AdminWarehouses: React.FC = () => {
                       checked={warehouse.availability}
                       onCheckedChange={() => toggleAvailability(warehouse.id, warehouse.availability)}
                     />
-                  </TableCell> {/* <--- ADDED Table Cell with Switch */}
+                  </TableCell>
                   <TableCell>
                     <div className="flex gap-2">
                       <Button

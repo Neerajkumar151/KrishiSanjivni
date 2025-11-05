@@ -104,7 +104,40 @@ const Warehouse: React.FC = () => {
     }
   }, [t]);
 
-  useEffect(() => { fetchWarehouses(); }, [fetchWarehouses]);
+  useEffect(() => { 
+    fetchWarehouses(); 
+    
+    // Setup realtime subscription
+    const channel = supabase
+      .channel('warehouse-public-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'warehouses'
+        },
+        () => {
+          fetchWarehouses();
+        }
+      )
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'warehouse_storage_options'
+        },
+        () => {
+          fetchWarehouses();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [fetchWarehouses]);
 
   const filteredWarehouses = useMemo(() => {
     let filtered = warehouses;

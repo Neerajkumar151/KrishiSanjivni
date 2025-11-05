@@ -28,19 +28,19 @@ export const Header: React.FC = () => {
         if (typeof window === 'undefined') return;
 
         // Define global callback once
-        if (!window.googleTranslateElementInit) {
-            window.googleTranslateElementInit = () => {
+        if (!(window as any).googleTranslateElementInit) {
+            (window as any).googleTranslateElementInit = () => {
                 const container = document.getElementById('google_translate_element');
                 if (!container) return;
 
                 // Clear any previous widget to avoid duplicates
                 container.innerHTML = '';
 
-                new window.google.translate.TranslateElement(
+                new (window as any).google.translate.TranslateElement(
                     {
                         pageLanguage: 'en',
                         includedLanguages: 'en,hi,ta,te,bn',
-                        layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+                        layout: (window as any).google.translate.TranslateElement.InlineLayout.SIMPLE,
                     },
                     'google_translate_element'
                 );
@@ -56,7 +56,7 @@ export const Header: React.FC = () => {
             document.body.appendChild(script);
         } else {
             // If script already exists, just initialize the widget
-            window.googleTranslateElementInit();
+            (window as any).googleTranslateElementInit();
         }
     }, []); // ✅ Run only once
 
