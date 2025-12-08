@@ -391,7 +391,7 @@ export const ChatBot: React.FC<ChatBotProps> = ({ isOpen, setIsOpen }) => {
                     messages: [...messages, userMessage],
                     sessionId,
                     conversationId,
-                    language: language || detectedLanguage
+                    language: language || detectedLanguage || 'hi'
                 }
             });
 
