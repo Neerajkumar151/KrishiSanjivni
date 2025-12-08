@@ -71,7 +71,10 @@ const Auth: React.FC = () => {
 
   return (
     <Layout>
-      <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center p-4 bg-gradient-sky">
+      <div
+  className="min-h-[calc(100vh-4rem)] flex items-center justify-center p-4 bg-cover bg-center"
+  style={{ backgroundImage: "url('/bg.png')" }}
+>
         <Card className="w-full max-w-md shadow-medium">
           <CardHeader className="text-center">
             <div className="flex justify-center mb-4">
