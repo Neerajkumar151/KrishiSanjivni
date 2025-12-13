@@ -68,7 +68,7 @@ const Tools: React.FC = () => {
 
     // Calculate max price for slider
     const prices = data?.map(tool => tool.price_per_day) || [0];
-    const max = Math.max(...prices, 10000);
+    const max = Math.max(...prices, 4000);
     setMaxPrice(max);
     setPriceRange([0, max]);
   };
