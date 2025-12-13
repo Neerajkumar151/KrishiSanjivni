@@ -145,7 +145,7 @@ const AdminToolBookings: React.FC = () => {
       pending: 'secondary',
       accepted: 'default',
       rejected: 'destructive',
-      confirmed: 'default',
+      paid: 'default',
       completed: 'outline'
     };
     return <Badge variant={variants[status] || 'outline'}>{status}</Badge>;

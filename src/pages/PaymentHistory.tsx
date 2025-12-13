@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import jsPDF from 'jspdf';
 import { Layout } from '@/components/layout/Layout';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
@@ -57,52 +58,38 @@ const PaymentHistory: React.FC = () => {
   };
 
   const downloadInvoice = (payment: Payment) => {
-    const invoiceHTML = `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <title>${t('payment.invoiceTitle')} - ${payment.transaction_id}</title>
-          <style>
-            body { font-family: Arial, sans-serif; padding: 40px; }
-            .invoice-box { max-width: 800px; margin: auto; border: 1px solid #eee; padding: 30px; }
-            .header { text-align: center; margin-bottom: 30px; }
-            .details { margin: 20px 0; }
-            .details p { margin: 10px 0; }
-            .total { font-size: 24px; font-weight: bold; margin-top: 20px; }
-          </style>
-        </head>
-        <body>
-          <div class="invoice-box">
-            <div class="header">
-              <h1>${t('payment.invoiceTitle')}</h1>
-              <p>${t('payment.appName')}</p>
-            </div>
-            <div class="details">
-              <p><strong>${t('payment.transactionId')}:</strong> ${payment.transaction_id}</p>
-              <p><strong>${t('payment.razorpayPaymentId')}:</strong> ${payment.razorpay_payment_id}</p>
-              <p><strong>${t('payment.razorpayOrderId')}:</strong> ${payment.razorpay_order_id}</p>
-              <p><strong>${t('payment.type')}:</strong> ${payment.type}</p>
-              <p><strong>${t('payment.date')}:</strong> ${format(new Date(payment.payment_date), 'PPP')}</p>
-              <p><strong>${t('payment.status')}:</strong> ${payment.payment_status}</p>
-            </div>
-            <div class="total">
-              <p>${t('payment.totalAmount')}: ₹${payment.amount.toLocaleString('en-IN')}</p>
-            </div>
-          </div>
-        </body>
-      </html>
-    `;
+  const doc = new jsPDF();
 
-    const blob = new Blob([invoiceHTML], { type: 'text/html' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `invoice-${payment.transaction_id}.html`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  };
+  doc.setFontSize(18);
+  doc.text('KrishiSanjivni – Payment Invoice', 20, 20);
+
+  doc.setFontSize(11);
+  doc.text(`Invoice ID: ${payment.transaction_id}`, 20, 35);
+  doc.text(`Payment Date: ${format(new Date(payment.payment_date), 'PPP')}`, 20, 45);
+  doc.text(`Payment Status: ${payment.payment_status}`, 20, 55);
+
+  doc.line(20, 60, 190, 60);
+
+  doc.text(`Booking Type: ${payment.type}`, 20, 75);
+  doc.text(`Booking ID: ${payment.booking_id}`, 20, 85);
+  doc.text(`Razorpay Payment ID: ${payment.razorpay_payment_id}`, 20, 95);
+  doc.text(`Razorpay Order ID: ${payment.razorpay_order_id}`, 20, 105);
+
+  doc.line(20, 115, 190, 115);
+
+  doc.setFontSize(14);
+  doc.text(`Total Amount Paid: ₹${payment.amount}`, 20, 130);
+
+  doc.setFontSize(10);
+  doc.text(
+    'This is a system generated invoice. No signature required.',
+    20,
+    160
+  );
+
+  doc.save(`invoice-${payment.transaction_id}.pdf`);
+};
+
 
   return (
     <Layout>
