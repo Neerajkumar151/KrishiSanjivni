@@ -659,7 +659,9 @@ const Index: React.FC = () => {
                                 </Link>
                             </Button>
                             <Button asChild variant="outline" size="lg" className="bg-white/10 hover:bg-white/20 text-white border-white/30 transition">
-                                <Link to="/tools">{t('hero.learnMore')}</Link>
+                                 <a href="/assets/demo.mp4" target="_blank" rel="noopener noreferrer">
+    {t('hero.learnMore')}
+  </a>
                             </Button>
                         </div>
                     </div>
@@ -691,7 +693,11 @@ const Index: React.FC = () => {
                                 <Link to="tools"><button className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-10 py-5 rounded-full hover:from-green-700 hover:to-emerald-700 transition-all hover:shadow-2xl hover:scale-105 font-bold flex items-center gap-2 text-lg">
                                     {t('explore_now')} <ChevronRight className="w-5 h-5" />
                                 </button></Link>
-                                <button className="bg-white text-green-700 border-2 border-green-600 px-10 py-5 rounded-full hover:bg-green-50 transition-all hover:shadow-xl font-bold text-lg">{t('watch_demo')}</button>
+                                <button className="bg-white text-green-700 border-2 border-green-600 px-10 py-5 rounded-full hover:bg-green-50 transition-all hover:shadow-xl font-bold text-lg">
+                                     <a href="/assets/demo.mp4" target="_blank" rel="noopener noreferrer">
+    {t('watch_demo')}
+  </a>
+                                </button>
                             </div>
                         </div>
                         <div className="relative">
