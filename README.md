@@ -75,7 +75,7 @@ The project is built using a modern, scalable architecture.
 
 Click below to watch a complete walkthrough of the platform in action:
 
-[![Demo](./public/assets/demo.PNG)](https://raw.githubusercontent.com/Neerajkumar151/KrishiSanjivni/main/public/assets/demo.mp4)
+[![Demo](./public/assets/demo.PNG)](https://krishisanjivni.vercel.app/assets/demo.mp4)
 
 ---
 
