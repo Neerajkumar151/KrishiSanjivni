@@ -261,9 +261,7 @@ KrishiSanjivni
 │── .env.example
 
 ```
-
 ---
-
 ## 🗺️ Future Roadmap
 
   - IoT based farm sensors
@@ -282,7 +280,6 @@ Neeraj Kumar G.L. Bajaj Institute of Technology and Management
 📧 Email: [thakurneerajkumar17@gmail.com](mailto:thakurneerajkumar17@gmail.com)
 
 🔗 LinkedIn: [linkedin.com/in/neerajkumar1517](https://www.linkedin.com/in/neerajkumar1517/)
-
 
 ---
 ## 📄 License
