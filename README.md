@@ -11,11 +11,9 @@
     A comprehensive smart farming platform for soil testing, equipment rentals, real-time insights, and community connection.
     <br />
     <br />
-    <a href="https://krishisanjivni.vercel.app/"><strong>Explore the Docs »</strong></a>
+    <a href="https://krishisanjivni.vercel.app/"><strong>Visit Website »</strong></a>
     <br />
     <br />
-    <a href="https://krishisanjivni.vercel.app/">View Live Demo</a>
-    ·
     <a href="https://github.com/Neerajkumar151/KrishiSanjivni/issues">Report Bug</a>
     ·
     <a href="https://github.com/Neerajkumar151/KrishiSanjivni/issues">Request Feature</a>
@@ -75,9 +73,9 @@ The project is built using a modern, scalable architecture.
 
 ## 🎥 Video Demo
 
-Click the image below to watch the full walkthrough of the platform:
+Click below to watch a complete walkthrough of the platform in action:
 
-[Watch Demo](./public/assets/demo.mp4)
+[![Demo](./public/assets/demo.PNG)](./public/assets/demo.mp4)
 
 ---
 
@@ -91,7 +89,7 @@ Click the image below to watch the full walkthrough of the platform:
     </td>
     <td align="center" width="50%">
       <img src="./public/assets/profile.PNG" alt="User Dashboard" />
-      <br><strong>📊 Farmer Profile</strong>
+      <br><strong>👤 Farmer Profile</strong>
     </td>
   </tr>
   <tr>
@@ -132,6 +130,8 @@ Click the image below to watch the full walkthrough of the platform:
 ## 🏗 System Architecture
 
 We utilize a serverless architecture powered by Supabase Edge Functions to ensure scalability and low latency.
+Below is the architecture that powers the platform:
+
 
 ```mermaid
 graph TD
@@ -160,24 +160,24 @@ graph TD
 ---
 
 ## ✨ Key Features
-🌾 Smart Farming Services
+### 1. 🌾 Smart Farming Services
   - Soil & Crop Testing: Submit requests digitally and track results.
 
   - Digital Reports: View history and download health cards.
 
-🚜 Resource Management
+### 2. 🚜 Resource Management
   - Equipment Rental: Browse tools, book via calendar, and pay online.
 
   - Warehouse Booking: Check real-time slot availability for crop storage.
 
-🧠 AI & Intelligence
+### 3. 🧠 AI & Intelligence
   - 24/7 AI Chatbot: Built on Google GenAI, supporting Voice-to-Text and Text-to-Speech.
 
   - Real-time Weather: Temperature, humidity, and rain forecasts.
 
   - Mandi Prices: Live commodity trends and region-based insights.
 
-🌍 Accessibility
+### 4. 🌍 Accessibility
   - Multilingual: Full support for Hindi, English, Tamil, Telugu, and Bengali.
 
   - Community: WhatsApp-style chat for local farmer connection.
@@ -200,7 +200,7 @@ npm install
 ```
 ### 3. Configure Environment
 Create a .env file in the root directory and add your keys:
-**Code Snippet**
+**Environment Variables**
 ```bash
 VITE_SUPABASE_URL=your_supabase_url
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
@@ -264,7 +264,7 @@ KrishiSanjivni
 
 ---
 
-## 🛠 Future Enhancements
+## 🗺️ Future Roadmap
 
   - IoT based farm sensors
 
@@ -276,15 +276,17 @@ KrishiSanjivni
 
   - Crop disease prediction
 ---
-## 🤝 Contact & Support
+## 🤝 Contact
 Neeraj Kumar G.L. Bajaj Institute of Technology and Management
 
-📧 Email: [Insert Email Here]
+📧 Email: [thakurneerajkumar17@gmail.com](mailto:thakurneerajkumar17@gmail.com)
 
-🔗 LinkedIn: [Insert LinkedIn Profile]
+🔗 LinkedIn: [linkedin.com/in/neerajkumar1517](https://www.linkedin.com/in/neerajkumar1517/)
 
-<p align="center">
 
+---
+## 📄 License
+This project is licensed under MIT - see LICENSE file.
 
 <strong>Give a ⭐️ if this project helped you!</strong> </p>
 
