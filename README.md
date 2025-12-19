@@ -40,7 +40,7 @@
     <li><a href="#-key-features">Key Features</a></li>
     <li><a href="#-getting-started">Getting Started</a></li>
     <li><a href="#-project-structure">Project Structure</a></li>
-    <li><a href="#🗺️-future-roadmap">Future Roadmap</a></li>
+    <li><a href="#-future-roadmap">Future Roadmap</a></li>
     <li><a href="#-contact">Contact</a></li>
   </ol>
 </details>
