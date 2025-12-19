@@ -67,21 +67,34 @@ const Profile: React.FC = () => {
 
   /* ---------- Fetch Data ---------- */
   const fetchAll = async () => {
-    setLoading(true);
+  setLoading(true);
 
-    const [tools, warehouses, soil] = await Promise.all([
-      supabase.from('tool_bookings').select('*, tools(name, category)').eq('user_id', user?.id),
-      supabase.from('warehouse_bookings')
-        .select('*, warehouse_storage_options(storage_type, warehouses(name, location))')
-        .eq('user_id', user?.id),
-      supabase.from('soil_checks').select('*').eq('user_id', user?.id),
-    ]);
+  const [tools, warehouses, soil] = await Promise.all([
+    supabase
+      .from('tool_bookings')
+      .select('*, tools(name, category)')
+      .eq('user_id', user?.id)
+      .order('created_at', { ascending: false }),
 
-    setToolBookings(tools.data || []);
-    setWarehouseBookings(warehouses.data || []);
-    setSoilChecks(soil.data || []);
-    setLoading(false);
-  };
+    supabase
+      .from('warehouse_bookings')
+      .select('*, warehouse_storage_options(storage_type, warehouses(name, location))')
+      .eq('user_id', user?.id)
+      .order('created_at', { ascending: false }),
+
+    supabase
+      .from('soil_checks')
+      .select('*')
+      .eq('user_id', user?.id)
+      .order('created_at', { ascending: false }),
+  ]);
+
+  setToolBookings(tools.data || []);
+  setWarehouseBookings(warehouses.data || []);
+  setSoilChecks(soil.data || []);
+  setLoading(false);
+};
+
 
   useEffect(() => {
     if (user) fetchAll();
@@ -215,6 +228,7 @@ const Profile: React.FC = () => {
 
           {/* TOOL BOOKINGS */}
           <TabsContent value="tools">
+            <div className="max-w-4xl max-h-2xl mx-auto">
             {toolBookings.map(b => (
               <Card key={b.id} className="mb-4">
                 <CardHeader className="flex flex-row items-center justify-between">
@@ -225,26 +239,35 @@ const Profile: React.FC = () => {
                   </div>
                   {badge(b.status)}
                 </CardHeader>
-                <CardContent>
-                  <p><Calendar className="inline w-4 h-4" /> {format(new Date(b.start_date), 'PPP')}</p>
-                  <p>₹{b.total_cost}</p>
+                <CardContent className="px-3 py-3 text-base space-y-1">
+  <div className="flex items-center gap-1">
+    <Calendar className="w-3 h-3" />
+    {format(new Date(b.start_date), 'PPP')} – {format(new Date(b.end_date), 'PPP')}
+  </div>
 
-                  {b.status === 'accepted' && (
-                    <Button
-                      disabled={payingId === b.id}
-                      onClick={() => handlePayment(b.id, b.total_cost, 'Tool Booking')}
-                      className="mt-3 w-full"
-                    >
-                      {payingId === b.id ? 'Processing…' : `Pay ₹${b.total_cost}`}
-                    </Button>
-                  )}
-                </CardContent>
+  <div>₹{b.total_cost}</div>
+
+  {b.status === 'accepted' && (
+    <Button
+      size="lg"
+      className="h-9 w-full text-base mt-2"
+      disabled={payingId === b.id}
+      onClick={() => handlePayment(b.id, b.total_cost, 'Tool Booking')}
+    >
+      {payingId === b.id ? 'Processing…' : `Pay ₹${b.total_cost}`}
+    </Button>
+  )}
+</CardContent>
+
+
               </Card>
             ))}
+            </div>
           </TabsContent>
 
           {/* WAREHOUSE BOOKINGS */}
           <TabsContent value="warehouses">
+            <div className="max-w-4xl mx-auto">
             {warehouseBookings.map(b => (
               <Card key={b.id} className="mb-4">
                 <CardHeader className="flex flex-row items-center justify-between">
@@ -254,34 +277,55 @@ const Profile: React.FC = () => {
                   </div>
                   {badge(b.status)}
                 </CardHeader>
-                <CardContent>
-                  <p>₹{b.total_cost}</p>
+                <CardContent className="px-3 py-3 text-base space-y-1">
+  <div className="flex items-center gap-1">
+    <Calendar className="w-3 h-3" />
+    {format(new Date(b.start_date), 'PPP')} – {format(new Date(b.end_date), 'PPP')}
+  </div>
 
-                  {b.status === 'accepted' && (
-                    <Button
-                      disabled={payingId === b.id}
-                      onClick={() => handlePayment(b.id, b.total_cost, 'Warehouse Booking')}
-                      className="mt-3 w-full"
-                    >
-                      {payingId === b.id ? 'Processing…' : `Pay ₹${b.total_cost}`}
-                    </Button>
-                  )}
-                </CardContent>
+  <div>₹{b.total_cost}</div>
+
+  {b.status === 'accepted' && (
+    <div className="flex justify-center mt-2">
+    <Button
+      size="lg"
+      className="h-9 w-full text-base mt-2"
+      disabled={payingId === b.id}
+      onClick={() => handlePayment(b.id, b.total_cost, 'Warehouse Booking')}
+    >
+      {payingId === b.id ? 'Processing…' : `Pay ₹${b.total_cost}`}
+    </Button>
+    </div>
+  )}
+</CardContent>
+
               </Card>
             ))}
+            </div>
           </TabsContent>
 
           {/* SOIL */}
           <TabsContent value="soil">
+            <div className="max-w-4xl mx-auto">
             {soilChecks.map(s => (
               <Card key={s.id} className="mb-4">
-                <CardHeader>
-                  <CardTitle>{s.location}</CardTitle>
-                  {badge(s.status)}
-                </CardHeader>
-                <CardContent>{s.recommendations}</CardContent>
-              </Card>
+  <CardHeader className="flex flex-row items-center justify-between">
+    <CardTitle>{s.location || 'Unknown Location'}</CardTitle>
+    {badge(s.status)}
+  </CardHeader>
+
+  <CardContent className="px-3 py-3 text-base space-y-1">
+    <div className="flex items-center gap-1">
+      <Calendar className="w-3 h-3" />
+      {format(new Date(s.created_at), 'PPP')}
+    </div>
+
+    <div>{s.recommendations}</div>
+  </CardContent>
+</Card>
+
             ))}
+            </div>
           </TabsContent>
         </Tabs>
       </div>
