@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { MessageSquare, X, Send, Mic, MicOff, Trash2 } from 'lucide-react'; // Added Trash2
+import { MessageSquare, X, Send, Mic, MicOff, Trash2, AlertTriangle } from 'lucide-react'; // Added AlertTriangle
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -25,70 +25,60 @@ export const ChatBot: React.FC<ChatBotProps> = ({ isOpen, setIsOpen }) => {
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [isRecording, setIsRecording] = useState(false);
+    
+    // New State for the Custom Delete Popup
+    const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+
     const [sessionId] = useState(() => {
-    // Check if we already have a session ID in the browser storage
-    const storedSessionId = sessionStorage.getItem('chat_session_id');
-    if (storedSessionId) {
-        return storedSessionId;
-    }
-    // If not, create a new one and save it
-    const newSessionId = `session_${Date.now()}_${Math.random()}`;
-    sessionStorage.setItem('chat_session_id', newSessionId);
-    return newSessionId;
-});
+        if (typeof window !== 'undefined') {
+            const storedSessionId = sessionStorage.getItem('chat_session_id');
+            if (storedSessionId) return storedSessionId;
+            const newSessionId = `session_${Date.now()}_${Math.random()}`;
+            sessionStorage.setItem('chat_session_id', newSessionId);
+            return newSessionId;
+        }
+        return `session_${Date.now()}_${Math.random()}`;
+    });
+
     const [conversationId, setConversationId] = useState<string | null>(null);
     const [detectedLanguage, setDetectedLanguage] = useState<string>('en');
-    
-    // New State for User
     const [user, setUser] = useState<any>(null);
 
     const { toast } = useToast();
-    
-    // Changed: Used for the new auto-scroll method
     const messagesEndRef = useRef<HTMLDivElement>(null); 
     const mediaRecorderRef = useRef<MediaRecorder | null>(null);
     const audioChunksRef = useRef<Blob[]>([]);
     const audioRef = useRef<HTMLAudioElement | null>(null);
 
-    // 1. Check for Logged In User on Mount
     useEffect(() => {
         const checkUser = async () => {
             const { data } = await supabase.auth.getUser();
             setUser(data.user);
         };
         checkUser();
+
+        const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+            if (event === 'SIGNED_OUT') {
+                setMessages([]);
+                setConversationId(null);
+                if (typeof window !== 'undefined') {
+                    sessionStorage.removeItem('chat_session_id');
+                }
+                setUser(null);
+            } else if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
+                 setUser(session?.user ?? null);
+            }
+        });
+
+        return () => subscription.unsubscribe();
     }, []);
 
-    // Add this new useEffect to handle Logout cleanup
-useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
-        if (event === 'SIGNED_OUT') {
-            // 1. Clear local messages
-            setMessages([]);
-            setConversationId(null);
-            // 2. Clear the session storage so a new session starts next time
-            sessionStorage.removeItem('chat_session_id');
-            // 3. Reset user state
-            setUser(null);
-        } else if (event === 'SIGNED_IN') {
-             // Refresh user data if they just logged in
-             supabase.auth.getUser().then(({ data }) => setUser(data.user));
-        }
-    });
-
-    return () => {
-        subscription.unsubscribe();
-    };
-}, []);
-
-    // 2. New Robust Auto-Scroll Function
     const scrollToBottom = () => {
         setTimeout(() => {
             messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
         }, 100);
     };
 
-    // Trigger scroll on messages change, loading state, or when chat opens
     useEffect(() => {
         scrollToBottom();
     }, [messages, isLoading, isOpen]);
@@ -98,12 +88,21 @@ useEffect(() => {
             if (!isOpen) return;
 
             try {
-                const { data: conversations } = await supabase
+                let query = supabase
                     .from('chat_conversations')
                     .select('id')
-                    .eq('session_id', sessionId)
                     .order('created_at', { ascending: false })
                     .limit(1);
+
+                if (user) {
+                    query = query.eq('user_id', user.id);
+                } else {
+                    query = query.eq('session_id', sessionId);
+                }
+
+                const { data: conversations, error } = await query;
+
+                if (error) throw error;
 
                 if (conversations && conversations.length > 0) {
                     const convId = conversations[0].id;
@@ -125,40 +124,39 @@ useEffect(() => {
         };
 
         loadConversationHistory();
-    }, [isOpen, sessionId]);
+    }, [isOpen, sessionId, user]);
 
-    // 3. New Clear History Function
-    const clearChatHistory = async () => {
+    // 4. UPDATED: Delete Logic (No longer uses confirm() alert)
+    const handleConfirmDelete = async () => {
         if (!user) return;
         
-        if (confirm("Are you sure you want to delete your entire chat history?")) {
-            setIsLoading(true);
-            try {
-                // Deletes conversations associated with this user
-                // Note: Ensure your 'chat_conversations' table has a 'user_id' column
-                const { error } = await supabase
-                    .from('chat_conversations')
-                    .delete()
-                    .eq('user_id', user.id);
+        // Close the popup immediately for better UX
+        setShowDeleteConfirm(false); 
+        setIsLoading(true);
 
-                if (error) throw error;
+        try {
+            const { error } = await supabase
+                .from('chat_conversations')
+                .delete()
+                .eq('user_id', user.id);
 
-                setMessages([]);
-                setConversationId(null);
-                toast({
-                    title: "History Cleared",
-                    description: "Your chat history has been deleted.",
-                });
-            } catch (err) {
-                console.error("Failed to delete history:", err);
-                toast({
-                    title: "Error",
-                    description: "Could not delete history.",
-                    variant: "destructive"
-                });
-            } finally {
-                setIsLoading(false);
-            }
+            if (error) throw error;
+
+            setMessages([]);
+            setConversationId(null);
+            toast({
+                title: "History Cleared",
+                description: "Your chat history has been permanently deleted.",
+            });
+        } catch (err) {
+            console.error("Failed to delete history:", err);
+            toast({
+                title: "Error",
+                description: "Could not delete history.",
+                variant: "destructive"
+            });
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -314,8 +312,40 @@ useEffect(() => {
     return (
         <>
             {isOpen && (
-                <div className="fixed bottom-6 right-6 w-96 h-[600px] bg-background border border-border rounded-lg shadow-2xl flex flex-col z-50">
-                    {/* Header */}
+                <div className="fixed bottom-6 right-6 w-96 h-[600px] bg-background border border-border rounded-lg shadow-2xl flex flex-col z-50 overflow-hidden">
+                    
+                    {/* --- NEW CUSTOM DELETE OVERLAY --- */}
+                    {showDeleteConfirm && (
+                        <div className="absolute inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-6 animate-in fade-in duration-200">
+                            <div className="bg-card border border-border rounded-xl shadow-lg p-6 max-w-sm w-full space-y-4">
+                                <div className="flex items-center gap-3 text-destructive">
+                                    <AlertTriangle className="h-6 w-6" />
+                                    <h3 className="font-semibold text-lg">Delete History?</h3>
+                                </div>
+                                <p className="text-muted-foreground text-sm">
+                                    Are you sure you want to delete all conversation history? This action cannot be undone.
+                                </p>
+                                <div className="flex gap-3 justify-end pt-2">
+                                    <Button 
+                                        variant="outline" 
+                                        onClick={() => setShowDeleteConfirm(false)}
+                                        className="w-full"
+                                    >
+                                        Cancel
+                                    </Button>
+                                    <Button 
+                                        variant="destructive" 
+                                        onClick={handleConfirmDelete}
+                                        className="w-full"
+                                    >
+                                        Delete
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                    {/* ---------------------------------- */}
+
                     <div className="bg-gradient-to-r from-green-600 to-emerald-700 text-primary-foreground p-4 rounded-t-lg flex items-center justify-between">
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
@@ -331,12 +361,12 @@ useEffect(() => {
                         </div>
                         
                         <div className="flex items-center gap-1">
-                            {/* 4. Delete History Button (Only for Logged In Users) */}
                             {user && (
                                 <Button
                                     variant="ghost"
                                     size="icon"
-                                    onClick={clearChatHistory}
+                                    // CHANGED: Now opens the custom UI instead of alert()
+                                    onClick={() => setShowDeleteConfirm(true)}
                                     className="hover:bg-primary-foreground/20 text-white/80 hover:text-white"
                                     title="Clear Chat History"
                                 >
@@ -355,8 +385,6 @@ useEffect(() => {
                         </div>
                     </div>
 
-                    {/* Messages */}
-                    {/* Note: removed ref={scrollRef} from ScrollArea and used inner div approach */}
                     <ScrollArea className="flex-1 p-4">
                         {messages.length === 0 && (
                             <div className="text-center text-muted-foreground py-8">
@@ -398,12 +426,10 @@ useEffect(() => {
                                     </div>
                                 </div>
                             )}
-                            {/* 5. Invisible Anchor for Auto-Scrolling */}
                             <div ref={messagesEndRef} />
                         </div>
                     </ScrollArea>
 
-                    {/* Input */}
                     <div className="p-4 border-t border-border">
                         <div className="flex gap-2">
                             <Textarea
