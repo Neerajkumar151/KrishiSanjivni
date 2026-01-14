@@ -11,7 +11,7 @@
     A comprehensive smart farming platform for soil testing, equipment rentals, real-time insights, and community connection.
     <br />
     <br />
-    <a href="https://krishisanjivni.vercel.app/"><strong>Visit Website »</strong></a>
+    <a href="https://www.krishisanjivni.me/"><strong>Visit Website »</strong></a>
     <br />
     <br />
     <a href="https://github.com/Neerajkumar151/KrishiSanjivni/issues">Report Bug</a>
@@ -75,7 +75,7 @@ The project is built using a modern, scalable architecture.
 
 Click below to watch a complete walkthrough of the platform in action:
 
-[![Demo](./public/assets/demo.PNG)](./public/assets/demo.mp4)
+[![Demo](./public/assets/demo.PNG)](https://krishisanjivni.vercel.app/assets/demo.mp4)
 
 ---
 
