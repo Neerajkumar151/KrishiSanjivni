@@ -6,6 +6,47 @@
 All colors MUST be HSL.
 */
 
+@page {
+  size: A4;
+  margin: 0;
+}
+
+@media print {
+  body {
+    background: white !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .invoice-print-wrapper {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    background: white;
+  }
+
+  .invoice-page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 15mm;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+
+  /* Prevent footer cut */
+  .avoid-break {
+    page-break-inside: avoid;
+  }
+
+  /* Force page break if needed */
+  .page-break {
+    page-break-before: always;
+  }
+}
+
+
 @layer base {
   :root {
     /* Agricultural color palette */
