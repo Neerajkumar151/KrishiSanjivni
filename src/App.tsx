@@ -11,6 +11,7 @@ import { Spinner } from "./components/ui/spinner";
 import ScrollToTop from "./components/ScrollToTop";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import ReactGA from "react-ga4";
 
 // Pages
 import Index from "./pages/Index";
@@ -41,7 +42,9 @@ import { AdminUsers } from "./pages/admin/AdminUsers";
 import AdminToolBookings from "./pages/admin/AdminToolBookings";
 import AdminWarehouseBookings from "./pages/admin/AdminWarehouseBookings";
 
-// Initialize react-query client
+
+// GA init (outside components)
+ReactGA.initialize("G-7G47RJNRSM");
 const queryClient = new QueryClient();
 
 // App Routes Component
@@ -49,6 +52,13 @@ const AppRoutes: React.FC = () => {
   const { loading } = useAuth();
   const location = useLocation();
 
+  useEffect(() => {
+    ReactGA.send({
+      hitType: "pageview",
+      page: location.pathname + location.search,
+      title: document.title,
+    });
+  }, [location]);
 
   if (loading) {
     return (
