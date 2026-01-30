@@ -44,7 +44,7 @@ import AdminWarehouseBookings from "./pages/admin/AdminWarehouseBookings";
 
 
 // GA init (outside components)
-ReactGA.initialize("G-7G47RJNRSM");
+// ReactGA.initialize('G-7G47RJNRSM');
 const queryClient = new QueryClient();
 
 // App Routes Component
@@ -52,13 +52,12 @@ const AppRoutes: React.FC = () => {
   const { loading } = useAuth();
   const location = useLocation();
 
-  useEffect(() => {
-    ReactGA.send({
-      hitType: "pageview",
-      page: location.pathname + location.search,
-      title: document.title,
-    });
-  }, [location]);
+  useEffect(()=> {
+    ReactGA.initialize('G-7G47RJNRSM');
+    ReactGA.send({ hitType: "pageview",
+       page: window.location.pathname, 
+       title: "App.tsx" });
+  },[]);
 
   if (loading) {
     return (
