@@ -16,7 +16,7 @@
 
     <link rel="icon" type="image/png" href="/public/logo.png" />
 
-    <!-- ✅ Google Analytics (GA4) -->
+    <!-- ✅ Google Analytics GA4 -->
     <script
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-NS1CKYFGYJ"
@@ -27,7 +27,12 @@
         dataLayer.push(arguments);
       }
       gtag("js", new Date());
-      gtag('config', 'G-NS1CKYFGYJ', { debug_mode: true });
+
+      // Base config (fires initial page load)
+      gtag("config", "G-NS1CKYFGYJ", {
+        send_page_view: false, // IMPORTANT for SPA
+        debug_mode: true       // REMOVE in production if you want
+      });
     </script>
     <!-- ✅ End Google Analytics -->
   </head>
