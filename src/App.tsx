@@ -9,6 +9,9 @@ import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import { ProtectedRoute } from "./components/auth/ProtectedRoute";
 import { Spinner } from "./components/ui/spinner";
 import ScrollToTop from "./components/ScrollToTop";
+import { trackPageView } from "./analytics";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 // Pages
 import Index from "./pages/Index";
@@ -45,6 +48,11 @@ const queryClient = new QueryClient();
 // App Routes Component
 const AppRoutes: React.FC = () => {
   const { loading } = useAuth();
+  const location = useLocation();
+
+  useEffect(() => {
+    trackPageView(location.pathname);
+  }, [location.pathname]);
 
   if (loading) {
     return (
@@ -53,6 +61,7 @@ const AppRoutes: React.FC = () => {
       </div>
     );
   }
+
 
   return (
     <>
