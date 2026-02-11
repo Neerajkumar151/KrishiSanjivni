@@ -48,16 +48,16 @@ export const Header: React.FC = () => {
         }
 
         // Add the Google Translate script only once
-        if (!document.getElementById('google-translate-script')) {
-            const script = document.createElement('script');
-            script.id = 'google-translate-script';
-            script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-            script.async = true;
-            document.body.appendChild(script);
-        } else {
-            // If script already exists, just initialize the widget
-            (window as any).googleTranslateElementInit();
-        }
+        // if (!document.getElementById('google-translate-script')) {
+        //     const script = document.createElement('script');
+        //     script.id = 'google-translate-script';
+        //     script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+        //     script.async = true;
+        //     document.body.appendChild(script);
+        // } else {
+        //     // If script already exists, just initialize the widget
+        //     (window as any).googleTranslateElementInit();
+        // }
     }, []); // ✅ Run only once
 
     return (
