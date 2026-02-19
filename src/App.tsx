@@ -12,6 +12,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import ReactGA from "react-ga4";
+import Demo from "@/pages/Demo";
 
 // Pages
 import Index from "./pages/Index";
@@ -84,6 +85,7 @@ const AppRoutes: React.FC = () => {
         <Route path="/community/chat" element={<ChatPage />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/resources" element={<Resources />} />
+        <Route path="/demo" element={<Demo />} />
         <Route path="/weather" element={<Weather />} />
         <Route path="/market-prices" element={<MarketPrices />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />

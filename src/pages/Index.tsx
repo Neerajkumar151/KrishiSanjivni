@@ -113,9 +113,10 @@ const Index: React.FC = () => {
                                 </Link>
                             </Button>
                             <Button asChild variant="outline" size="lg" className="bg-white/10 hover:bg-white/20 text-white border-white/30 transition">
-                                 <a href="/assets/demo.mp4" target="_blank" rel="noopener noreferrer">
-    {t('hero.learnMore')}
-  </a>
+                                 <Link to="/demo">
+  {t('hero.learnMore')}
+</Link>
+
                             </Button>
                         </div>
                     </div>
