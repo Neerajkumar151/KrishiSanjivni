@@ -36,6 +36,37 @@ interface Warehouse {
   storage_options: StorageOption[];
 }
 
+const locationKeyMap: Record<string, string> = {
+  "Bangalore, Karnataka": "locations.bangaloreKarnataka",
+  "Srinagar, Jammu & Kashmir": "locations.srinagarJammuKashmir",
+  "Tumkur, Karnataka": "locations.tumkurKarnataka",
+  "Ahmedabad, Gujarat": "locations.ahmedabadGujarat",
+  "Kolkata, West Bengal": "locations.kolkataWestBengal",
+  "Cuttack, Odisha": "locations.cuttackOdisha",
+  "Indore, Madhya Pradesh": "locations.indoreMadhyaPradesh",
+  "Idukki, Kerala": "locations.idukkiKerala",
+  "Karnal, Haryana": "locations.karnalHaryana",
+  "Noida": "locations.noida",
+  "noida": "locations.noida",
+  "Jaipur, Rajasthan": "locations.jaipurRajasthan",
+  "Rajkot, Gujarat": "locations.rajkotGujarat",
+  "Anand, Gujarat": "locations.anandGujarat",
+  "Jodhpur, Rajasthan": "locations.jodhpurRajasthan",
+  "Chennai, Tamil Nadu": "locations.chennaiTamilNadu",
+  "Gurugram, Haryana": "locations.gurugramHaryana",
+  "Ludhiana, Punjab": "locations.ludhianaPunjab",
+  "Nashik, Maharashtra": "locations.nashikMaharashtra",
+  "Siliguri, West Bengal": "locations.siliguriWestBengal",
+  "Kanpur, Uttar Pradesh": "locations.kanpurUttarPradesh",
+  "Bhubaneswar, Odisha": "locations.bhubaneswarOdisha",
+  "Lucknow, Uttar Pradesh": "locations.lucknowUttarPradesh",
+  "Delhi": "locations.delhi",
+  "Pune, Maharashtra": "locations.puneMaharashtra",
+  "Guntur, Andhra Pradesh": "locations.gunturAndhraPradesh",
+  "Madurai, Tamil Nadu": "locations.maduraiTamilNadu"
+};
+
+
 const getStorageTypes = (warehouse: Warehouse): string => {
   if (!warehouse.storage_options || warehouse.storage_options.length === 0) return 'N/A';
   const types = [...new Set(warehouse.storage_options.map(opt => opt.storage_type))];
@@ -260,8 +291,13 @@ const Warehouse: React.FC = () => {
                 <SelectContent>
                   <SelectItem value="all">{t('warehouse.allLocations', { defaultValue: 'All Locations' })}</SelectItem>
                   {locations.map(location => (
-                    <SelectItem key={location} value={location}>{location}</SelectItem>
-                  ))}
+  <SelectItem key={location} value={location}>
+    {locationKeyMap[location]
+      ? t(locationKeyMap[location])
+      : location}
+  </SelectItem>
+))}
+
                 </SelectContent>
               </Select>
             </div>
@@ -290,7 +326,12 @@ const Warehouse: React.FC = () => {
                 <div className="space-y-2 text-sm">
                   <div className="flex items-center gap-2 text-muted-foreground">
                     <WarehouseIcon className="h-4 w-4 text-primary" />
-                    <span className="truncate">{warehouse.location}</span>
+                    <span className="truncate">
+  {locationKeyMap[warehouse.location]
+    ? t(locationKeyMap[warehouse.location])
+    : warehouse.location}
+</span>
+
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">{t('warehouse.available', { defaultValue: 'Available:' })}</span>

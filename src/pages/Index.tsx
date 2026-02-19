@@ -11,11 +11,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import Footer from '@/components/Footer';
 
 // Assuming asset imports are correct
-import heroImage from '@/assets/hero-farm.jpg';
 import bgVideo from '@/assets/bg-video.mp4';
-import feature1Image from '@/assets/feature1.jpg';
-import feature2Image from '@/assets/feature2.jpg';
-import feature3Image from '@/assets/feature3.jpg';
 import { ChatBot } from '@/components/ChatBot';
 
 // IMPORTANT LINKS IMAGES (Assumed assets)

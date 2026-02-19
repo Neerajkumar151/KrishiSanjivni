@@ -29,6 +29,35 @@ interface Tool {
   location: string | null;
 }
 
+const categoryKeyMap: Record<string, string> = {
+  "Sprayer": "categories.sprayer",
+  "Transplanter": "categories.transplanter",
+  "Harrow": "categories.harrow",
+  "Cultivator": "categories.cultivator",
+  "Mulcher": "categories.mulcher",
+  "Seeder": "categories.seeder",
+  "Cutter": "categories.cutter",
+  "Harvester": "categories.harvester",
+  "Pump": "categories.pump",
+  "Tractor": "categories.tractor",
+  "Planter": "categories.planter",
+  "Thresher": "categories.thresher",
+  "Leveller": "categories.leveller",
+  "Utility": "categories.utility",
+  "Plough": "categories.plough",
+  "Reaper": "categories.reaper",
+  "Hand Tool": "categories.handTool",
+  "Tiller": "categories.tiller",
+  "Rotavator": "categories.rotavator",
+  "Irrigation": "categories.irrigation",
+  "Broadcaster": "categories.broadcaster",
+  "Weeder": "categories.weeder",
+  "Loader": "categories.loader",
+  "Baler": "categories.baler",
+  "Trolley": "categories.trolley"
+};
+
+
 const Tools: React.FC = () => {
   const { t } = useTranslation();
   const { user } = useAuth();
@@ -165,10 +194,11 @@ const Tools: React.FC = () => {
                 <SelectContent>
                   <SelectItem value="all">{t('tools.allCategories', { defaultValue: 'All Categories' })}</SelectItem>
                   {categories.map(category => (
-                    <SelectItem key={category} value={category}>
-                      {category}
-                    </SelectItem>
-                  ))}
+  <SelectItem key={category} value={category}>
+    {t(categoryKeyMap[category] || category)}
+  </SelectItem>
+))}
+
                 </SelectContent>
               </Select>
             </div>
@@ -207,7 +237,7 @@ const Tools: React.FC = () => {
                     {tool.availability ? t('tools.availability', { defaultValue: 'Available' }) : t('tools.unavailable', { defaultValue: 'Unavailable' })}
                   </Badge>
                 </div>
-                <Badge variant="outline" className="mb-2">{tool.category}</Badge>
+                <Badge variant="outline" className="mb-2">{t(categoryKeyMap[tool.category] || tool.category)}</Badge>
                 <CardDescription className="line-clamp-2 mb-4">
                   {tool.description || t('tools.noDescription', { defaultValue: 'No description available' })}
                 </CardDescription>
