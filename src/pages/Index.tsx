@@ -13,6 +13,7 @@ import Footer from '@/components/Footer';
 // Assuming asset imports are correct
 import bgVideo from '@/assets/bg-video.mp4';
 import { ChatBot } from '@/components/ChatBot';
+import BackgroundFrames from '@/components/BackgroundFrames';
 
 // IMPORTANT LINKS IMAGES (Assumed assets)
 import indiaGovLogo from '@/assets/india-gov-logo.png';
@@ -44,7 +45,7 @@ const Index: React.FC = () => {
         { nameKey: 'testimonial.priya_name', roleKey: 'testimonial.priya_role', feedbackKey: 'testimonial.priya_feedback', rating: 4, avatar: avatarPriya },
         { nameKey: 'testimonial.rajesh_name', roleKey: 'testimonial.rajesh_role', feedbackKey: 'testimonial.rajesh_feedback', rating: 5, avatar: avatarRajesh }
     ];
-    
+
     // Important Links Data
     const importantLinks = [
         { src: indiaGovLogo, alt: 'India Government National Portal', href: 'https://www.india.gov.in/' },
@@ -77,28 +78,14 @@ const Index: React.FC = () => {
             {/* Hero Section */}
             <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
 
-                    {/* Background Video */}
-<div className="absolute inset-0 overflow-hidden">
-  <video
-    autoPlay
-    muted
-    loop
-    playsInline
-    preload="metadata"
-    className="w-full h-full object-cover"
-  >
-    <source src={bgVideo} type="video/mp4" />
-  </video>
-
-  {/* Dark overlay */}
-  <div className="absolute inset-0 bg-black/30" />
-</div>
+                {/* Background Animation Canvas */}
+                <BackgroundFrames />
 
 
                 <div className="relative z-10 container mx-auto px-4 text-center text-white">
                     <div className="max-w-4xl mx-auto">
                         {/* RESTORED H1 CLASSES */}
-                        <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight"> 
+                        <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
                             {t('hero.title')}
                         </h1>
                         {/* RESTORED P CLASSES */}
@@ -113,9 +100,9 @@ const Index: React.FC = () => {
                                 </Link>
                             </Button>
                             <Button asChild variant="outline" size="lg" className="bg-white/10 hover:bg-white/20 text-white border-white/30 transition">
-                                 <Link to="/demo">
-  {t('hero.learnMore')}
-</Link>
+                                <Link to="/demo">
+                                    {t('hero.learnMore')}
+                                </Link>
 
                             </Button>
                         </div>
@@ -149,9 +136,9 @@ const Index: React.FC = () => {
                                     {t('explore_now')} <ChevronRight className="w-5 h-5" />
                                 </button></Link>
                                 <button className="bg-white text-green-700 border-2 border-green-600 px-10 py-5 rounded-full hover:bg-green-50 transition-all hover:shadow-xl font-bold text-lg">
-                                     <a href="/assets/demo.mp4" target="_blank" rel="noopener noreferrer">
-    {t('watch_demo')}
-  </a>
+                                    <a href="/assets/demo.mp4" target="_blank" rel="noopener noreferrer">
+                                        {t('watch_demo')}
+                                    </a>
                                 </button>
                             </div>
                         </div>
@@ -317,8 +304,8 @@ const Index: React.FC = () => {
                         ))}
                     </div>
                     {/* Bottom 2 testimonials */}
-                    <div className="grid md:grid-cols-2 gap-8 mt-8 max-w-4xl mx-auto"> 
-                        {rawTestimonialData.slice(3, 5).map((item, i) => ( 
+                    <div className="grid md:grid-cols-2 gap-8 mt-8 max-w-4xl mx-auto">
+                        {rawTestimonialData.slice(3, 5).map((item, i) => (
                             <Card key={i + 3} className="group p-6 text-center relative overflow-hidden hover:shadow-lg transition-transform hover:-translate-y-1">
                                 <div className="flex justify-center mb-4">
                                     {[...Array(item.rating)].map((_, starIndex) => <Star key={starIndex} className="h-6 w-6 text-yellow-400 fill-current" />)}
