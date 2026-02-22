@@ -76,126 +76,123 @@ const getYesterday = () => {
 const getToday = () => {
   return formatDate(new Date());
 };
+const getLastNDates = (n: number) => {
+  const dates: string[] = [];
+  for (let i = 0; i < n; i++) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    dates.push(formatDate(d));
+  }
+  return dates;
+};
 
 const fetchMarketPrices = async () => {
   if (!API_KEY) return;
   setLoadingMarket(true);
 
   try {
-    const today = getToday();
-    const yesterday = getYesterday();
+    const dates = getLastNDates(5); // fetch last 5 days
 
-    const todayRes = await fetch(
-      `https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070?api-key=${API_KEY}&format=json&limit=500&filters[arrival_date]=${today}`
-    );
+const responses = await Promise.all(
+  dates.map(date =>
+    fetch(
+      `https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070?api-key=${API_KEY}&format=json&limit=1000&filters[arrival_date]=${date}`
+    )
+  )
+);
 
-    const yesterdayRes = await fetch(
-      `https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070?api-key=${API_KEY}&format=json&limit=500&filters[arrival_date]=${yesterday}`
-    );
+const allData = await Promise.all(
+  responses.map(res => (res.ok ? res.json() : { records: [] }))
+);
 
-    if (!todayRes.ok) throw new Error("API error");
-
-    const todayDataRaw = await todayRes.json();
-const yesterdayData = yesterdayRes.ok ? await yesterdayRes.json() : { records: [] };
-
-// Fallback if today has no data
-const todayData = todayDataRaw.records.length > 0 
-  ? todayDataRaw 
-  : yesterdayData;
+// Merge all records from 5 days
+const mergedRecords = allData.flatMap(data => data.records || []);
 
   // Create lookup map for yesterday
-    const yesterdayMap: Record<string, number> = {};
+    
+    // Build yesterday lookup map (second date in array)
+const yesterdayRecords = allData[1]?.records || [];
 
-    for (const item of yesterdayData.records) {
-      const key = `${item.state}_${item.market}_${item.commodity}`;
-      yesterdayMap[key] = Number(item.modal_price);
-    }
+const yesterdayMap: Record<string, number> = {};
 
-    const records = todayData.records;
+for (const item of yesterdayRecords) {
+  const key = `${item.state}_${item.market}_${item.commodity}`;
+  yesterdayMap[key] = Number(item.modal_price);
+}
+
+      const records = mergedRecords;
 
 const selected: MarketPrice[] = [];
-const uniqueCommodities = new Set<string>();
+const stateMap: Record<string, any[]> = {};
+const usedCommodities = new Set<string>();
 const stateCount: Record<string, number> = {};
 
-// PASS 1 → Ensure at least 1 per state
+// Group records by state
 for (const item of records) {
-  if (selected.length >= 50) break;
+  if (!stateMap[item.state]) {
+    stateMap[item.state] = [];
+  }
+  stateMap[item.state].push(item);
+}
 
-  const state = item.state;
-  const commodityName = item.commodity;
+// Sort states by number of commodities (ascending)
+// This maximizes total state coverage
+const states = Object.keys(stateMap).sort(
+  (a, b) => stateMap[a].length - stateMap[b].length
+);
 
-  if (!stateCount[state] && !uniqueCommodities.has(commodityName)) {
+// Helper to add record
+const addRecord = (item: any) => {
+  const key = `${item.state}_${item.market}_${item.commodity}`;
+  const todayPrice = Number(item.modal_price);
+  const yesterdayPrice = yesterdayMap[key];
 
-    const key = `${item.state}_${item.market}_${item.commodity}`;
-    const todayPrice = Number(item.modal_price);
-    const yesterdayPrice = yesterdayMap[key];
+  let trend: 'up' | 'down' | 'stable' = 'stable';
 
-    let trend: 'up' | 'down' | 'stable' = 'stable';
+  if (yesterdayPrice !== undefined) {
+    if (todayPrice > yesterdayPrice) trend = 'up';
+    else if (todayPrice < yesterdayPrice) trend = 'down';
+  }
 
-    if (yesterdayPrice !== undefined) {
-      if (todayPrice > yesterdayPrice) trend = 'up';
-      else if (todayPrice < yesterdayPrice) trend = 'down';
+  selected.push({
+    commodity: item.commodity,
+    variety: item.variety,
+    market: item.market,
+    state: item.state,
+    min_price: Number(item.min_price),
+    max_price: Number(item.max_price),
+    modal_price: todayPrice,
+    unit: "Quintal",
+    date: item.arrival_date,
+    trend,
+    exchange: item.market
+  });
+
+  usedCommodities.add(item.commodity);
+  stateCount[item.state] = (stateCount[item.state] || 0) + 1;
+};
+
+// PASS 1 → Give 1 unique commodity per state (maximize states)
+for (const state of states) {
+  for (const item of stateMap[state]) {
+    if (!usedCommodities.has(item.commodity)) {
+      addRecord(item);
+      break;
     }
-
-    selected.push({
-      commodity: item.commodity,
-      variety: item.variety,
-      market: item.market,
-      state: item.state,
-      min_price: Number(item.min_price),
-      max_price: Number(item.max_price),
-      modal_price: todayPrice,
-      unit: "Quintal",
-      date: item.arrival_date,
-      trend,
-      exchange: item.market
-    });
-
-    uniqueCommodities.add(commodityName);
-    stateCount[state] = 1;
   }
 }
 
-// PASS 2 → Fill remaining (max 3 per state)
-for (const item of records) {
-  if (selected.length >= 50) break;
+// PASS 2 → Give second unique commodity per state
+for (const state of states) {
+  if ((stateCount[state] || 0) >= 2) continue;
 
-  const state = item.state;
-  const commodityName = item.commodity;
-
-  if ((stateCount[state] || 0) < 3 && !uniqueCommodities.has(commodityName)) {
-
-    const key = `${item.state}_${item.market}_${item.commodity}`;
-    const todayPrice = Number(item.modal_price);
-    const yesterdayPrice = yesterdayMap[key];
-
-    let trend: 'up' | 'down' | 'stable' = 'stable';
-
-    if (yesterdayPrice !== undefined) {
-      if (todayPrice > yesterdayPrice) trend = 'up';
-      else if (todayPrice < yesterdayPrice) trend = 'down';
+  for (const item of stateMap[state]) {
+    if (!usedCommodities.has(item.commodity)) {
+      addRecord(item);
+      break;
     }
-
-    selected.push({
-      commodity: item.commodity,
-      variety: item.variety,
-      market: item.market,
-      state: item.state,
-      min_price: Number(item.min_price),
-      max_price: Number(item.max_price),
-      modal_price: todayPrice,
-      unit: "Quintal",
-      date: item.arrival_date,
-      trend,
-      exchange: item.market
-    });
-
-    uniqueCommodities.add(commodityName);
-    stateCount[state] = (stateCount[state] || 0) + 1;
   }
 }
-
-
 
     setMarketData(selected);
     const uniqueStates = Array.from(
