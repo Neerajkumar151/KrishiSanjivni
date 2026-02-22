@@ -33,21 +33,6 @@ interface Fertilizer {
   subsidy: boolean;
 }
 
-const states = ["All States", "Delhi", "Gujarat", "Andhra Pradesh", "Maharashtra", "Karnataka", "Uttar Pradesh"];
-
-const freeCommodities = [
-  { name: 'rough_rice', display: 'Rice', variety: 'Rough Rice', unit: 'Quintal' },
-  { name: 'oat', display: 'Oat', variety: 'Oat Futures', unit: 'Quintal' },
-  { name: 'soybean_meal', display: 'Soybean Meal', variety: 'Soybean Meal', unit: 'Kg' },
-  { name: 'lumber', display: 'Lumber', variety: 'Lumber', unit: 'Unit' },
-  { name: 'lean_hogs', display: 'Lean Hogs', variety: 'Livestock', unit: 'Kg' },
-  { name: 'feeder_cattle', display: 'Feeder Cattle', variety: 'Livestock', unit: 'Kg' },
-  { name: 'aluminum', display: 'Aluminum', variety: 'Metal', unit: 'Kg' },
-  { name: 'gold', display: 'Gold', variety: 'Precious Metal', unit: 'Ounce' },
-  { name: 'platinum', display: 'Platinum', variety: 'Precious Metal', unit: 'Ounce' },
-  { name: 'palladium', display: 'Palladium', variety: 'Precious Metal', unit: 'Ounce' },
-];
-
 const mockFertilizers: Fertilizer[] = [
   { name: 'Urea', price: 266, unit: 'per 50kg bag', subsidy: true },
   { name: 'DAP', price: 1350, unit: 'per 50kg bag', subsidy: true },
@@ -59,8 +44,7 @@ const mockFertilizers: Fertilizer[] = [
   { name: 'Organic Compost', price: 250, unit: 'per 50kg bag', subsidy: false },
 ];
 
-const USD_TO_INR = 83;
-const API_KEY = import.meta.env.VITE_API_NINJAS_KEY;
+const API_KEY = import.meta.env.VITE_DATA_GOV_API_KEY;
 
 export default function MarketPrices() {
   const { t } = useTranslation();
@@ -71,91 +55,187 @@ export default function MarketPrices() {
   const [loadingMarket, setLoadingMarket] = useState(false);
   const [loadingFert, setLoadingFert] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
+  const [availableStates, setAvailableStates] = useState<string[]>(["All States"]);
   const { toast } = useToast();
 
-  const markets = ['NYMEX', 'CME', 'ICE', 'LME'];
+
+
+  const formatDate = (date: Date) => {
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+};
+
+const getYesterday = () => {
+  const d = new Date();
+  d.setDate(d.getDate() - 1);
+  return formatDate(d);
+};
+
+const getToday = () => {
+  return formatDate(new Date());
+};
+
+const fetchMarketPrices = async () => {
+  if (!API_KEY) return;
+  setLoadingMarket(true);
+
+  try {
+    const today = getToday();
+    const yesterday = getYesterday();
+
+    const todayRes = await fetch(
+      `https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070?api-key=${API_KEY}&format=json&limit=500&filters[arrival_date]=${today}`
+    );
+
+    const yesterdayRes = await fetch(
+      `https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070?api-key=${API_KEY}&format=json&limit=500&filters[arrival_date]=${yesterday}`
+    );
+
+    if (!todayRes.ok) throw new Error("API error");
+
+    const todayDataRaw = await todayRes.json();
+const yesterdayData = yesterdayRes.ok ? await yesterdayRes.json() : { records: [] };
+
+// Fallback if today has no data
+const todayData = todayDataRaw.records.length > 0 
+  ? todayDataRaw 
+  : yesterdayData;
+
+  // Create lookup map for yesterday
+    const yesterdayMap: Record<string, number> = {};
+
+    for (const item of yesterdayData.records) {
+      const key = `${item.state}_${item.market}_${item.commodity}`;
+      yesterdayMap[key] = Number(item.modal_price);
+    }
+
+    const records = todayData.records;
+
+const selected: MarketPrice[] = [];
+const uniqueCommodities = new Set<string>();
+const stateCount: Record<string, number> = {};
+
+// PASS 1 → Ensure at least 1 per state
+for (const item of records) {
+  if (selected.length >= 50) break;
+
+  const state = item.state;
+  const commodityName = item.commodity;
+
+  if (!stateCount[state] && !uniqueCommodities.has(commodityName)) {
+
+    const key = `${item.state}_${item.market}_${item.commodity}`;
+    const todayPrice = Number(item.modal_price);
+    const yesterdayPrice = yesterdayMap[key];
+
+    let trend: 'up' | 'down' | 'stable' = 'stable';
+
+    if (yesterdayPrice !== undefined) {
+      if (todayPrice > yesterdayPrice) trend = 'up';
+      else if (todayPrice < yesterdayPrice) trend = 'down';
+    }
+
+    selected.push({
+      commodity: item.commodity,
+      variety: item.variety,
+      market: item.market,
+      state: item.state,
+      min_price: Number(item.min_price),
+      max_price: Number(item.max_price),
+      modal_price: todayPrice,
+      unit: "Quintal",
+      date: item.arrival_date,
+      trend,
+      exchange: item.market
+    });
+
+    uniqueCommodities.add(commodityName);
+    stateCount[state] = 1;
+  }
+}
+
+// PASS 2 → Fill remaining (max 3 per state)
+for (const item of records) {
+  if (selected.length >= 50) break;
+
+  const state = item.state;
+  const commodityName = item.commodity;
+
+  if ((stateCount[state] || 0) < 3 && !uniqueCommodities.has(commodityName)) {
+
+    const key = `${item.state}_${item.market}_${item.commodity}`;
+    const todayPrice = Number(item.modal_price);
+    const yesterdayPrice = yesterdayMap[key];
+
+    let trend: 'up' | 'down' | 'stable' = 'stable';
+
+    if (yesterdayPrice !== undefined) {
+      if (todayPrice > yesterdayPrice) trend = 'up';
+      else if (todayPrice < yesterdayPrice) trend = 'down';
+    }
+
+    selected.push({
+      commodity: item.commodity,
+      variety: item.variety,
+      market: item.market,
+      state: item.state,
+      min_price: Number(item.min_price),
+      max_price: Number(item.max_price),
+      modal_price: todayPrice,
+      unit: "Quintal",
+      date: item.arrival_date,
+      trend,
+      exchange: item.market
+    });
+
+    uniqueCommodities.add(commodityName);
+    stateCount[state] = (stateCount[state] || 0) + 1;
+  }
+}
 
 
 
-  const fetchMarketPrices = async () => {
-    if (!API_KEY) return;
-    setLoadingMarket(true);
-    try {
-      const pricesData = await Promise.all(freeCommodities.map(async (commodity) => {
-        try {
-          const res = await fetch(`https://api.api-ninjas.com/v1/commodityprice?name=${commodity.name}`, {
-            headers: { 'X-Api-Key': API_KEY }
-          });
-          if (!res.ok) throw new Error('API error');
-          const data = await res.json();
-          const priceInINR = data.price * USD_TO_INR;
-          const randomMarket = markets[Math.floor(Math.random() * markets.length)];
-          const randomState = states[Math.floor(Math.random() * (states.length - 1)) + 1];
-          return {
-            commodity: commodity.display,
-            variety: commodity.variety,
-            market: data.exchange || randomMarket,
-            state: randomState,
-            min_price: Math.floor(priceInINR * 0.95),
-            max_price: Math.floor(priceInINR * 1.05),
-            modal_price: Math.floor(priceInINR),
-            unit: commodity.unit,
-            date: new Date().toLocaleDateString('en-IN'),
-            trend: ['up','down','stable'][Math.floor(Math.random()*3)] as 'up'|'down'|'stable',
-            exchange: data.exchange
-          };
-        } catch { return null; }
-      }));
-      setMarketData(pricesData.filter(Boolean) as MarketPrice[]);
-      setLastUpdate(new Date());
-    } catch { toast({ title:i18n.t('Failed to fetch market prices'), variant:'destructive' }); }
-    finally { setLoadingMarket(false); }
-  };
+    setMarketData(selected);
+    const uniqueStates = Array.from(
+  new Set(selected.map(item => item.state))
+);
+
+setAvailableStates(["All States", ...uniqueStates.sort()]);
+    setLastUpdate(new Date());
+
+  } catch {
+    toast({
+      title: i18n.t("Failed to fetch market prices"),
+      variant: "destructive"
+    });
+  } finally {
+    setLoadingMarket(false);
+  }
+};
+
 
   const fetchFertilizerPrices = async () => {
-    if (!API_KEY) return;
-    setLoadingFert(true);
-    const fertilizerCommodities = [
-      { name:'urea', display:'Urea', unit:'per 50kg bag' },
-      { name:'dap', display:'DAP', unit:'per 50kg bag' },
-      { name:'mop', display:'MOP', unit:'per 50kg bag' },
-      { name:'npk', display:'NPK 10:26:26', unit:'per 50kg bag' },
-      { name:'ssp', display:'Single Super Phosphate', unit:'per 50kg bag' },
-      { name:'zinc', display:'Zinc Sulphate', unit:'per 25kg bag' },
-      { name:'gypsum', display:'Gypsum', unit:'per 50kg bag' },
-      { name:'organic_compost', display:'Organic Compost', unit:'per 50kg bag' }
-    ];
+  setLoadingFert(true);
+  try {
+    setFertilizers(mockFertilizers);
+  } catch {
+    toast({
+      title: i18n.t("Failed to fetch fertilizer prices"),
+      variant: "destructive"
+    });
+  } finally {
+    setLoadingFert(false);
+  }
+};
 
-    try {
-      const fetched: Fertilizer[] = await Promise.all(fertilizerCommodities.map(async (fert) => {
-        try {
-          const res = await fetch(`https://api.api-ninjas.com/v1/commodityprice?name=${fert.name}`, {
-            headers: { 'X-Api-Key': API_KEY }
-          });
-          if (!res.ok) throw new Error('API error');
-          const data = await res.json();
-          const priceInINR = data.price * USD_TO_INR;
-          return { name: fert.display, price: Math.floor(priceInINR), unit: fert.unit, subsidy:true };
-        } catch {
-          const mockPrice = mockFertilizers.find(m=>m.name===fert.display)?.price || 500;
-          return { name: fert.display, price: mockPrice, unit: fert.unit, subsidy:true };
-        }
-      }));
-      setFertilizers(fetched);
-    } catch { toast({ title:i18n.t('Failed to fetch fertilizer prices'), variant:'destructive' }); }
-    finally { setLoadingFert(false); }
-  };
+  useEffect(() => {
+  if (!API_KEY) return;
 
-  useEffect(()=>{
-    if(!API_KEY) return;
-    fetchMarketPrices();
-    fetchFertilizerPrices();
-    const interval = setInterval(()=>{
-      fetchMarketPrices();
-      fetchFertilizerPrices();
-    }, 300000);
-    return ()=>clearInterval(interval);
-  }, []);
+  fetchMarketPrices();
+  fetchFertilizerPrices();
+}, []);
 
   const filteredData = marketData.filter(item=>{
     const matchesSearch = item.commodity.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -177,6 +257,8 @@ export default function MarketPrices() {
     return 'text-muted-foreground';
   };
 
+  
+
   return (
     <Layout>
       <div className="min-h-screen bg-gradient-to-b from-purple-50 to-blue-50 py-12">
@@ -186,7 +268,7 @@ export default function MarketPrices() {
               {i18n.t('Real-Time Market & Fertilizer Prices')}
             </h1>
             <p className="text-gray-600 text-lg max-w-2xl mx-auto mb-6">
-              {i18n.t('Live commodity & fertilizer rates with stylish UI, auto-refresh every 5 minutes')}
+              {i18n.t('Latest official mandi prices from government data')}
             </p>
             {lastUpdate && <p className="mt-2 text-sm text-gray-500">{i18n.t('Last updated')}: {lastUpdate.toLocaleString('en-IN')}</p>}
           </div>
@@ -214,7 +296,11 @@ export default function MarketPrices() {
                       <SelectTrigger className="w-full md:w-[200px] bg-white/70 backdrop-blur-md">
                         <SelectValue placeholder={i18n.t("Select State")} />
                       </SelectTrigger>
-                      <SelectContent>{states.map(state=><SelectItem key={state} value={state}>{i18n.t(state)}</SelectItem>)}</SelectContent>
+                      <SelectContent>{availableStates.map(state => (
+  <SelectItem key={state} value={state}>
+    {i18n.t(state)}
+  </SelectItem>
+))}</SelectContent>
                     </Select>
                   </div>
                 </CardContent>
