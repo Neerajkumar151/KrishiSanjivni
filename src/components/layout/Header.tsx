@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
-import { Sprout, User, LogOut, ChevronDown } from 'lucide-react';
+import { Sprout, User, LogOut, ChevronDown, Menu } from 'lucide-react';
 import { LanguageSelector } from '../ui/language-selector';
 import {
     DropdownMenu,
@@ -12,16 +12,22 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import {
+    Sheet,
+    SheetContent,
+    SheetTrigger,
+} from '@/components/ui/sheet';
 
 export const Header: React.FC = () => {
     const { t } = useTranslation();
     const { user, profile, isAdmin, signOut } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const handleSignOut = async () => {
         await signOut();
-        navigate('/'); 
+        navigate('/');
     };
 
     useEffect(() => {
@@ -120,9 +126,9 @@ export const Header: React.FC = () => {
                     </DropdownMenu>
 
                     {isAdmin && (
-                        <Link 
-                            to="/admin" 
-                            className="text-red-600 border border-red-600 px-2 py-1 rounded-full text-foreground/80 hover:text-foreground transition-colors font-medium" 
+                        <Link
+                            to="/admin"
+                            className="text-red-600 border border-red-600 px-2 py-1 rounded-full text-foreground/80 hover:text-foreground transition-colors font-medium"
                         >
                             {t('nav.adminPanel')}
                         </Link>
@@ -164,6 +170,63 @@ export const Header: React.FC = () => {
                             <Link to="/auth">{t('nav.login')}</Link>
                         </Button>
                     )}
+
+                    {/* Mobile Menu Toggle */}
+                    <div className="md:hidden flex items-center">
+                        <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+                            <SheetTrigger asChild>
+                                <Button variant="ghost" size="icon" className="h-9 w-9">
+                                    <Menu className="h-5 w-5" />
+                                </Button>
+                            </SheetTrigger>
+                            <SheetContent side="right" className="w-[85vw] sm:w-[350px] overflow-y-auto z-[100]">
+                                <nav className="flex flex-col gap-4 mt-8">
+                                    <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium hover:text-green-600 transition-colors">
+                                        {t('nav.home')}
+                                    </Link>
+                                    <Link to="/tools" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium hover:text-green-600 transition-colors">
+                                        {t('nav.tools')}
+                                    </Link>
+                                    <Link to="/warehouse" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium hover:text-green-600 transition-colors">
+                                        {t('nav.warehouse')}
+                                    </Link>
+                                    <Link to="/soil-check" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium hover:text-green-600 transition-colors">
+                                        {t('nav.soilCheck')}
+                                    </Link>
+                                    <Link to="/community" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium hover:text-green-600 transition-colors">
+                                        {t('nav.community')}
+                                    </Link>
+
+                                    <div className="border-t py-4 mt-2">
+                                        <p className="text-sm text-muted-foreground mb-3">{t('nav.more')}</p>
+                                        <div className="flex flex-col gap-3 pl-2">
+                                            <Link to="/resources" onClick={() => setIsMobileMenuOpen(false)} className="text-foreground/80 hover:text-foreground transition-colors">
+                                                {t('nav.resources')}
+                                            </Link>
+                                            <Link to="/weather" onClick={() => setIsMobileMenuOpen(false)} className="text-foreground/80 hover:text-foreground transition-colors">
+                                                {t('nav.weather')}
+                                            </Link>
+                                            <Link to="/market-prices" onClick={() => setIsMobileMenuOpen(false)} className="text-foreground/80 hover:text-foreground transition-colors">
+                                                {t('nav.marketPrices')}
+                                            </Link>
+                                        </div>
+                                    </div>
+
+                                    {isAdmin && (
+                                        <div className="border-t pt-4">
+                                            <Link
+                                                to="/admin"
+                                                onClick={() => setIsMobileMenuOpen(false)}
+                                                className="flex justify-center text-red-600 border border-red-600 px-4 py-2 rounded-lg hover:bg-red-50 transition-colors font-medium w-full"
+                                            >
+                                                {t('nav.adminPanel')}
+                                            </Link>
+                                        </div>
+                                    )}
+                                </nav>
+                            </SheetContent>
+                        </Sheet>
+                    </div>
                 </div>
             </div>
         </header>
