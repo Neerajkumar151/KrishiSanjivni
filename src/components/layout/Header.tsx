@@ -82,7 +82,7 @@ export const Header: React.FC = () => {
                     </div>
                 </Link>
 
-                <nav className="hidden md:flex items-center gap-6">
+                <nav className="hidden xl:flex items-center gap-6">
                     <Link to="/" className="text-foreground/80 hover:text-foreground transition-colors">
                         {t('nav.home')}
                     </Link>
@@ -172,7 +172,7 @@ export const Header: React.FC = () => {
                     )}
 
                     {/* Mobile Menu Toggle */}
-                    <div className="md:hidden flex items-center">
+                    <div className="xl:hidden flex items-center">
                         <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
                             <SheetTrigger asChild>
                                 <Button variant="ghost" size="icon" className="h-9 w-9">

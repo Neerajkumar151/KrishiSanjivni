@@ -111,8 +111,8 @@ const Index: React.FC = () => {
             </section>
 
             {/* Main Content Section */}
-            <section className="pt-10 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-green-100/30 via-amber-50/20 to-green-50/30 pointer-events-none"></div>
+            <section className="pt-10 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden w-full max-w-[100vw]">
+                <div className="absolute inset-0 bg-gradient-to-br from-green-100/30 via-amber-50/20 to-green-50/30 pointer-events-none w-full"></div>
                 <div className="max-w-7xl mx-auto relative">
                     <div className="grid md:grid-cols-2 gap-16 items-center">
                         <div className="space-y-8 animate-fade-in">
@@ -178,8 +178,8 @@ const Index: React.FC = () => {
 
 
             {/* About Section */}
-            <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-                <div className="max-w-7xl mx-auto">
+            <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-white w-full overflow-hidden max-w-[100vw]">
+                <div className="max-w-7xl mx-auto w-full">
                     <div className="grid md:grid-cols-2 gap-16 items-center mb-20">
                         <div>
                             <div className="inline-block bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-semibold mb-6">{t('about.story_label')}</div>
@@ -233,8 +233,8 @@ const Index: React.FC = () => {
             </section>
 
             {/* Features Section */}
-            <section id="features" className="py-20 px-4 sm:px-6 lg:px-8">
-                <div className="max-w-7xl mx-auto">
+            <section id="features" className="py-20 px-4 sm:px-6 lg:px-8 w-full overflow-hidden max-w-[100vw]">
+                <div className="max-w-7xl mx-auto w-full">
                     <div className="text-center mb-16"><h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">{t('features.title')}</h2><p className="text-xl text-gray-600 max-w-3xl mx-auto">{t('features.subtitle')}</p></div>
                     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {/* Tool Rentals */}
@@ -284,8 +284,8 @@ const Index: React.FC = () => {
             </section>
 
             {/* Testimonials and Stats */}
-            <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
-                <div className="container mx-auto px-4">
+            <section className="py-20 bg-gradient-to-b from-gray-50 to-white w-full overflow-hidden max-w-[100vw]">
+                <div className="container mx-auto px-4 w-full">
                     <div className="text-center mb-16"><h2 className="text-4xl font-bold mb-4 text-foreground">{t('testimonial.section_title')}</h2><p className="text-xl text-muted-foreground max-w-2xl mx-auto">{t('testimonial.section_subtitle')}</p></div>
                     <div className="grid md:grid-cols-3 gap-8">
                         {rawTestimonialData.slice(0, 3).map((item, i) => (
@@ -337,7 +337,7 @@ const Index: React.FC = () => {
 
             {/* Marquee Section */}
             <section
-                className="py-10 overflow-hidden border-t-10 border-b-20 border-white/20"
+                className="py-10 overflow-hidden border-t-10 border-b-20 border-white/20 w-full max-w-[100vw]"
                 style={{
                     background: "transparent linear-gradient(90deg, #B8D721 0%, #6CBE03 100%) 0% 0% no-repeat padding-box"
                 }}
