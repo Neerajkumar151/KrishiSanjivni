@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://github.com/Neerajkumar151/KrishiSanjivni">
-    <img src="public/logo.png" alt="Logo" width="100" height="100">
+    <img src="public/logo.webp" alt="Logo" width="100" height="100">
   </a>
 
   <h1 align="center">🌱 KrishiSanjivni</h1>
@@ -75,7 +75,7 @@ The project is built using a modern, scalable architecture.
 
 Click below to watch a complete walkthrough of the platform in action:
 
-[![Demo](./public/assets/demo.PNG)](https://krishisanjivni.vercel.app/assets/demo.mp4)
+[![Demo](./public/assets/demo.webp)](https://krishisanjivni.vercel.app/assets/demo.mp4)
 
 ---
 
@@ -84,42 +84,42 @@ Click below to watch a complete walkthrough of the platform in action:
 <table>
   <tr>
     <td align="center" width="50%">
-      <img src="./public/assets/landingpage.PNG" alt="Landing Page" />
+      <img src="./public/assets/landingpage.webp" alt="Landing Page" />
       <br><strong>🏠 Landing Page</strong>
     </td>
     <td align="center" width="50%">
-      <img src="./public/assets/profile.PNG" alt="User Dashboard" />
+      <img src="./public/assets/profile.webp" alt="User Dashboard" />
       <br><strong>👤 Farmer Profile</strong>
     </td>
   </tr>
   <tr>
     <td align="center" width="50%">
-      <img src="./public/assets/tools.PNG" alt="Tools Rental" />
+      <img src="./public/assets/tools.webp" alt="Tools Rental" />
       <br><strong>🚜 Equipment Rental</strong>
     </td>
     <td align="center" width="50%">
-      <img src="./public/assets/chatbot.PNG" alt="AI Chatbot" />
+      <img src="./public/assets/chatbot.webp" alt="AI Chatbot" />
       <br><strong>🤖 AI Chatbot (Voice Enabled)</strong>
     </td>
   </tr>
   
   <tr>
     <td align="center" width="50%">
-      <img src="./public/assets/madni.PNG" alt="Mandi Prices" />
+      <img src="./public/assets/madni.webp" alt="Mandi Prices" />
       <br><strong>💹 Real-time Mandi Prices</strong>
     </td>
     <td align="center" width="50%">
-      <img src="./public/assets/admin.PNG" alt="Admin Panel" />
+      <img src="./public/assets/admin.webp" alt="Admin Panel" />
       <br><strong>🛡️ Admin Panel</strong>
     </td>
   </tr>
   <tr>
     <td align="center" width="50%">
-      <img src="./public/assets/community.PNG" alt="Community " />
+      <img src="./public/assets/community.webp" alt="Community " />
       <br><strong>👥 Community Page</strong>
     </td>
     <td align="center" width="50%">
-      <img src="./public/assets/warehouse.PNG" alt="Warehouse Booking" />
+      <img src="./public/assets/warehouse.webp" alt="Warehouse Booking" />
       <br><strong>🏪 Warehouse Booking</strong>
     </td>
   </tr>
@@ -220,8 +220,8 @@ npm run dev
 KrishiSanjivni
 │── public
 │   ├── locales (translations)
-│   ├── logo.png
-│   ├── bg.png
+│   ├── logo.webp
+│   ├── bg.webp
 │
 │── src
 │   ├── assets

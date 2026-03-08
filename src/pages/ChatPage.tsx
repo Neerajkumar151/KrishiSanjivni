@@ -12,22 +12,22 @@ import { useToast } from '@/hooks/use-toast';
 
 // Define the data structure for a message
 interface Message {
-  id: number;
-  created_at: string;
-  message: string;
-  user_id: string;
-  file_url?: string;
-  profiles: {
-    full_name: string;
-    avatar_url?: string;
-  } | null;
+    id: number;
+    created_at: string;
+    message: string;
+    user_id: string;
+    file_url?: string;
+    profiles: {
+        full_name: string;
+        avatar_url?: string;
+    } | null;
 }
 
 // Helper component to render uploaded files
 const renderFileContent = (url: string) => {
     const fileType = url.split('.').pop()?.toLowerCase() || '';
     if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(fileType)) {
-        return <img src={url} alt="Uploaded content" className="mt-2 rounded-lg max-w-xs md:max-w-sm cursor-pointer" onClick={() => window.open(url, '_blank')} />;
+        return <img src={url} alt="Uploaded content" loading="lazy" className="mt-2 rounded-lg max-w-xs md:max-w-sm cursor-pointer" onClick={() => window.open(url, '_blank')} />;
     }
     if (['mp4', 'webm', 'mov'].includes(fileType)) {
         return <video src={url} controls className="mt-2 rounded-lg max-w-xs md:max-w-sm" />;
@@ -86,7 +86,7 @@ export const ChatPage: React.FC = () => {
                         .select('full_name, avatar_url')
                         .eq('user_id', payload.new.user_id)
                         .single();
-                    
+
                     const incomingMessage = { ...payload.new, profiles: profileData } as Message;
                     setMessages(currentMessages => [...currentMessages, incomingMessage]);
                 }
@@ -128,7 +128,7 @@ export const ChatPage: React.FC = () => {
                 channel_id: 1,
                 file_url: fileUrl
             };
-            
+
             const { data: insertedMessage, error: insertError } = await supabase
                 .from('messages')
                 .insert(messageToInsert)
@@ -136,7 +136,7 @@ export const ChatPage: React.FC = () => {
                 .single();
 
             if (insertError) throw insertError;
-            
+
             // **Instant UI Update:** Add the new message to the screen immediately.
             const optimisticMessage: Message = {
                 ...insertedMessage,
@@ -202,7 +202,7 @@ export const ChatPage: React.FC = () => {
                             <div className="flex items-center gap-2 p-2 bg-muted rounded-md text-sm">
                                 <Paperclip className="h-4 w-4" />
                                 <span className="flex-grow truncate">{fileToUpload.name}</span>
-                                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => { setFileToUpload(null); if(fileInputRef.current) fileInputRef.current.value = ""; }}>
+                                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => { setFileToUpload(null); if (fileInputRef.current) fileInputRef.current.value = ""; }}>
                                     <XCircle className="h-4 w-4" />
                                 </Button>
                             </div>

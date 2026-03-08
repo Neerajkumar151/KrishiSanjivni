@@ -153,7 +153,7 @@ export const AdminTools: React.FC = () => {
 
   const handleEditTool = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!editingTool) return;
 
     const { error } = await supabase
@@ -245,7 +245,7 @@ export const AdminTools: React.FC = () => {
           <h1 className="text-4xl font-bold mb-2">Manage Tools</h1>
           <p className="text-muted-foreground">View and manage all farming tools ({tools.length} total)</p>
         </div>
-        
+
         <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
           <DialogTrigger asChild>
             <Button>
@@ -511,7 +511,7 @@ export const AdminTools: React.FC = () => {
               {filteredTools.map((tool) => (
                 <TableRow key={tool.id}>
                   <TableCell>
-                    <img
+                    <img loading="lazy"
                       src={tool.image_url || '/placeholder.svg'}
                       alt={tool.name}
                       className="w-16 h-16 object-cover rounded"

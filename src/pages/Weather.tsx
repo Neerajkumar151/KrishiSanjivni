@@ -268,7 +268,7 @@ export default function Weather() {
               <CardContent>
                 <div className="grid md:grid-cols-2 gap-8 items-center">
                   <div className="flex items-center gap-6 bg-gradient-to-r from-cyan-50 to-blue-50 p-6 rounded-xl shadow-lg">
-                    <img
+                    <img loading="lazy"
                       src={getWeatherIcon(weatherData.icon)}
                       alt={weatherData.description}
                       className="w-28 h-28 drop-shadow-xl"
@@ -330,7 +330,7 @@ export default function Weather() {
                     >
                       <CardContent className="pt-4">
                         <p className="font-semibold text-sm mb-2">{day.date}</p>
-                        <img
+                        <img loading="lazy"
                           src={getWeatherIcon(day.icon)}
                           alt={day.description}
                           className="w-16 h-16 mx-auto drop-shadow-md"

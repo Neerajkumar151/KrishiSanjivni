@@ -194,10 +194,10 @@ const Tools: React.FC = () => {
                 <SelectContent>
                   <SelectItem value="all">{t('tools.allCategories', { defaultValue: 'All Categories' })}</SelectItem>
                   {categories.map(category => (
-  <SelectItem key={category} value={category}>
-    {t(categoryKeyMap[category] || category)}
-  </SelectItem>
-))}
+                    <SelectItem key={category} value={category}>
+                      {t(categoryKeyMap[category] || category)}
+                    </SelectItem>
+                  ))}
 
                 </SelectContent>
               </Select>
@@ -227,6 +227,7 @@ const Tools: React.FC = () => {
                 <img
                   src={tool.image_url || '/placeholder.svg'}
                   alt={tool.name}
+                  loading="lazy"
                   className="w-full h-48 object-cover rounded-t-lg"
                 />
               </CardHeader>

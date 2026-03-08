@@ -135,9 +135,9 @@ const Warehouse: React.FC = () => {
     }
   }, [t]);
 
-  useEffect(() => { 
-    fetchWarehouses(); 
-    
+  useEffect(() => {
+    fetchWarehouses();
+
     // Setup realtime subscription
     const channel = supabase
       .channel('warehouse-public-changes')
@@ -291,12 +291,12 @@ const Warehouse: React.FC = () => {
                 <SelectContent>
                   <SelectItem value="all">{t('warehouse.allLocations', { defaultValue: 'All Locations' })}</SelectItem>
                   {locations.map(location => (
-  <SelectItem key={location} value={location}>
-    {locationKeyMap[location]
-      ? t(locationKeyMap[location])
-      : location}
-  </SelectItem>
-))}
+                    <SelectItem key={location} value={location}>
+                      {locationKeyMap[location]
+                        ? t(locationKeyMap[location])
+                        : location}
+                    </SelectItem>
+                  ))}
 
                 </SelectContent>
               </Select>
@@ -312,6 +312,7 @@ const Warehouse: React.FC = () => {
                 <img
                   src={warehouse.image_url || 'https://placehold.co/600x400/1e293b/f8fafc?text=Warehouse'}
                   alt={warehouse.name}
+                  loading="lazy"
                   onError={(e) => e.currentTarget.src = 'https://placehold.co/600x400/1e293b/f8fafc?text=Warehouse'}
                   className="w-full h-48 object-cover"
                 />
@@ -327,10 +328,10 @@ const Warehouse: React.FC = () => {
                   <div className="flex items-center gap-2 text-muted-foreground">
                     <WarehouseIcon className="h-4 w-4 text-primary" />
                     <span className="truncate">
-  {locationKeyMap[warehouse.location]
-    ? t(locationKeyMap[warehouse.location])
-    : warehouse.location}
-</span>
+                      {locationKeyMap[warehouse.location]
+                        ? t(locationKeyMap[warehouse.location])
+                        : warehouse.location}
+                    </span>
 
                   </div>
                   <div className="flex justify-between">

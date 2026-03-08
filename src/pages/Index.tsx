@@ -16,18 +16,18 @@ import { ChatBot } from '@/components/ChatBot';
 import BackgroundFrames from '@/components/BackgroundFrames';
 
 // IMPORTANT LINKS IMAGES (Assumed assets)
-import indiaGovLogo from '@/assets/india-gov-logo.png';
-import meityLogo from '@/assets/meity-logo.png';
-import azadiLogo from '@/assets/azadi-logo.png';
-import landResourcesLogo from '@/assets/land-resources-logo.png';
-import janSamarthLogo from '@/assets/jan-samarth-logo.png';
+import indiaGovLogo from '@/assets/india-gov-logo.webp';
+import meityLogo from '@/assets/meity-logo.webp';
+import azadiLogo from '@/assets/azadi-logo.webp';
+import landResourcesLogo from '@/assets/land-resources-logo.webp';
+import janSamarthLogo from '@/assets/jan-samarth-logo.webp';
 
 // TESTIMONIAL AVATARS (Assumed assets)
-import avatarRavi from '@/assets/avatar-ravi.jpg';
-import avatarSunita from '@/assets/avatar-sunita.jpg';
-import avatarAmit from '@/assets/avatar-amit.jpg';
-import avatarPriya from '@/assets/avatar-priya.jpg';
-import avatarRajesh from '@/assets/avatar-rajesh.jpg';
+import avatarRavi from '@/assets/avatar-ravi.webp';
+import avatarSunita from '@/assets/avatar-sunita.webp';
+import avatarAmit from '@/assets/avatar-amit.webp';
+import avatarPriya from '@/assets/avatar-priya.webp';
+import avatarRajesh from '@/assets/avatar-rajesh.webp';
 
 
 const Index: React.FC = () => {
@@ -294,7 +294,7 @@ const Index: React.FC = () => {
                                     {[...Array(item.rating)].map((_, starIndex) => <Star key={starIndex} className="h-6 w-6 text-yellow-400 fill-current" />)}
                                     {[...Array(5 - item.rating)].map((_, starIndex) => <Star key={starIndex + item.rating} className="h-6 w-6 text-gray-300" />)}
                                 </div>
-                                <img src={item.avatar} alt={t(item.nameKey)} className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-4 border-primary/20 group-hover:border-primary transition-all duration-300" />
+                                <img src={item.avatar} alt={t(item.nameKey)} loading="lazy" className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-4 border-primary/20 group-hover:border-primary transition-all duration-300" />
                                 <p className="text-muted-foreground mb-4 text-sm italic">"{t(item.feedbackKey)}"</p>
                                 <div className="absolute inset-x-0 bottom-0 bg-primary/80 text-white py-2 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out">
                                     <h4 className="text-lg font-semibold">{t(item.nameKey)}</h4>
@@ -311,7 +311,7 @@ const Index: React.FC = () => {
                                     {[...Array(item.rating)].map((_, starIndex) => <Star key={starIndex} className="h-6 w-6 text-yellow-400 fill-current" />)}
                                     {[...Array(5 - item.rating)].map((_, starIndex) => <Star key={starIndex + item.rating} className="h-6 w-6 text-gray-300" />)}
                                 </div>
-                                <img src={item.avatar} alt={t(item.nameKey)} className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-4 border-primary/20 group-hover:border-primary transition-all duration-300" />
+                                <img src={item.avatar} alt={t(item.nameKey)} loading="lazy" className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-4 border-primary/20 group-hover:border-primary transition-all duration-300" />
                                 <p className="text-muted-foreground mb-4 text-sm italic">"{t(item.feedbackKey)}"</p>
                                 <div className="absolute inset-x-0 bottom-0 bg-primary/80 text-white py-2 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out">
                                     <h4 className="text-lg font-semibold">{t(item.nameKey)}</h4>
@@ -356,6 +356,7 @@ const Index: React.FC = () => {
                                 <img
                                     src={link.src}
                                     alt={link.alt}
+                                    loading="lazy"
                                     className="h-full object-contain w-auto max-w-none"
                                 />
                             </a>

@@ -69,6 +69,7 @@ export default function Testimonials() {
                   <img
                     src={testimonial.image}
                     alt={testimonial.name}
+                    loading="lazy"
                     className="w-16 h-16 rounded-full object-cover shadow-md"
                   />
                   <div>

@@ -117,7 +117,7 @@ export function ImageUpload({ value, onChange, bucket, label = "Image" }: ImageU
 
       {value && (
         <div className="relative inline-block">
-          <img
+          <img loading="lazy"
             src={value}
             alt="Preview"
             className="w-32 h-32 object-cover rounded-lg border"

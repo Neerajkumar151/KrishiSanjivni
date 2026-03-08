@@ -149,7 +149,7 @@
 
 //   const handleEditWarehouse = async (e: React.FormEvent) => {
 //     e.preventDefault();
-    
+
 //     if (!editingWarehouse) return;
 
 //     const totalSpace = parseInt(formData.total_space_sqft);
@@ -251,16 +251,16 @@
 //     const matchesSearch = 
 //       warehouse.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
 //       warehouse.location.toLowerCase().includes(searchTerm.toLowerCase());
-    
+
 //     const matchesStorageType = storageTypeFilter === 'all' || 
 //       (warehouse.storage_options && warehouse.storage_options.some(opt => opt.storage_type === storageTypeFilter));
-    
+
 //     const matchesLocation = locationFilter === 'all' || warehouse.location === locationFilter;
-    
+
 //     const matchesAvailability = availabilityFilter === 'all' ||
 //       (availabilityFilter === 'available' && warehouse.available_space_sqft > 0) ||
 //       (availabilityFilter === 'full' && warehouse.available_space_sqft === 0);
-    
+
 //     return matchesSearch && matchesStorageType && matchesLocation && matchesAvailability;
 //   });
 
@@ -275,7 +275,7 @@
 //           <h1 className="text-4xl font-bold mb-2">Manage Warehouses</h1>
 //           <p className="text-muted-foreground">View and manage all warehouses ({warehouses.length} total)</p>
 //         </div>
-        
+
 //         <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
 //           <DialogTrigger asChild>
 //             <Button>
@@ -713,7 +713,7 @@ export const AdminWarehouses: React.FC = () => {
 
   useEffect(() => {
     fetchWarehouses();
-    
+
     // Setup realtime subscription
     const channel = supabase
       .channel('warehouse-changes')
@@ -1438,7 +1438,7 @@ export const AdminWarehouses: React.FC = () => {
               {filteredWarehouses.map((warehouse) => (
                 <TableRow key={warehouse.id}>
                   <TableCell>
-                    <img
+                    <img loading="lazy"
                       src={warehouse.image_url || '/placeholder.svg'}
                       alt={warehouse.name}
                       className="w-16 h-16 object-cover rounded"
