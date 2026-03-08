@@ -11,9 +11,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import Footer from '@/components/Footer';
 
 // Assuming asset imports are correct
-import bgVideo from '@/assets/bg-video.mp4';
 import { ChatBot } from '@/components/ChatBot';
-import BackgroundFrames from '@/components/BackgroundFrames';
 
 // IMPORTANT LINKS IMAGES (Assumed assets)
 import indiaGovLogo from '@/assets/india-gov-logo.webp';
@@ -78,8 +76,21 @@ const Index: React.FC = () => {
             {/* Hero Section */}
             <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
 
-                {/* Background Animation Canvas */}
-                <BackgroundFrames />
+                {/* Video Background */}
+                <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    poster="/bg.webp"
+                    preload="auto"
+                    className="absolute inset-0 w-full h-full object-cover z-0"
+                >
+                    <source src="/bg.webm" type="video/webm" />
+                </video>
+
+                {/* Dark Overlay */}
+                <div className="absolute inset-0 bg-black/20 z-0 pointer-events-none" />
 
 
                 <div className="relative z-10 container mx-auto px-4 text-center text-white">
