@@ -33,6 +33,7 @@ const Index: React.FC = () => {
     const { user } = useAuth();
     const navigate = useNavigate();
 
+    const [videoLoaded, setVideoLoaded] = useState(false);
     const [isChatOpen, setIsChatOpen] = useState(false);
 
     // Placeholder data using translation keys (assuming corresponding image assets exist)
@@ -74,7 +75,7 @@ const Index: React.FC = () => {
             )}
 
             {/* Hero Section */}
-            <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+            <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-[#0a1a0a]">
 
                 {/* Video Background */}
                 <video
@@ -82,9 +83,9 @@ const Index: React.FC = () => {
                     loop
                     muted
                     playsInline
-                    poster="/bg.webp"
+                    onLoadedData={() => setVideoLoaded(true)}
                     preload="auto"
-                    className="absolute inset-0 w-full h-full object-cover z-0"
+                    className={`absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-1000 ${videoLoaded ? 'opacity-100' : 'opacity-0'}`}
                 >
                     <source src="/bg.webm" type="video/webm" />
                 </video>
