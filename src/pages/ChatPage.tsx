@@ -159,6 +159,17 @@ export const ChatPage: React.FC = () => {
 
             let fileUrl: string | null = null;
             if (fileToUpload) {
+                // Check file size (2MB limit)
+                if (fileToUpload.size > 2 * 1024 * 1024) {
+                    toast({
+                        title: "File too large",
+                        description: "Maximum file size allowed is 2MB.",
+                        variant: "destructive"
+                    });
+                    setIsSending(false);
+                    return;
+                }
+
                 try {
                     const fileName = `${user.id}/${Date.now()}-${fileToUpload.name}`;
                     const { data, error: uploadError } = await supabase.storage.from('chat_uploads').upload(fileName, fileToUpload);
@@ -410,7 +421,22 @@ export const ChatPage: React.FC = () => {
                                 </div>
                             )}
                             <div className="flex gap-2">
-                                <input type="file" ref={fileInputRef} onChange={(e) => e.target.files && setFileToUpload(e.target.files[0])} className="hidden" />
+                                <input
+                                    type="file"
+                                    ref={fileInputRef}
+                                    onChange={(e) => {
+                                        const file = e.target.files?.[0];
+                                        if (file) {
+                                            if (file.size > 2 * 1024 * 1024) {
+                                                toast({ title: "File too large", description: "Please select a file smaller than 2MB.", variant: "destructive" });
+                                                if (fileInputRef.current) fileInputRef.current.value = "";
+                                                return;
+                                            }
+                                            setFileToUpload(file);
+                                        }
+                                    }}
+                                    className="hidden"
+                                />
                                 <Button type="button" variant="outline" size="icon" onClick={() => fileInputRef.current?.click()} disabled={isSending}>
                                     <Paperclip className="h-4 w-4" />
                                 </Button>
