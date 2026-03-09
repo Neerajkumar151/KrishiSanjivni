@@ -42,6 +42,7 @@ import { AdminSoilChecks } from "./pages/admin/AdminSoilChecks";
 import { AdminUsers } from "./pages/admin/AdminUsers";
 import AdminToolBookings from "./pages/admin/AdminToolBookings";
 import AdminWarehouseBookings from "./pages/admin/AdminWarehouseBookings";
+import { AdminModerationAlerts } from "./pages/admin/AdminModerationAlerts";
 
 
 // GA init (outside components)
@@ -53,12 +54,14 @@ const AppRoutes: React.FC = () => {
   const { loading } = useAuth();
   const location = useLocation();
 
-  useEffect(()=> {
+  useEffect(() => {
     ReactGA.initialize('G-7G47RJNRSM');
-    ReactGA.send({ hitType: "pageview",
-       page: window.location.pathname, 
-       title: "App.tsx" });
-  },[]);
+    ReactGA.send({
+      hitType: "pageview",
+      page: window.location.pathname,
+      title: "App.tsx"
+    });
+  }, []);
 
   if (loading) {
     return (
@@ -126,6 +129,7 @@ const AppRoutes: React.FC = () => {
           <Route path="users" element={<AdminUsers />} />
           <Route path="tool-bookings" element={<AdminToolBookings />} />
           <Route path="warehouse-bookings" element={<AdminWarehouseBookings />} />
+          <Route path="moderation" element={<AdminModerationAlerts />} />
         </Route>
 
         {/* 404 Page */}

@@ -20,6 +20,8 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { moderateMessage } from '@/lib/moderationPipeline';
+import { preloadModel } from '@/lib/toxicityDetector';
 
 // Define the data structure for a message
 interface Message {
@@ -65,6 +67,11 @@ export const ChatPage: React.FC = () => {
             scrollViewport.scrollTop = scrollViewport.scrollHeight;
         }
     };
+
+    // Preload the AI toxicity model in background
+    useEffect(() => {
+        preloadModel().catch(() => console.warn('Toxicity model preload skipped'));
+    }, []);
 
     // Fetch initial messages and subscribe to real-time updates
     useEffect(() => {
@@ -126,6 +133,24 @@ export const ChatPage: React.FC = () => {
 
         setIsSending(true);
         try {
+            // === MODERATION PIPELINE ===
+            if (newMessage.trim()) {
+                const modResult = await moderateMessage(user.id, newMessage.trim());
+                if (!modResult.allowed) {
+                    toast({
+                        title: modResult.type === 'rate_limit'
+                            ? '⏳ Slow down!'
+                            : modResult.type === 'profanity'
+                                ? '🚫 Message Blocked'
+                                : '⚠️ Message Flagged',
+                        description: modResult.reason || 'Your message violates community guidelines.',
+                        variant: 'destructive',
+                    });
+                    setIsSending(false);
+                    return;
+                }
+            }
+
             let fileUrl: string | null = null;
             if (fileToUpload) {
                 const fileName = `${user.id}/${Date.now()}-${fileToUpload.name}`;

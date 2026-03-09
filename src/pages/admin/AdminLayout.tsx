@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
-import { Sprout, LayoutDashboard, Tractor, Warehouse, TestTube, Users, LogOut, Calendar } from 'lucide-react';
+import { Sprout, LayoutDashboard, Tractor, Warehouse, TestTube, Users, LogOut, Calendar, Shield } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export const AdminLayout: React.FC = () => {
@@ -16,7 +16,8 @@ export const AdminLayout: React.FC = () => {
     { to: '/admin/tool-bookings', icon: Calendar, label: 'Tool Bookings' },
     { to: '/admin/warehouse-bookings', icon: Calendar, label: 'Warehouse Bookings' },
     { to: '/admin/soil-checks', icon: TestTube, label: 'Soil Checks' },
-    { to: '/admin/users', icon: Users, label: 'Users' }
+    { to: '/admin/users', icon: Users, label: 'Users' },
+    { to: '/admin/moderation', icon: Shield, label: 'Moderation' }
   ];
 
   const isActive = (path: string, exact: boolean = false) => {
