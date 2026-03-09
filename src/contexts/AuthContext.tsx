@@ -10,6 +10,7 @@ interface Profile {
   full_name: string | null;
   phone: string | null;
   avatar_url: string | null;
+  status: 'active' | 'banned';
 }
 
 interface UserRole {
@@ -25,6 +26,7 @@ interface AuthContextType {
   profile: Profile | null;
   userRoles: UserRole[];
   isAdmin: boolean;
+  isBanned: boolean;
   loading: boolean;
   signIn: (email: string, password: string) => Promise<{ error: any }>;
   signUp: (email: string, password: string, fullName: string) => Promise<{ error: any }>;
@@ -52,6 +54,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const navigate = useNavigate();
 
   const isAdmin = userRoles.some(role => role.role === 'admin');
+  const isBanned = profile?.status === 'banned';
 
   const fetchProfile = async (userId: string) => {
     try {
@@ -59,14 +62,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         .from('profiles')
         .select('*')
         .eq('user_id', userId)
-        .single();
+        .maybeSingle();
 
-      if (profileError) {
-        console.error('Error fetching profile:', profileError);
+      if (profileError || !profileData) {
+        console.error('Error fetching profile:', profileError || 'Profile not found');
         return;
       }
 
-      setProfile(profileData);
+      setProfile({
+        ...profileData,
+        status: (profileData as any).status || 'active'
+      } as Profile);
 
       // Fetch user roles
       const { data: rolesData, error: rolesError } = await supabase
@@ -92,7 +98,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       (event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
-        
+
         // Fetch profile after session is set
         if (session?.user) {
           setTimeout(() => {
@@ -101,7 +107,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         } else {
           setProfile(null);
         }
-        
+
         setLoading(false);
       }
     );
@@ -110,18 +116,47 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
-      
+
       if (session?.user) {
         setTimeout(() => {
           fetchProfile(session.user.id);
         }, 0);
       }
-      
+
       setLoading(false);
     });
 
     return () => subscription.unsubscribe();
   }, []);
+
+  useEffect(() => {
+    if (!user) return;
+
+    const channel = supabase
+      .channel(`profile_updates_${user.id}`)
+      .on(
+        'postgres_changes',
+        {
+          event: 'UPDATE',
+          schema: 'public',
+          table: 'profiles',
+          filter: `user_id=eq.${user.id}`,
+        },
+        (payload) => {
+          if (payload.new) {
+            setProfile({
+              ...(payload.new as any),
+              status: (payload.new as any).status || 'active'
+            } as Profile);
+          }
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [user]);
 
   const signIn = async (email: string, password: string) => {
     const { error } = await supabase.auth.signInWithPassword({
@@ -130,9 +165,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     });
 
     if (error) {
+      let description = error.message;
+      if (error.message === 'Invalid login credentials') {
+        description = 'No account found with these credentials. Please sign up first.';
+      }
       toast({
         title: "Login Failed",
-        description: error.message,
+        description,
         variant: "destructive"
       });
     } else {
@@ -147,7 +186,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const signUp = async (email: string, password: string, fullName: string) => {
     const redirectUrl = `${window.location.origin}/`;
-    
+
     const { error } = await supabase.auth.signUp({
       email,
       password,
@@ -178,7 +217,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();
-    
+
     if (error) {
       toast({ title: "Error", description: "Failed to sign out", variant: "destructive" });
     } else {
@@ -201,6 +240,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     profile,
     userRoles,
     isAdmin,
+    isBanned,
     loading,
     signIn,
     signUp,

@@ -5,10 +5,21 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Send, Paperclip, XCircle, Loader2 } from 'lucide-react';
+import { Send, Paperclip, XCircle, Loader2, Trash2, UserX } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useToast } from '@/hooks/use-toast';
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 // Define the data structure for a message
 interface Message {
@@ -37,7 +48,7 @@ const renderFileContent = (url: string) => {
 
 export const ChatPage: React.FC = () => {
     const { t } = useTranslation();
-    const { user, profile } = useAuth();
+    const { user, profile, isAdmin, isBanned } = useAuth();
     const { toast } = useToast();
     const [messages, setMessages] = useState<Message[]>([]);
     const [newMessage, setNewMessage] = useState('');
@@ -90,6 +101,9 @@ export const ChatPage: React.FC = () => {
                     const incomingMessage = { ...payload.new, profiles: profileData } as Message;
                     setMessages(currentMessages => [...currentMessages, incomingMessage]);
                 }
+            })
+            .on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'messages' }, (payload) => {
+                setMessages(currentMessages => currentMessages.filter(msg => msg.id !== payload.old.id));
             })
             .subscribe();
 
@@ -152,11 +166,45 @@ export const ChatPage: React.FC = () => {
             setFileToUpload(null);
             if (fileInputRef.current) fileInputRef.current.value = "";
 
-        } catch (error: any) {
-            console.error("Detailed send error:", error);
-            toast({ title: 'Failed to Send Message', description: error.message, variant: 'destructive' });
         } finally {
             setIsSending(false);
+        }
+    };
+
+    const handleDeleteMessage = async (messageId: number) => {
+        try {
+            const { error } = await supabase.from('messages').delete().eq('id', messageId);
+            if (error) throw error;
+            setMessages(currentMessages => currentMessages.filter(msg => msg.id !== messageId));
+            toast({ title: t('chat.message_deleted', 'Message deleted') });
+        } catch (error: any) {
+            toast({ title: t('error.delete_failed', 'Failed to delete message'), description: error.message, variant: 'destructive' });
+        }
+    };
+
+    const handleBanUser = async (targetUserId: string, targetUserName: string) => {
+        try {
+            // 1. Ban the user in profiles
+            const { error: banError } = await supabase
+                .from('profiles')
+                .update({ status: 'banned' })
+                .eq('user_id', targetUserId);
+
+            if (banError) throw banError;
+
+            // 2. Delete all their messages
+            const { error: deleteError } = await supabase
+                .from('messages')
+                .delete()
+                .eq('user_id', targetUserId);
+
+            if (deleteError) throw deleteError;
+
+            // 3. Update UI
+            setMessages(currentMessages => currentMessages.filter(msg => msg.user_id !== targetUserId));
+            toast({ title: t('chat.user_banned', 'User has been banned') });
+        } catch (error: any) {
+            toast({ title: t('error.ban_failed', 'Failed to ban user'), description: error.message, variant: 'destructive' });
         }
     };
 
@@ -177,13 +225,63 @@ export const ChatPage: React.FC = () => {
                                             <AvatarFallback>{msg.profiles?.full_name?.charAt(0).toUpperCase() || 'U'}</AvatarFallback>
                                         </Avatar>
                                     )}
-                                    <div className={`max-w-xs md:max-w-md p-3 rounded-lg ${isCurrentUser ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}>
+                                    <div className={`max-w-xs md:max-w-md p-3 rounded-lg ${isCurrentUser ? 'bg-primary text-primary-foreground' : 'bg-muted'} relative group`}>
                                         {!isCurrentUser && <p className="text-xs font-bold mb-1">{msg.profiles?.full_name || 'User'}</p>}
                                         {msg.message && <p className="whitespace-pre-wrap break-words">{msg.message}</p>}
                                         {msg.file_url && renderFileContent(msg.file_url)}
-                                        <p className={`text-xs mt-1 ${isCurrentUser ? 'text-primary-foreground/70' : 'text-muted-foreground'} text-right`}>
-                                            {new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                        </p>
+                                        <div className="flex items-center justify-between mt-1 gap-2">
+                                            <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                {(isAdmin || isCurrentUser) && (
+                                                    <AlertDialog>
+                                                        <AlertDialogTrigger asChild>
+                                                            <Button variant="ghost" size="icon" className={`h-5 w-5 ${isCurrentUser ? 'text-primary-foreground/70 hover:text-primary-foreground' : 'text-muted-foreground hover:text-destructive'}`}>
+                                                                <Trash2 className="h-3 w-3" />
+                                                            </Button>
+                                                        </AlertDialogTrigger>
+                                                        <AlertDialogContent>
+                                                            <AlertDialogHeader>
+                                                                <AlertDialogTitle>{t('chat.confirm_delete_title', 'Delete Message')}</AlertDialogTitle>
+                                                                <AlertDialogDescription>
+                                                                    {t('chat.confirm_delete_desc', 'Are you sure you want to delete this message? This action cannot be undone.')}
+                                                                </AlertDialogDescription>
+                                                            </AlertDialogHeader>
+                                                            <AlertDialogFooter>
+                                                                <AlertDialogCancel>{t('common.cancel', 'Cancel')}</AlertDialogCancel>
+                                                                <AlertDialogAction onClick={() => handleDeleteMessage(msg.id)} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+                                                                    {t('common.delete', 'Delete')}
+                                                                </AlertDialogAction>
+                                                            </AlertDialogFooter>
+                                                        </AlertDialogContent>
+                                                    </AlertDialog>
+                                                )}
+                                                {isAdmin && !isCurrentUser && (
+                                                    <AlertDialog>
+                                                        <AlertDialogTrigger asChild>
+                                                            <Button variant="ghost" size="icon" className="h-5 w-5 text-muted-foreground hover:text-destructive">
+                                                                <UserX className="h-3 w-3" />
+                                                            </Button>
+                                                        </AlertDialogTrigger>
+                                                        <AlertDialogContent>
+                                                            <AlertDialogHeader>
+                                                                <AlertDialogTitle>{t('chat.confirm_ban_title', 'Ban User')}</AlertDialogTitle>
+                                                                <AlertDialogDescription>
+                                                                    {t('chat.confirm_ban_desc', 'Are you sure you want to ban')} {msg.profiles?.full_name || 'User'}? {t('chat.ban_consequence', 'This will also delete all their messages and prevent them from chatting again.')}
+                                                                </AlertDialogDescription>
+                                                            </AlertDialogHeader>
+                                                            <AlertDialogFooter>
+                                                                <AlertDialogCancel>{t('common.cancel', 'Cancel')}</AlertDialogCancel>
+                                                                <AlertDialogAction onClick={() => handleBanUser(msg.user_id, msg.profiles?.full_name || 'User')} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+                                                                    {t('chat.ban', 'Ban User')}
+                                                                </AlertDialogAction>
+                                                            </AlertDialogFooter>
+                                                        </AlertDialogContent>
+                                                    </AlertDialog>
+                                                )}
+                                            </div>
+                                            <p className={`text-xs ${isCurrentUser ? 'text-primary-foreground/70' : 'text-muted-foreground'}`}>
+                                                {new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                            </p>
+                                        </div>
                                     </div>
                                     {isCurrentUser && (
                                         <Avatar className="h-8 w-8">
@@ -197,27 +295,33 @@ export const ChatPage: React.FC = () => {
                     </div>
                 </ScrollArea>
                 {user ? (
-                    <form onSubmit={handleSendMessage} className="flex flex-col gap-2 pt-2 border-t">
-                        {fileToUpload && (
-                            <div className="flex items-center gap-2 p-2 bg-muted rounded-md text-sm">
-                                <Paperclip className="h-4 w-4" />
-                                <span className="flex-grow truncate">{fileToUpload.name}</span>
-                                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => { setFileToUpload(null); if (fileInputRef.current) fileInputRef.current.value = ""; }}>
-                                    <XCircle className="h-4 w-4" />
+                    isBanned ? (
+                        <div className="p-4 bg-destructive/10 border border-destructive/20 rounded-md text-center text-destructive">
+                            {t('chat.banned_message', 'Your account has been banned from participating in the chat.')}
+                        </div>
+                    ) : (
+                        <form onSubmit={handleSendMessage} className="flex flex-col gap-2 pt-2 border-t">
+                            {fileToUpload && (
+                                <div className="flex items-center gap-2 p-2 bg-muted rounded-md text-sm">
+                                    <Paperclip className="h-4 w-4" />
+                                    <span className="flex-grow truncate">{fileToUpload.name}</span>
+                                    <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => { setFileToUpload(null); if (fileInputRef.current) fileInputRef.current.value = ""; }}>
+                                        <XCircle className="h-4 w-4" />
+                                    </Button>
+                                </div>
+                            )}
+                            <div className="flex gap-2">
+                                <input type="file" ref={fileInputRef} onChange={(e) => e.target.files && setFileToUpload(e.target.files[0])} className="hidden" />
+                                <Button type="button" variant="outline" size="icon" onClick={() => fileInputRef.current?.click()} disabled={isSending}>
+                                    <Paperclip className="h-4 w-4" />
+                                </Button>
+                                <Input value={newMessage} onChange={(e) => setNewMessage(e.target.value)} placeholder="Type a message or upload a file..." disabled={isSending} autoComplete="off" />
+                                <Button type="submit" size="icon" disabled={isSending}>
+                                    {isSending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
                                 </Button>
                             </div>
-                        )}
-                        <div className="flex gap-2">
-                            <input type="file" ref={fileInputRef} onChange={(e) => e.target.files && setFileToUpload(e.target.files[0])} className="hidden" />
-                            <Button type="button" variant="outline" size="icon" onClick={() => fileInputRef.current?.click()} disabled={isSending}>
-                                <Paperclip className="h-4 w-4" />
-                            </Button>
-                            <Input value={newMessage} onChange={(e) => setNewMessage(e.target.value)} placeholder="Type a message or upload a file..." disabled={isSending} autoComplete="off" />
-                            <Button type="submit" size="icon" disabled={isSending}>
-                                {isSending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
-                            </Button>
-                        </div>
-                    </form>
+                        </form>
+                    )
                 ) : (
                     <p className="text-center text-muted-foreground pt-4 border-t">{t('chat.login_to_chat', 'Please log in to join the chat.')}</p>
                 )}

@@ -94,7 +94,7 @@ const Auth: React.FC = () => {
               <form onSubmit={signUpForm.handleSubmit(handleSignUp)} className="space-y-4">
                 <div>
                   <Label htmlFor="fullName">{t('auth.fullName')}</Label>
-                  <Input id="fullName" type="text" {...signUpForm.register('fullName')} className="mt-1" />
+                  <Input id="signup-fullName" type="text" autoComplete="name" {...signUpForm.register('fullName')} className="mt-1" />
                   {signUpForm.formState.errors.fullName && (
                     <p className="text-sm text-destructive mt-1">
                       {signUpForm.formState.errors.fullName.message}
@@ -104,7 +104,7 @@ const Auth: React.FC = () => {
 
                 <div>
                   <Label htmlFor="email">{t('auth.email')}</Label>
-                  <Input id="email" type="email" {...signUpForm.register('email')} className="mt-1" />
+                  <Input id="signup-email" type="email" autoComplete="email" {...signUpForm.register('email')} className="mt-1" />
                   {signUpForm.formState.errors.email && (
                     <p className="text-sm text-destructive mt-1">
                       {signUpForm.formState.errors.email.message}
@@ -114,7 +114,7 @@ const Auth: React.FC = () => {
 
                 <div>
                   <Label htmlFor="password">{t('auth.password')}</Label>
-                  <Input id="password" type="password" {...signUpForm.register('password')} className="mt-1" />
+                  <Input id="signup-password" type="password" autoComplete="new-password" {...signUpForm.register('password')} className="mt-1" />
                   {signUpForm.formState.errors.password && (
                     <p className="text-sm text-destructive mt-1">
                       {signUpForm.formState.errors.password.message}
@@ -124,7 +124,7 @@ const Auth: React.FC = () => {
 
                 <div>
                   <Label htmlFor="confirmPassword">{t('auth.confirmPassword')}</Label>
-                  <Input id="confirmPassword" type="password" {...signUpForm.register('confirmPassword')} className="mt-1" />
+                  <Input id="signup-confirmPassword" type="password" autoComplete="new-password" {...signUpForm.register('confirmPassword')} className="mt-1" />
                   {signUpForm.formState.errors.confirmPassword && (
                     <p className="text-sm text-destructive mt-1">
                       {signUpForm.formState.errors.confirmPassword.message}
@@ -138,7 +138,7 @@ const Auth: React.FC = () => {
 
                 <p className="text-center text-sm text-muted-foreground">
                   {t('auth.alreadyHaveAccount')}{' '}
-                  <button type="button" onClick={() => setIsSignUp(false)} className="text-primary hover:underline">
+                  <button type="button" onClick={() => { signUpForm.reset(); setIsSignUp(false); }} className="text-primary hover:underline">
                     {t('auth.signIn')}
                   </button>
                 </p>
@@ -147,7 +147,7 @@ const Auth: React.FC = () => {
               <form onSubmit={signInForm.handleSubmit(handleSignIn)} className="space-y-4">
                 <div>
                   <Label htmlFor="email">{t('auth.email')}</Label>
-                  <Input id="email" type="email" {...signInForm.register('email')} className="mt-1" />
+                  <Input id="signin-email" type="email" autoComplete="email" {...signInForm.register('email')} className="mt-1" />
                   {signInForm.formState.errors.email && (
                     <p className="text-sm text-destructive mt-1">{signInForm.formState.errors.email.message}</p>
                   )}
@@ -155,7 +155,7 @@ const Auth: React.FC = () => {
 
                 <div>
                   <Label htmlFor="password">{t('auth.password')}</Label>
-                  <Input id="password" type="password" {...signInForm.register('password')} className="mt-1" />
+                  <Input id="signin-password" type="password" autoComplete="current-password" {...signInForm.register('password')} className="mt-1" />
                   {signInForm.formState.errors.password && (
                     <p className="text-sm text-destructive mt-1">{signInForm.formState.errors.password.message}</p>
                   )}
@@ -167,7 +167,7 @@ const Auth: React.FC = () => {
 
                 <p className="text-center text-sm text-muted-foreground">
                   {t('auth.dontHaveAccount')}{' '}
-                  <button type="button" onClick={() => setIsSignUp(true)} className="text-primary hover:underline">
+                  <button type="button" onClick={() => { signInForm.reset(); setIsSignUp(true); }} className="text-primary hover:underline">
                     {t('auth.signUp')}
                   </button>
                 </p>
