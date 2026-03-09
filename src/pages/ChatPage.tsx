@@ -159,11 +159,18 @@ export const ChatPage: React.FC = () => {
 
             let fileUrl: string | null = null;
             if (fileToUpload) {
-                const fileName = `${user.id}/${Date.now()}-${fileToUpload.name}`;
-                const { data, error: uploadError } = await supabase.storage.from('chat_uploads').upload(fileName, fileToUpload);
-                if (uploadError) throw uploadError;
-                const { data: { publicUrl } } = supabase.storage.from('chat_uploads').getPublicUrl(data.path);
-                fileUrl = publicUrl;
+                try {
+                    const fileName = `${user.id}/${Date.now()}-${fileToUpload.name}`;
+                    const { data, error: uploadError } = await supabase.storage.from('chat_uploads').upload(fileName, fileToUpload);
+                    if (uploadError) throw uploadError;
+                    const { data: { publicUrl } } = supabase.storage.from('chat_uploads').getPublicUrl(data.path);
+                    fileUrl = publicUrl;
+                } catch (uploadErr) {
+                    console.error("Upload Error:", uploadErr);
+                    toast({ title: "Upload Failed", description: "Could not upload file. Make sure it's not too large.", variant: "destructive" });
+                    setIsSending(false);
+                    return;
+                }
             }
 
             // **Simplified Insert:** The database now handles the 'profile_id' automatically.
@@ -200,11 +207,11 @@ export const ChatPage: React.FC = () => {
             // === AI ASSISTANT PIPELINE ===
             // Run asynchronously without blocking the user
             setTimeout(async () => {
+                if (!messageToInsert.message) return; // Only AI respond to text
                 if (!shouldAIRespond(messageToInsert.message)) return;
                 if (!canAIReply()) return;
 
                 try {
-                    // Show a typing indicator or just await the response
                     const aiReply = await generateAIResponse(messageToInsert.message);
 
                     const aiMessageToInsert = {
@@ -222,8 +229,6 @@ export const ChatPage: React.FC = () => {
 
                     if (aiInsertError) console.error("AI Insert Error:", aiInsertError);
 
-                    // We don't need to manually update state here if the real-time listener catches it,
-                    // but for instant feedback on the sender's screen:
                     if (insertedAIMessage) {
                         setMessages(currentMessages => [...currentMessages, {
                             ...insertedAIMessage,
@@ -236,6 +241,13 @@ export const ChatPage: React.FC = () => {
                 }
             }, 500);
 
+        } catch (error: any) {
+            console.error("Failed to send message:", error);
+            toast({
+                title: 'Error',
+                description: error.message || 'Something went wrong while sending your message.',
+                variant: 'destructive',
+            });
         } finally {
             setIsSending(false);
         }
