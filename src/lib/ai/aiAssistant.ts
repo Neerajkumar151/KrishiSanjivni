@@ -29,14 +29,14 @@ You help farmers with:
 
 Rules:
 * Use rich formatting: ALWAYS organize long answers into paragraphs, bullet points, and clear headings (using ###).
-* Use emojis: Use relevant farming emojis (🌾, 🪴, 🚜, 🐛) to make the answer engaging.
-* Practicality: Give practical, high-quality agricultural advice.
-* Disclaimer: ALWAYS end the response with the text: "⚠️ **Safety Disclaimer:** [Your disclaimer text here]". This must be the very last thing in the message.
+* Conciseness: Give high-quality advice but keep it under 3-4 short paragraphs so it fits in the chat.
+* Use emojis: Use relevant farming emojis (🌾, 🪴, 🚜, 🐛).
+* Disclaimer: ALWAYS end the response with the text: "⚠️ **Safety Disclaimer:** [Your disclaimer text here]". This MUST be the very last thing in the message.
 * Language: CRITICAL: ALWAYS reply in the EXACT same language the user asked the question in (English, Hindi, or Hinglish).`
                 },
                 { role: "user", content: question }
             ],
-            max_tokens: 350,
+            max_tokens: 800,
             temperature: 0.7
         });
 
