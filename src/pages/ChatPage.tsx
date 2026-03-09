@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { Layout } from '@/components/layout/Layout';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
@@ -22,6 +24,9 @@ import {
 } from "@/components/ui/alert-dialog";
 import { moderateMessage } from '@/lib/moderationPipeline';
 import { preloadModel } from '@/lib/toxicityDetector';
+import { shouldAIRespond } from '@/lib/ai/intentDetection';
+import { canAIReply } from '@/lib/ai/aiCooldown';
+import { generateAIResponse } from '@/lib/ai/aiAssistant';
 
 // Define the data structure for a message
 interface Message {
@@ -34,6 +39,7 @@ interface Message {
         full_name: string;
         avatar_url?: string;
     } | null;
+    is_ai_message?: boolean;
 }
 
 // Helper component to render uploaded files
@@ -191,6 +197,45 @@ export const ChatPage: React.FC = () => {
             setFileToUpload(null);
             if (fileInputRef.current) fileInputRef.current.value = "";
 
+            // === AI ASSISTANT PIPELINE ===
+            // Run asynchronously without blocking the user
+            setTimeout(async () => {
+                if (!shouldAIRespond(messageToInsert.message)) return;
+                if (!canAIReply()) return;
+
+                try {
+                    // Show a typing indicator or just await the response
+                    const aiReply = await generateAIResponse(messageToInsert.message);
+
+                    const aiMessageToInsert = {
+                        message: aiReply,
+                        user_id: user.id, // Using the user's ID as the "sender" context, but flagged as AI
+                        channel_id: 1,
+                        is_ai_message: true
+                    };
+
+                    const { data: insertedAIMessage, error: aiInsertError } = await supabase
+                        .from('messages')
+                        .insert(aiMessageToInsert)
+                        .select()
+                        .single();
+
+                    if (aiInsertError) console.error("AI Insert Error:", aiInsertError);
+
+                    // We don't need to manually update state here if the real-time listener catches it,
+                    // but for instant feedback on the sender's screen:
+                    if (insertedAIMessage) {
+                        setMessages(currentMessages => [...currentMessages, {
+                            ...insertedAIMessage,
+                            profiles: { full_name: 'KrishiSanjivni AI', avatar_url: undefined }
+                        } as Message]);
+                    }
+
+                } catch (error) {
+                    console.error("AI Assistant Error:", error);
+                }
+            }, 500);
+
         } finally {
             setIsSending(false);
         }
@@ -241,7 +286,7 @@ export const ChatPage: React.FC = () => {
                     <div className="space-y-4">
                         {loading && <p className="text-center text-muted-foreground">{t('common.loading', 'Loading chat...')}</p>}
                         {messages.map((msg) => {
-                            const isCurrentUser = msg.user_id === user?.id;
+                            const isCurrentUser = msg.user_id === user?.id && !msg.is_ai_message;
                             return (
                                 <div key={msg.id} className={`flex items-start gap-3 ${isCurrentUser ? 'justify-end' : ''}`}>
                                     {!isCurrentUser && (
@@ -250,11 +295,27 @@ export const ChatPage: React.FC = () => {
                                             <AvatarFallback>{msg.profiles?.full_name?.charAt(0).toUpperCase() || 'U'}</AvatarFallback>
                                         </Avatar>
                                     )}
-                                    <div className={`max-w-xs md:max-w-md p-3 rounded-lg ${isCurrentUser ? 'bg-primary text-primary-foreground' : 'bg-muted'} relative group`}>
-                                        {!isCurrentUser && <p className="text-xs font-bold mb-1">{msg.profiles?.full_name || 'User'}</p>}
-                                        {msg.message && <p className="whitespace-pre-wrap break-words">{msg.message}</p>}
+                                    <div className={`max-w-xs md:max-w-md p-3 rounded-lg ${msg.is_ai_message ? 'bg-green-100 text-green-900 border border-green-300' : isCurrentUser ? 'bg-primary text-primary-foreground' : 'bg-muted'} relative group`}>
+                                        {msg.is_ai_message && (
+                                            <div className="flex items-center gap-2 mb-2 pb-1 border-b border-green-200 font-semibold text-green-800 text-sm">
+                                                <span className="text-lg">🌾</span> KrishiSanjivni AI
+                                            </div>
+                                        )}
+                                        {!isCurrentUser && !msg.is_ai_message && <p className="text-xs font-bold mb-1">{msg.profiles?.full_name || 'User'}</p>}
+                                        {msg.message && (
+                                            msg.is_ai_message ? (
+                                                <div className="prose prose-sm prose-green max-w-none break-words">
+                                                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                                        {msg.message}
+                                                    </ReactMarkdown>
+                                                </div>
+                                            ) : (
+                                                <p className="whitespace-pre-wrap break-words">{msg.message}</p>
+                                            )
+                                        )}
                                         {msg.file_url && renderFileContent(msg.file_url)}
-                                        <div className="flex items-center justify-between mt-1 gap-2">
+
+                                        <div className="flex items-center justify-between mt-2 gap-2">
                                             <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                                 {(isAdmin || isCurrentUser) && (
                                                     <AlertDialog>
@@ -308,6 +369,7 @@ export const ChatPage: React.FC = () => {
                                             </p>
                                         </div>
                                     </div>
+
                                     {isCurrentUser && (
                                         <Avatar className="h-8 w-8">
                                             <AvatarImage src={profile?.avatar_url} />
