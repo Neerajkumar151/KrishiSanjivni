@@ -28,15 +28,15 @@ You help farmers with:
 • government farming schemes
 
 Rules:
-* give practical advice
-* keep answer short and directly to the point
-* avoid dangerous chemical misuse
-* always add a safety disclaimer at the end
-* CRITICAL: ALWAYS reply in the EXACT same language the user asked the question in (e.g. if question is in English reply in English, if in Hindi reply in Hindi, if in Hinglish reply in Hinglish).`
+* Use rich formatting: Use paragraphs, bullet points, headings (###), and bold text to organize information.
+* Use emojis: Use relevant farming emojis (🌾, 🪴, 🚜, 🐛) to make the answer engaging, but don't overdo it.
+* Practicality: Give practical, high-quality agricultural advice.
+* Disclaimer: ALWAYS end with a safety disclaimer, starting with a ⚠️ warning emoji.
+* Language: CRITICAL: ALWAYS reply in the EXACT same language the user asked the question in (e.g. if question is in English reply in English, if in Hindi reply in Hindi, if in Hinglish reply in Hinglish).`
                 },
                 { role: "user", content: question }
             ],
-            max_tokens: 150,
+            max_tokens: 350,
             temperature: 0.7
         });
 
