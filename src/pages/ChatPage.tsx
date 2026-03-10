@@ -65,6 +65,7 @@ export const ChatPage: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const scrollAreaRef = useRef<HTMLDivElement>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const messageInputRef = useRef<HTMLInputElement>(null);
 
     // Function to scroll to the bottom of the chat
     const scrollToBottom = () => {
@@ -214,6 +215,9 @@ export const ChatPage: React.FC = () => {
             setNewMessage('');
             setFileToUpload(null);
             if (fileInputRef.current) fileInputRef.current.value = "";
+
+            // Refocus the input field after sending
+            setTimeout(() => messageInputRef.current?.focus(), 0);
 
             // === AI ASSISTANT PIPELINE ===
             // Run asynchronously without blocking the user
@@ -469,6 +473,8 @@ export const ChatPage: React.FC = () => {
                                                 return;
                                             }
                                             setFileToUpload(file);
+                                            // Focus the message input after selecting a file
+                                            setTimeout(() => messageInputRef.current?.focus(), 0);
                                         }
                                     }}
                                     className="hidden"
@@ -477,6 +483,7 @@ export const ChatPage: React.FC = () => {
                                     <Paperclip className="h-4 w-4" />
                                 </Button>
                                 <Input
+                                    ref={messageInputRef}
                                     value={newMessage}
                                     onChange={(e) => setNewMessage(e.target.value)}
                                     placeholder="Type a message or upload a file..."
