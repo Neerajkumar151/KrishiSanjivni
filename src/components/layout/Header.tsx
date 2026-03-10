@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
-import { Sprout, User, LogOut, ChevronDown, Menu } from 'lucide-react';
+import { Sprout, User, LogOut, ChevronDown, Menu, MessageSquare } from 'lucide-react';
 import { LanguageSelector } from '../ui/language-selector';
 import {
     DropdownMenu,
@@ -156,7 +156,11 @@ export const Header: React.FC = () => {
                                 </DropdownMenuItem>
                                 <DropdownMenuItem onClick={() => navigate('/payment-history')}>
                                     <User className="mr-2 h-4 w-4" />
-                                    {t('nav.paymentHistory')}
+                                    {t('nav.paymentHistory', 'Payment History')}
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => navigate('/admin-chat')}>
+                                    <MessageSquare className="mr-2 h-4 w-4" />
+                                    {t('nav.adminChat', 'Admin Chat')}
                                 </DropdownMenuItem>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem onClick={handleSignOut}>
@@ -209,6 +213,12 @@ export const Header: React.FC = () => {
                                             <Link to="/market-prices" onClick={() => setIsMobileMenuOpen(false)} className="text-foreground/80 hover:text-foreground transition-colors">
                                                 {t('nav.marketPrices')}
                                             </Link>
+                                            {user && (
+                                                <Link to="/admin-chat" onClick={() => setIsMobileMenuOpen(false)} className="text-foreground/80 hover:text-foreground transition-colors flex items-center gap-2 mt-2">
+                                                    <MessageSquare className="h-4 w-4" />
+                                                    {t('nav.adminChat', 'Admin Chat')}
+                                                </Link>
+                                            )}
                                         </div>
                                     </div>
 

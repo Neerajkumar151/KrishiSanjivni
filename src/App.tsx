@@ -43,7 +43,8 @@ import { AdminUsers } from "./pages/admin/AdminUsers";
 import AdminToolBookings from "./pages/admin/AdminToolBookings";
 import AdminWarehouseBookings from "./pages/admin/AdminWarehouseBookings";
 import { AdminModerationAlerts } from "./pages/admin/AdminModerationAlerts";
-
+import { AdminMessagesPage } from "./pages/admin/AdminMessagesPage";
+import { UserAdminChatPage } from "./pages/UserAdminChatPage";
 
 // GA init (outside components)
 // ReactGA.initialize('G-7G47RJNRSM');
@@ -112,6 +113,14 @@ const AppRoutes: React.FC = () => {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/admin-chat"
+          element={
+            <ProtectedRoute>
+              <UserAdminChatPage />
+            </ProtectedRoute>
+          }
+        />
 
         {/* Admin Routes */}
         <Route
@@ -126,9 +135,10 @@ const AppRoutes: React.FC = () => {
           <Route path="tools" element={<AdminTools />} />
           <Route path="warehouses" element={<AdminWarehouses />} />
           <Route path="soil-checks" element={<AdminSoilChecks />} />
-          <Route path="users" element={<AdminUsers />} />
           <Route path="tool-bookings" element={<AdminToolBookings />} />
           <Route path="warehouse-bookings" element={<AdminWarehouseBookings />} />
+          <Route path="users" element={<AdminUsers />} />
+          <Route path="messages" element={<AdminMessagesPage />} />
           <Route path="moderation" element={<AdminModerationAlerts />} />
         </Route>
 
@@ -157,3 +167,4 @@ const App: React.FC = () => {
 };
 
 export default App;
+

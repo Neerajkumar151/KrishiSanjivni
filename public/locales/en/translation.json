@@ -1343,5 +1343,21 @@
   "Official government portals for more information": "Official government portals for more information",
   "Ministry of Agriculture": "Ministry of Agriculture",
   "PM-KISAN Portal": "PM-KISAN Portal",
-  "Open Government Data": "Open Government Data"
+  "Open Government Data": "Open Government Data",
+  "adminChat": {
+    "title": "Admin Support & Announcements",
+    "subtitle": "View official broadcasts and send private messages to the KrishiSanjivni support team.",
+    "adminModeTitle": "Admin Mode Active",
+    "adminModeDesc": "This page is for users to contact support. You are logged in as an administrator.\n\nTo manage all user conversations and send official broadcasts, please use your dedicated dashboard.",
+    "openAdminArea": "Open Admin Messages Area",
+    "officialAnnouncements": "Official Announcements",
+    "noAnnouncements": "No announcements yet.",
+    "systemBroadcast": "System Broadcast",
+    "privateChatWarning": "Private Chat. Messages are securely encrypted. Admins will respond as soon as possible.",
+    "loadingHistory": "Loading conversation history...",
+    "noMessages": "No messages yet. Say hello to support!",
+    "initializing": "Initializing chat...",
+    "typeMessage": "Type your message to support...",
+    "broadcastIndicator": "Broadcast"
+  }
 }
