@@ -217,49 +217,95 @@ npm run dev
 
 ## 📂 Project Structure
 ```bash
-KrishiSanjivni
-│── public
-│   ├── locales (translations)
+KrishiSanjivni/
+├── public/
+│   ├── assets/              # Screenshots and demo media
+│   ├── locales/             # i18n translation files
+│   │   ├── bn/              # Bengali
+│   │   ├── en/              # English
+│   │   ├── hi/              # Hindi
+│   │   ├── ta/              # Tamil
+│   │   └── te/              # Telugu
+│   ├── tools/               # Equipment/tool images
+│   ├── warehouse/           # Warehouse images
 │   ├── logo.webp
 │   ├── bg.webp
+│   └── robots.txt
 │
-│── src
-│   ├── assets
-│   ├── components
+├── src/
+│   ├── assets/              # App images (avatars, logos, features)
+│   ├── components/
+│   │   ├── auth/            # ProtectedRoute
+│   │   ├── booking/         # ToolBookingDialog, WarehouseBookingDialog
+│   │   ├── layout/          # Header, Footer, Layout
+│   │   ├── tools/           # ToolDetailsDialog
+│   │   ├── ui/              # Shadcn/Radix UI components
+│   │   ├── warehouse/       # WarehouseDetailsDialog
 │   │   ├── ChatBot.tsx
-│   │   ├── Services.tsx
-│   │   └── booking/
+│   │   ├── Community.tsx
+│   │   ├── Hero.tsx
+│   │   ├── Navigation.tsx
+│   │   └── Services.tsx
 │   │
-│   ├── pages
-│   │   ├── Index.tsx
-│   │   ├── Tools.tsx
-│   │   ├── Warehouse.tsx
-│   │   ├── SoilCheck.tsx
-│   │   ├── MarketPrices.tsx
-│   │   ├── Weather.tsx
-│   │   ├── CommunityPage.tsx
-│   │   ├── admin/
+│   ├── contexts/
+│   │   └── AuthContext.tsx
+│   │
+│   ├── hooks/               # Custom React hooks
+│   ├── integrations/
+│   │   └── supabase/        # Supabase client & types
+│   │
+│   ├── lib/
+│   │   ├── ai/              # AI assistant, cooldown, intent detection
+│   │   ├── i18n.ts          # Internationalization config
+│   │   ├── moderationPipeline.ts
+│   │   ├── profanityFilter.ts
+│   │   ├── rateLimiter.ts
+│   │   ├── toxicityDetector.ts
+│   │   └── utils.ts
+│   │
+│   ├── pages/
+│   │   ├── admin/           # Admin dashboard & management pages
 │   │   │   ├── Dashboard.tsx
 │   │   │   ├── AdminTools.tsx
 │   │   │   ├── AdminWarehouses.tsx
 │   │   │   ├── AdminSoilChecks.tsx
-│   │   │   └── AdminUsers.tsx
+│   │   │   ├── AdminUsers.tsx
+│   │   │   ├── AdminToolBookings.tsx
+│   │   │   ├── AdminWarehouseBookings.tsx
+│   │   │   └── AdminModerationAlerts.tsx
+│   │   │
+│   │   ├── Index.tsx         # Landing page
+│   │   ├── Auth.tsx          # Authentication
+│   │   ├── Tools.tsx         # Equipment rental
+│   │   ├── Warehouse.tsx     # Warehouse booking
+│   │   ├── SoilCheck.tsx     # Soil testing
+│   │   ├── MarketPrices.tsx  # Live mandi prices
+│   │   ├── Weather.tsx       # Weather forecasts
+│   │   ├── CommunityPage.tsx # Community hub
+│   │   ├── ChatPage.tsx      # Chat interface
+│   │   ├── Profile.tsx       # User profile
+│   │   └── Resources.tsx     # Farming resources
+│   │
+│   ├── styles/              # Custom CSS (glass effects)
+│   ├── App.tsx              # Main app with routing
+│   └── main.tsx             # Entry point
 │
-│── supabase
-│   ├── config.toml
-│   ├── migrations
-│   └── functions/
-│       ├── create-razorpay-order
-│       ├── record-payment
-│       ├── farming-chat
-│       ├── speech-to-text
-│       └── text-to-speech
+├── supabase/
+│   ├── config.toml          # Supabase local config
+│   ├── migrations/          # Database migration files
+│   └── functions/           # Supabase Edge Functions
+│       ├── create-razorpay-order/
+│       ├── record-payment/
+│       ├── farming-chat/
+│       ├── speech-to-text/
+│       └── text-to-speech/
 │
-│── package.json
-│── vite.config.ts
-│── tailwind.config.ts
-│── .env.example
-
+├── .env.example             # Environment variable template
+├── package.json
+├── vite.config.ts
+├── tailwind.config.ts
+├── vercel.json              # Vercel deployment config
+└── eslint.config.js
 ```
 ---
 ## 🗺️ Future Roadmap

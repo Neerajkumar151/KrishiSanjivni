@@ -28,6 +28,7 @@ vite.config.ts.timestamp*
 # Supabase keys (⚠️ sensitive)
 supabase/.env
 supabase/functions/**/.env
+supabase/.temp/
 
 # Editor & system files
 .DS_Store
