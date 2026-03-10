@@ -445,7 +445,13 @@ export const ChatPage: React.FC = () => {
                                 <div className="flex items-center gap-2 p-2 bg-muted rounded-md text-sm">
                                     <Paperclip className="h-4 w-4" />
                                     <span className="flex-grow truncate">{fileToUpload.name}</span>
-                                    <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => { setFileToUpload(null); if (fileInputRef.current) fileInputRef.current.value = ""; }}>
+                                    <Button
+                                        type="button"
+                                        variant="ghost"
+                                        size="icon"
+                                        className="h-6 w-6"
+                                        onClick={() => { setFileToUpload(null); if (fileInputRef.current) fileInputRef.current.value = ""; }}
+                                    >
                                         <XCircle className="h-4 w-4" />
                                     </Button>
                                 </div>
@@ -470,7 +476,19 @@ export const ChatPage: React.FC = () => {
                                 <Button type="button" variant="outline" size="icon" onClick={() => fileInputRef.current?.click()} disabled={isSending}>
                                     <Paperclip className="h-4 w-4" />
                                 </Button>
-                                <Input value={newMessage} onChange={(e) => setNewMessage(e.target.value)} placeholder="Type a message or upload a file..." disabled={isSending} autoComplete="off" />
+                                <Input
+                                    value={newMessage}
+                                    onChange={(e) => setNewMessage(e.target.value)}
+                                    placeholder="Type a message or upload a file..."
+                                    disabled={isSending}
+                                    autoComplete="off"
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter' && !e.shiftKey) {
+                                            e.preventDefault();
+                                            handleSendMessage(e as unknown as React.FormEvent);
+                                        }
+                                    }}
+                                />
                                 <Button type="submit" size="icon" disabled={isSending}>
                                     {isSending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
                                 </Button>
