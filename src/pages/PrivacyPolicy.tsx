@@ -8,8 +8,8 @@ function PrivacyPolicy() {
   const { t } = useTranslation(); // Initialize the hook
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-green-50">
-        <Header/>
+    <div className="pt-20 min-h-screen bg-gradient-to-b from-amber-50 to-green-50">
+      <Header />
       {/* Hero Section */}
       <section className="pt-5 pb-1 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-green-100/30 via-amber-50/20 to-green-50/30 pointer-events-none"></div>
@@ -430,7 +430,7 @@ function PrivacyPolicy() {
 
         </div>
       </section>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

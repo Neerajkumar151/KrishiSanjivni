@@ -8,9 +8,9 @@ function TermsOfService() {
   const { t } = useTranslation();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 via-green-50 to-emerald-50">
+    <div className=" pt-20 min-h-screen bg-gradient-to-b from-amber-50 via-green-50 to-emerald-50">
       {/* Header */}
-      <Header/>
+      <Header />
 
       {/* Main Content */}
       <main className="max-w-5xl mx-auto px-6 py-12">
@@ -188,7 +188,7 @@ function TermsOfService() {
           </div>
         </section>
 
-                {/* Section 5: Soil Analysis Services */}
+        {/* Section 5: Soil Analysis Services */}
         <section className="bg-white rounded-2xl shadow-lg p-8 mb-8 hover:shadow-xl transition-shadow duration-300">
           <div className="flex items-start gap-4 mb-4">
             <div className="bg-green-100 p-3 rounded-lg flex-shrink-0">
@@ -358,7 +358,7 @@ function TermsOfService() {
           </div>
         </section>
 
-                {/* Section 9: Modifications to Terms */}
+        {/* Section 9: Modifications to Terms */}
         <section className="bg-white rounded-2xl shadow-lg p-8 mb-8 hover:shadow-xl transition-shadow duration-300">
           <div className="flex items-start gap-4 mb-4">
             <div className="bg-teal-100 p-3 rounded-lg flex-shrink-0">
@@ -471,7 +471,7 @@ function TermsOfService() {
         </div>
 
       </main>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

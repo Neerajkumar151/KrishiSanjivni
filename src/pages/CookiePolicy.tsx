@@ -113,10 +113,10 @@ function CookiePolicy() {
   const lastUpdated = "January 1, 2024";
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-green-50 to-amber-50">
-        <Header/>
+    <div className="pt-10 min-h-screen bg-gradient-to-br from-amber-50 via-green-50 to-amber-50">
+      <Header />
       <div className="relative overflow-hidden bg-gradient-to-r from-green-700 via-green-600 to-amber-600 text-white">
-        
+
         <div className="max-w-5xl mx-auto px-6 py-16 relative z-10">
           <div className="flex items-center gap-3 mb-4">
             <div className="p-3 bg-white/20 backdrop-blur-sm rounded-xl">
@@ -408,22 +408,22 @@ function CookiePolicy() {
                 <h4 className="font-semibold text-gray-800 mb-3">{t('Browser-Specific Instructions:')}</h4>
                 <div className="grid gap-3">
                   <a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener noreferrer"
-                      className="flex items-center justify-between p-4 bg-white border border-gray-200 rounded-lg hover:border-green-300 hover:shadow-md transition-all">
+                    className="flex items-center justify-between p-4 bg-white border border-gray-200 rounded-lg hover:border-green-300 hover:shadow-md transition-all">
                     <span className="text-gray-700 font-medium">{t('Google Chrome')}</span>
                     <ExternalLink className="w-4 h-4 text-gray-400" />
                   </a>
                   <a href="https://support.mozilla.org/en-US/kb/cookies-information-websites-store-on-your-computer" target="_blank" rel="noopener noreferrer"
-                      className="flex items-center justify-between p-4 bg-white border border-gray-200 rounded-lg hover:border-green-300 hover:shadow-md transition-all">
+                    className="flex items-center justify-between p-4 bg-white border border-gray-200 rounded-lg hover:border-green-300 hover:shadow-md transition-all">
                     <span className="text-gray-700 font-medium">{t('Mozilla Firefox')}</span>
                     <ExternalLink className="w-4 h-4 text-gray-400" />
                   </a>
                   <a href="https://support.apple.com/guide/safari/manage-cookies-sfri11471/mac" target="_blank" rel="noopener noreferrer"
-                      className="flex items-center justify-between p-4 bg-white border border-gray-200 rounded-lg hover:border-green-300 hover:shadow-md transition-all">
+                    className="flex items-center justify-between p-4 bg-white border border-gray-200 rounded-lg hover:border-green-300 hover:shadow-md transition-all">
                     <span className="text-gray-700 font-medium">{t('Safari')}</span>
                     <ExternalLink className="w-4 h-4 text-gray-400" />
                   </a>
                   <a href="https://support.microsoft.com/en-us/microsoft-edge/delete-cookies-in-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" target="_blank" rel="noopener noreferrer"
-                      className="flex items-center justify-between p-4 bg-white border border-gray-200 rounded-lg hover:border-green-300 hover:shadow-md transition-all">
+                    className="flex items-center justify-between p-4 bg-white border border-gray-200 rounded-lg hover:border-green-300 hover:shadow-md transition-all">
                     <span className="text-gray-700 font-medium">{t('Microsoft Edge')}</span>
                     <ExternalLink className="w-4 h-4 text-gray-400" />
                   </a>
@@ -597,9 +597,9 @@ function CookiePolicy() {
 
           </div>
         </div>
-        
+
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
