@@ -15,6 +15,7 @@ import { useToast } from '@/hooks/use-toast';
 import Footer from '@/components/Footer';
 import { ChatBot } from '@/components/ChatBot';
 import { Bot } from 'lucide-react';
+import { WarehouseDetailsDialog } from '@/components/warehouse/WarehouseDetailsDialog';
 
 // --- Shared Types and Utilities ---
 interface StorageOption {
@@ -106,6 +107,8 @@ const Warehouse: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [detailsDialogOpen, setDetailsDialogOpen] = useState(false);
+  const [selectedWarehouseDetails, setSelectedWarehouseDetails] = useState<Warehouse | null>(null);
 
   const fetchWarehouses = useCallback(async () => {
     setIsLoading(true);
@@ -205,6 +208,11 @@ const Warehouse: React.FC = () => {
     }
     setSelectedWarehouse(warehouse);
     setBookingDialogOpen(true);
+  };
+
+  const handleCardClick = (warehouse: Warehouse) => {
+    setSelectedWarehouseDetails(warehouse);
+    setDetailsDialogOpen(true);
   };
 
   // --- Loading state ---
@@ -315,14 +323,14 @@ const Warehouse: React.FC = () => {
         {/* Warehouses Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredWarehouses.map(warehouse => (
-            <Card key={warehouse.id} className="flex flex-col hover:shadow-xl transition-all duration-300 rounded-xl overflow-hidden">
-              <CardHeader className="p-0">
+            <Card key={warehouse.id} className="flex flex-col hover:shadow-xl transition-all duration-300 rounded-xl overflow-hidden cursor-pointer group/card" onClick={() => handleCardClick(warehouse)}>
+              <CardHeader className="p-0 overflow-hidden">
                 <img
                   src={warehouse.image_url || 'https://placehold.co/600x400/1e293b/f8fafc?text=Warehouse'}
                   alt={warehouse.name}
                   loading="lazy"
                   onError={(e) => e.currentTarget.src = 'https://placehold.co/600x400/1e293b/f8fafc?text=Warehouse'}
-                  className="w-full h-48 object-cover"
+                  className="w-full h-48 object-cover group-hover/card:scale-105 transition-transform duration-500"
                 />
               </CardHeader>
               <CardContent className="flex-1 p-4">
@@ -377,7 +385,7 @@ const Warehouse: React.FC = () => {
                 </div>
               </CardContent>
               <CardFooter className="p-4 pt-0">
-                <Button className="w-full" onClick={() => handleBookClick(warehouse)}>
+                <Button className="w-full" onClick={(e) => { e.stopPropagation(); handleBookClick(warehouse); }}>
                   {t('warehouse.bookNow', { defaultValue: 'Book Now' })}
                 </Button>
               </CardFooter>
@@ -404,6 +412,14 @@ const Warehouse: React.FC = () => {
           onOpenChange={setBookingDialogOpen}
         />
       )}
+
+      <WarehouseDetailsDialog
+        warehouse={selectedWarehouseDetails}
+        open={detailsDialogOpen}
+        onOpenChange={setDetailsDialogOpen}
+        onBookClick={handleBookClick}
+        locationKeyMap={locationKeyMap}
+      />
 
       <Footer />
     </Layout>
