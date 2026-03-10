@@ -21,7 +21,7 @@
 </div>
 
 <div align="center">
-  <img src="https://img.shields.io/badge/version-1.0.0-green?style=for-the-badge" alt="Version">
+  <img src="https://img.shields.io/badge/version-1.1.0-green?style=for-the-badge" alt="Version">
   <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge" alt="License">
   <img src="https://img.shields.io/badge/build-stable-success?style=for-the-badge" alt="Build">
   <img src="https://img.shields.io/badge/contributions-welcome-orange?style=for-the-badge" alt="Contributions">
@@ -40,6 +40,7 @@
     <li><a href="#-key-features">Key Features</a></li>
     <li><a href="#-getting-started">Getting Started</a></li>
     <li><a href="#-project-structure">Project Structure</a></li>
+    <li><a href="#-recent-updates">Recent Updates</a></li>
     <li><a href="#-future-roadmap">Future Roadmap</a></li>
     <li><a href="#-contact">Contact</a></li>
   </ol>
@@ -49,7 +50,7 @@
 
 ## 🚀 Overview
 
-**KrishiSanjivni** is a digital ecosystem designed to bridge the gap between traditional farming and modern technology. By integrating AI, real-time data, and e-commerce, we aim to reduce manual effort and improve decision-making for farmers across India.
+**KrishiSanjivni** (formerly Farmhive) is a digital ecosystem designed to bridge the gap between traditional farming and modern technology. By integrating AI, real-time data, and e-commerce, we aim to reduce manual effort and improve decision-making for farmers across India.
 
 ### 🎯 Goal
 To democratize access to agricultural services—from soil testing to equipment rentals—in a language the farmer understands.
@@ -63,9 +64,9 @@ The project is built using a modern, scalable architecture.
 | Component | Technologies |
 | :--- | :--- |
 | **Frontend** | ![React](https://img.shields.io/badge/React-20232A?style=flat&logo=react&logoColor=61DAFB) ![Vite](https://img.shields.io/badge/Vite-B73BFE?style=flat&logo=vite&logoColor=FFD62E) ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white) |
-| **UI Components** | Radix UI, Shadcn/UI, Recharts (Charts) |
-| **Backend / DB** | ![Supabase](https://img.shields.io/badge/Supabase-181818?style=flat&logo=supabase&logoColor=3ECF8E) (Auth, DB, Edge Functions) |
-| **AI / ML** | ![Google Gemini](https://img.shields.io/badge/Google_GenAI-4285F4?style=flat&logo=google&logoColor=white) (Chatbot, Speech-to-Text) |
+| **UI Components** | Radix UI, Shadcn/UI, Lucide React, Recharts |
+| **Backend / DB** | ![Supabase](https://img.shields.io/badge/Supabase-181818?style=flat&logo=supabase&logoColor=3ECF8E) (Auth, PostgREST, Realtime, Migrations) |
+| **AI / ML** | ![Google Gemini](https://img.shields.io/badge/Google_GenAI-4285F4?style=flat&logo=google&logoColor=white) (Chatbot, Speech-to-Text, Text-to-Speech) |
 | **Payments** | ![Razorpay](https://img.shields.io/badge/Razorpay-02042B?style=flat&logo=razorpay&logoColor=3395FF) |
 | **Localization** | i18next (Hindi, English, Tamil, Telugu, Bengali) |
 
@@ -75,7 +76,7 @@ The project is built using a modern, scalable architecture.
 
 Click below to watch a complete walkthrough of the platform in action:
 
-[![Demo](./public/assets/demo.webp)](https://krishisanjivni.vercel.app/assets/demo.mp4)
+[![Demo](./public/assets/demo.webp)](https://krishisanjivni.me/)
 
 ---
 
@@ -89,7 +90,7 @@ Click below to watch a complete walkthrough of the platform in action:
     </td>
     <td align="center" width="50%">
       <img src="./public/assets/profile.webp" alt="User Dashboard" />
-      <br><strong>👤 Farmer Profile</strong>
+      <br><strong>👤 User Profile & Avatars</strong>
     </td>
   </tr>
   <tr>
@@ -110,17 +111,17 @@ Click below to watch a complete walkthrough of the platform in action:
     </td>
     <td align="center" width="50%">
       <img src="./public/assets/admin.webp" alt="Admin Panel" />
-      <br><strong>🛡️ Admin Panel</strong>
+      <br><strong>🛡️ Responsive Admin Suite</strong>
     </td>
   </tr>
   <tr>
     <td align="center" width="50%">
       <img src="./public/assets/community.webp" alt="Community " />
-      <br><strong>👥 Community Page</strong>
+      <br><strong>👥 Community Group Chat</strong>
     </td>
     <td align="center" width="50%">
       <img src="./public/assets/warehouse.webp" alt="Warehouse Booking" />
-      <br><strong>🏪 Warehouse Booking</strong>
+      <br><strong>🏪 Warehouse Management</strong>
     </td>
   </tr>
 </table>
@@ -129,9 +130,7 @@ Click below to watch a complete walkthrough of the platform in action:
 
 ## 🏗 System Architecture
 
-We utilize a serverless architecture powered by Supabase Edge Functions to ensure scalability and low latency.
-Below is the architecture that powers the platform:
-
+We utilize a serverless architecture powered by Supabase Edge Functions and Realtime to ensure scalability and instant updates.
 
 ```mermaid
 graph TD
@@ -140,8 +139,9 @@ graph TD
     Supabase[Supabase BaaS]
     Auth[Auth Service]
     DB[(PostgreSQL DB)]
+    Realtime[Supabase Realtime]
     Edge[Edge Functions]
-    AI[Google GenAI]
+    AI[Google Gemini AI]
     Pay[Razorpay]
     Admin[Admin Dashboard]
 
@@ -149,6 +149,8 @@ graph TD
     Frontend -->|HTTPS| Supabase
     Supabase --> Auth
     Supabase --> DB
+    DB <--> Realtime
+    Realtime -->|Push Updates| Frontend
     
     Frontend -->|Invoke| Edge
     Edge -->|Process| Pay
@@ -160,47 +162,47 @@ graph TD
 ---
 
 ## ✨ Key Features
-### 1. 🌾 Smart Farming Services
-  - Soil & Crop Testing: Submit requests digitally and track results.
 
-  - Digital Reports: View history and download health cards.
+### 1. 🌾 Smart Farming Services
+- **Soil & Crop Analysis**: Submit soil requests digitally; track expert recommendations and PH levels.
+- **Expert Consultations**: Admins provide tailored crop advice directly through the portal.
 
 ### 2. 🚜 Resource Management
-  - Equipment Rental: Browse tools, book via calendar, and pay online.
-
-  - Warehouse Booking: Check real-time slot availability for crop storage.
+- **Equipment Rental**: Browse high-tech farming tools, book via an interactive calendar, and pay securely.
+- **Warehouse Booking**: Real-time slot management for crop storage with availability tracking.
 
 ### 3. 🧠 AI & Intelligence
-  - 24/7 AI Chatbot: Built on Google GenAI, supporting Voice-to-Text and Text-to-Speech.
+- **Multilingual AI Chatbot**: Built on Google Gemini, supporting Voice-to-Text and Text-to-Speech for easy accessibility.
+- **Market Intel**: Live Mandi prices and local commodity trends.
+- **Weather Insights**: Hyper-local forecasts for better planting schedules.
 
-  - Real-time Weather: Temperature, humidity, and rain forecasts.
+### 4. 💬 Communication & Community
+- **Real-time Chat**: Private messaging between users and admins with unread indicators.
+- **Broadcast System**: Platform-wide announcements sent instantly to all users via a unified dashboard.
+- **User Profiles**: Custom profiles with avatar uploads (Base64) and instant UI updates.
 
-  - Mandi Prices: Live commodity trends and region-based insights.
-
-### 4. 🌍 Accessibility
-  - Multilingual: Full support for Hindi, English, Tamil, Telugu, and Bengali.
-
-  - Community: WhatsApp-style chat for local farmer connection.
+### 5. 📱 Responsive Admin Suite
+- **Mobile-First Design**: Sliding navigation drawers and "Hamburger" menus for on-the-go management.
+- **Master-Detail Messaging**: Optimized chat interface for small screens (iPhone/Android).
+- **Independent Scrolling**: Advanced CSS layout ensuring smooth navigation within specific panels.
 
 ---
 
 ## ⚡ Getting Started
+
 Follow these steps to run the project locally.
 
 ### 1. Clone the Repository
-**Bash**
 ```bash
 git clone https://github.com/Neerajkumar151/KrishiSanjivni.git
 cd KrishiSanjivni
 ```
 ### 2. Install Dependencies
-**Bash**
 ```bash
 npm install
 ```
 ### 3. Configure Environment
-Create a .env file in the root directory and add your keys:
-**Environment Variables**
+Create a `.env` file in the root directory:
 ```bash
 VITE_SUPABASE_URL=your_supabase_url
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
@@ -208,7 +210,6 @@ VITE_RAZORPAY_KEY=your_razorpay_key_id
 VITE_GEMINI_KEY=your_google_genai_key
 ```
 ### 4. Run the App
-**Bash**
 ```bash
 npm run dev
 ```
@@ -220,72 +221,49 @@ npm run dev
 KrishiSanjivni
 │── public
 │   ├── locales (translations)
-│   ├── logo.webp
-│   ├── bg.webp
+│   ├── assets (images/demo)
+│   └── logo.webp
 │
 │── src
-│   ├── assets
 │   ├── components
-│   │   ├── ChatBot.tsx
-│   │   ├── Services.tsx
-│   │   └── booking/
+│   │   ├── chat/ (Private messaging & Broadcast)
+│   │   ├── ui/ (Shadcn components)
+│   │   └── Layout.tsx
 │   │
 │   ├── pages
-│   │   ├── Index.tsx
-│   │   ├── Tools.tsx
-│   │   ├── Warehouse.tsx
-│   │   ├── SoilCheck.tsx
-│   │   ├── MarketPrices.tsx
-│   │   ├── Weather.tsx
+│   │   ├── admin/ (Dashboard, User Mgmt, Warehouse Mgmt)
+│   │   ├── profile/ (User Profile & Avatars)
 │   │   ├── CommunityPage.tsx
-│   │   ├── admin/
-│   │   │   ├── Dashboard.tsx
-│   │   │   ├── AdminTools.tsx
-│   │   │   ├── AdminWarehouses.tsx
-│   │   │   ├── AdminSoilChecks.tsx
-│   │   │   └── AdminUsers.tsx
+│   │   └── MarketPrices.tsx
+│   │
+│   ├── contexts/ (Auth & Realtime state)
+│   └── hooks/ (Admin & Data fetching)
 │
-│── supabase
-│   ├── config.toml
-│   ├── migrations
-│   └── functions/
-│       ├── create-razorpay-order
-│       ├── record-payment
-│       ├── farming-chat
-│       ├── speech-to-text
-│       └── text-to-speech
-│
-│── package.json
-│── vite.config.ts
+│── supabase (Migrations & Edge Functions)
 │── tailwind.config.ts
-│── .env.example
-
+└── vite.config.ts
 ```
+
 ---
+
 ## 🗺️ Future Roadmap
+- [ ] IoT-based automated farm sensors.
+- [ ] Drone-based crop disease imagery analysis.
+- [ ] Offline-first mode for low-connectivity rural areas.
+- [ ] Automated SMS billing and alerts.
 
-  - IoT based farm sensors
-
-  - Drone imagery analysis
-
-  - Offline mode (rural areas)
-
-  - SMS alerts
-
-  - Crop disease prediction
 ---
+
 ## 🤝 Contact
-Neeraj Kumar G.L. Bajaj Institute of Technology and Management
+**Neeraj Kumar** - G.L. Bajaj Institute of Technology and Management
 
 📧 Email: [thakurneerajkumar17@gmail.com](mailto:thakurneerajkumar17@gmail.com)
-
 🔗 LinkedIn: [linkedin.com/in/neerajkumar1517](https://www.linkedin.com/in/neerajkumar1517/)
 
 ---
+
 ## 📄 License
-This project is licensed under MIT - see LICENSE file.
+This project is licensed under MIT - see the [LICENSE](LICENSE) file for details.
 
-<strong>Give a ⭐️ if this project helped you!</strong> </p>
-
-
-
+---
+**Give a ⭐️ if this project helped you!**

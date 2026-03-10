@@ -52,3 +52,10 @@ jest-stare/
 .parcel-cache/
 temp/
 tmp/
+
+# Supabase Infrastructure (Privacy)
+supabase/migrations/
+supabase/functions/
+supabase/config.toml
+supabase/.temp/
+.supabase/
