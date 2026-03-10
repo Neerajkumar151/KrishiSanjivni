@@ -96,6 +96,7 @@ const Warehouse: React.FC = () => {
 
   const [warehouses, setWarehouses] = useState<Warehouse[]>([]);
   const [locations, setLocations] = useState<string[]>([]);
+  const [storageTypes, setStorageTypes] = useState<string[]>([]);
   const [selectedStorageType, setSelectedStorageType] = useState<string>('all');
   const [selectedLocation, setSelectedLocation] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState('');
@@ -126,6 +127,11 @@ const Warehouse: React.FC = () => {
       setWarehouses(fetchedData);
       const uniqueLocations = Array.from(new Set(fetchedData.map(w => w.location).filter(Boolean)));
       setLocations(uniqueLocations);
+
+      const uniqueStorageTypes = Array.from(new Set(
+        fetchedData.flatMap(w => w.storage_options?.map(opt => opt.storage_type) || [])
+      ));
+      setStorageTypes(uniqueStorageTypes);
 
     } catch (e: any) {
       console.error('Error fetching warehouses:', e);
@@ -273,9 +279,11 @@ const Warehouse: React.FC = () => {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">{t('warehouse.allStorage', { defaultValue: 'All Storage Types' })}</SelectItem>
-                  <SelectItem value="cold">{t('warehouse.cold', { defaultValue: 'Cold Storage' })}</SelectItem>
-                  <SelectItem value="hot">{t('warehouse.hot', { defaultValue: 'Hot Storage' })}</SelectItem>
-                  <SelectItem value="normal">{t('warehouse.normal', { defaultValue: 'Normal Storage' })}</SelectItem>
+                  {storageTypes.map(type => (
+                    <SelectItem key={type} value={type}>
+                      {t(`warehouse.${type}`, { defaultValue: type.charAt(0).toUpperCase() + type.slice(1) + ' Storage' })}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
