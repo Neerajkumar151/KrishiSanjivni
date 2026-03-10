@@ -9,6 +9,7 @@ import { ShieldCheck } from 'lucide-react';
 
 interface ChatWindowProps {
     currentUser: any;
+    currentUserProfile?: any;
     recipientUser?: ChatUser;
     messages: AdminMessage[];
     onSendMessage: (message: string) => void;
@@ -17,6 +18,7 @@ interface ChatWindowProps {
 
 export const ChatWindow: React.FC<ChatWindowProps> = ({
     currentUser,
+    currentUserProfile,
     recipientUser,
     messages,
     onSendMessage,
@@ -86,6 +88,8 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
                                 isOwnMessage={msg.sender_id === currentUser?.id}
                                 timestamp={msg.created_at}
                                 isBroadcast={msg.is_broadcast}
+                                avatarUrl={msg.sender_id === currentUser?.id ? currentUserProfile?.avatar_url : recipientUser?.avatar_url}
+                                senderName={msg.sender_id === currentUser?.id ? currentUserProfile?.full_name : recipientUser?.full_name}
                             />
                         ))
                     )}

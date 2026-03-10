@@ -5,9 +5,12 @@ import { UserList } from '@/components/chat/UserList';
 import { ChatWindow } from '@/components/chat/ChatWindow';
 import { BroadcastPanel } from '@/components/chat/BroadcastPanel';
 import { AdminMessage, ChatUser } from '@/components/chat/types';
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { ChevronDown } from "lucide-react";
 
 export const AdminMessagesPage: React.FC = () => {
-    const { user } = useAuth();
+    const { user, profile } = useAuth();
     const [users, setUsers] = useState<ChatUser[]>([]);
     const [selectedUser, setSelectedUser] = useState<ChatUser | undefined>();
     const [messages, setMessages] = useState<AdminMessage[]>([]);
@@ -212,17 +215,24 @@ export const AdminMessagesPage: React.FC = () => {
     };
 
     return (
-        <div className="flex flex-col h-[calc(100vh-[120px])] gap-4 relative w-full overflow-hidden">
-            <div>
-                <h1 className="text-3xl font-bold tracking-tight mb-2">Messages</h1>
-                <p className="text-muted-foreground pb-4">Manage private chats and broadcast announcements to users.</p>
+        <div className="flex flex-col h-full gap-4 relative w-full overflow-hidden">
+            <div className="shrink-0 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                    <h1 className="text-xl md:text-2xl font-bold tracking-tight">Messages</h1>
+                    <p className="text-[10px] md:text-xs text-muted-foreground">Manage private chats and broadcast announcements.</p>
+                </div>
 
-                <BroadcastPanel />
+                <div className="w-full sm:flex-1 sm:max-w-md">
+                    <BroadcastPanel />
+                </div>
             </div>
 
-            <div className="flex flex-1 rounded-xl border bg-card shadow-sm overflow-hidden min-h-[400px]">
-                {/* Left Sidebar - Users List */}
-                <div className="w-[320px] shrink-0">
+            <div className="flex flex-1 rounded-xl border bg-card shadow-sm overflow-hidden min-h-0 min-w-0 relative">
+                {/* Left Sidebar - Users List - Hidden on mobile if user is selected */}
+                <div className={cn(
+                    "w-full lg:w-[300px] shrink-0 border-r h-full flex flex-col min-w-0 transition-all duration-300",
+                    selectedUser ? "hidden lg:flex" : "flex"
+                )}>
                     <UserList
                         users={users}
                         selectedUserId={selectedUser?.user_id}
@@ -231,14 +241,33 @@ export const AdminMessagesPage: React.FC = () => {
                     />
                 </div>
 
-                {/* Right Content - Chat Window */}
-                <ChatWindow
-                    currentUser={user}
-                    recipientUser={selectedUser}
-                    messages={messages}
-                    onSendMessage={handleSendMessage}
-                    isLoading={isLoadingMessages}
-                />
+                {/* Right Content - Chat Window - Hidden on mobile if no user is selected */}
+                <div className={cn(
+                    "flex-1 h-full overflow-hidden min-w-0 flex flex-col",
+                    !selectedUser ? "hidden lg:flex" : "flex"
+                )}>
+                    {selectedUser && (
+                        <div className="lg:hidden p-2 border-b bg-muted/30">
+                            <Button
+                                variant="ghost"
+                                size="sm"
+                                className="gap-2"
+                                onClick={() => setSelectedUser(null)}
+                            >
+                                <ChevronDown className="h-4 w-4 rotate-90" />
+                                Back to Messages
+                            </Button>
+                        </div>
+                    )}
+                    <ChatWindow
+                        currentUser={user}
+                        currentUserProfile={profile}
+                        recipientUser={selectedUser}
+                        messages={messages}
+                        onSendMessage={handleSendMessage}
+                        isLoading={isLoadingMessages}
+                    />
+                </div>
             </div>
         </div>
     );

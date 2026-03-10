@@ -65,11 +65,30 @@ export const UserAdminChatPage: React.FC = () => {
                 const { data: msgs, error: msgErr } = await (supabase as any)
                     .from('admin_messages')
                     .select('*')
-                    .or(`sender_id.eq.${user.id},receiver_id.eq.${user.id}`)
+                    .or(`sender_id.eq.${user.id},receiver_id.eq.${user.id},and(is_broadcast.eq.true,receiver_id.is.null)`)
                     .order('created_at', { ascending: true });
 
                 if (msgErr) throw msgErr;
-                setMessages(msgs as AdminMessage[]);
+
+                // Fetch profiles for all distinct senders
+                const senderIds = Array.from(new Set(msgs.map((m: AdminMessage) => m.sender_id))) as string[];
+                let profileMap: Record<string, any> = {};
+
+                if (senderIds.length > 0) {
+                    const { data: profiles } = await supabase
+                        .from('profiles')
+                        .select('user_id, full_name, avatar_url')
+                        .in('user_id', senderIds);
+
+                    profileMap = profiles?.reduce((acc: any, p: any) => ({ ...acc, [p.user_id]: p }), {}) || {};
+                }
+
+                const messagesWithProfiles = msgs.map((m: AdminMessage) => ({
+                    ...m,
+                    sender_profile: profileMap[m.sender_id] || null
+                }));
+
+                setMessages(messagesWithProfiles as AdminMessage[]);
 
                 // Mark unread as read immediately
                 const unreadIds = (msgs as AdminMessage[])
@@ -92,34 +111,48 @@ export const UserAdminChatPage: React.FC = () => {
 
         initChat();
 
-        // Subscribe to incoming messages
-        const channel = supabase
-            .channel('user_admin_chat')
+        const handleNewMessage = (payload: any) => {
+            const newMsg = payload.new as AdminMessage;
+            (async () => {
+                const { data: profileData } = await supabase
+                    .from('profiles')
+                    .select('full_name, avatar_url')
+                    .eq('user_id', newMsg.sender_id)
+                    .maybeSingle();
+
+                const incomingMessage = { ...newMsg, sender_profile: profileData } as AdminMessage;
+                setMessages(prev => {
+                    if (prev.some(m => m.id === incomingMessage.id)) return prev;
+                    return [...prev, incomingMessage].sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
+                });
+
+                if (incomingMessage.receiver_id === user?.id) {
+                    (supabase as any).from('admin_messages').update({ is_read: true }).eq('id', incomingMessage.id).then();
+                }
+            })();
+        };
+
+        const directChannel = supabase
+            .channel('direct_messages')
             .on(
                 'postgres_changes',
-                {
-                    event: 'INSERT',
-                    schema: 'public',
-                    table: 'admin_messages',
-                    filter: `receiver_id=eq.${user?.id}`
-                },
-                (payload) => {
-                    const newMsg = payload.new as AdminMessage;
-                    setMessages(prev => {
-                        if (prev.some(m => m.id === newMsg.id)) return prev;
-                        return [...prev, newMsg];
-                    });
+                { event: 'INSERT', schema: 'public', table: 'admin_messages', filter: `receiver_id=eq.${user?.id}` },
+                handleNewMessage
+            )
+            .subscribe();
 
-                    // Mark as read immediately
-                    if (newMsg.receiver_id === user?.id) {
-                        (supabase as any).from('admin_messages').update({ is_read: true }).eq('id', newMsg.id).then();
-                    }
-                }
+        const broadcastChannel = supabase
+            .channel('broadcast_messages')
+            .on(
+                'postgres_changes',
+                { event: 'INSERT', schema: 'public', table: 'admin_messages', filter: `receiver_id=is.null` },
+                handleNewMessage
             )
             .subscribe();
 
         return () => {
-            supabase.removeChannel(channel);
+            supabase.removeChannel(directChannel);
+            supabase.removeChannel(broadcastChannel);
         };
     }, [user]);
 
@@ -277,6 +310,8 @@ export const UserAdminChatPage: React.FC = () => {
                                             isOwnMessage={msg.sender_id === user?.id}
                                             timestamp={msg.created_at}
                                             isBroadcast={msg.is_broadcast}
+                                            avatarUrl={msg.sender_profile?.avatar_url}
+                                            senderName={msg.sender_profile?.full_name || 'Admin'}
                                         />
                                     ))
                                 )}

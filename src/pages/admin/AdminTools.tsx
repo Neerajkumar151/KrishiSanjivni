@@ -246,15 +246,15 @@ export const AdminTools: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-4xl font-bold mb-2">Manage Tools</h1>
-          <p className="text-muted-foreground">View and manage all farming tools ({tools.length} total)</p>
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-1">Manage Tools</h1>
+          <p className="text-xs md:text-sm text-muted-foreground">View and manage all farming tools ({tools.length} total)</p>
         </div>
 
         <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
           <DialogTrigger asChild>
-            <Button>
+            <Button size="sm" className="sm:h-10 sm:px-4 sm:py-2">
               <Plus className="mr-2 h-4 w-4" />
               Add Tool
             </Button>

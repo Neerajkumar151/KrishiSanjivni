@@ -166,9 +166,11 @@ export const AdminSoilChecks: React.FC = () => {
 
     return (
         <div className="space-y-6">
-            <div>
-                <h1 className="text-4xl font-bold mb-2">Soil Check Requests</h1>
-                <p className="text-muted-foreground">Manage all soil analysis requests ({soilChecks.length} total)</p>
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-1">Soil Check Requests</h1>
+                    <p className="text-xs md:text-sm text-muted-foreground">Manage all soil analysis requests ({soilChecks.length} total)</p>
+                </div>
             </div>
 
             {soilChecks.length === 0 ? (
@@ -273,7 +275,7 @@ export const AdminSoilChecks: React.FC = () => {
                                 <div><Label className="font-semibold">Sample Count:</Label> <p>{selectedCheck.sample_count || 'N/A'}</p></div>
                                 <div className='mt-2'><Label className="font-semibold">Current Status:</Label> <Badge className={getStatusColor(selectedCheck.status)}>{selectedCheck.status}</Badge></div>
                             </div>
-                            
+
                             <div className='pl-4'>
                                 <h3 className='text-lg font-bold mb-3 border-b pb-1'>Analysis Data</h3>
                                 <div className="grid grid-cols-2 gap-x-4 gap-y-2">
