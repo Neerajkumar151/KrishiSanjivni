@@ -25,11 +25,11 @@ export const ChatBot: React.FC<ChatBotProps> = ({ isOpen, setIsOpen }) => {
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [isRecording, setIsRecording] = useState(false);
-    
+
     // New State for the Custom Delete Popup
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
-    const [sessionId] = useState(() => {
+    const [sessionId, setSessionId] = useState(() => {
         if (typeof window !== 'undefined') {
             const storedSessionId = sessionStorage.getItem('chat_session_id');
             if (storedSessionId) return storedSessionId;
@@ -45,7 +45,7 @@ export const ChatBot: React.FC<ChatBotProps> = ({ isOpen, setIsOpen }) => {
     const [user, setUser] = useState<any>(null);
 
     const { toast } = useToast();
-    const messagesEndRef = useRef<HTMLDivElement>(null); 
+    const messagesEndRef = useRef<HTMLDivElement>(null);
     const mediaRecorderRef = useRef<MediaRecorder | null>(null);
     const audioChunksRef = useRef<Blob[]>([]);
     const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -58,15 +58,18 @@ export const ChatBot: React.FC<ChatBotProps> = ({ isOpen, setIsOpen }) => {
         checkUser();
 
         const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-            if (event === 'SIGNED_OUT') {
+            if (event === 'SIGNED_OUT' || event === 'SIGNED_IN') {
                 setMessages([]);
                 setConversationId(null);
+                let newSessionId = `session_${Date.now()}_${Math.random()}`;
                 if (typeof window !== 'undefined') {
                     sessionStorage.removeItem('chat_session_id');
+                    sessionStorage.setItem('chat_session_id', newSessionId);
                 }
-                setUser(null);
-            } else if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
-                 setUser(session?.user ?? null);
+                setSessionId(newSessionId);
+                setUser(event === 'SIGNED_IN' ? (session?.user ?? null) : null);
+            } else if (event === 'TOKEN_REFRESHED') {
+                setUser(session?.user ?? null);
             }
         });
 
@@ -91,14 +94,9 @@ export const ChatBot: React.FC<ChatBotProps> = ({ isOpen, setIsOpen }) => {
                 let query = supabase
                     .from('chat_conversations')
                     .select('id')
+                    .eq('session_id', sessionId)
                     .order('created_at', { ascending: false })
                     .limit(1);
-
-                if (user) {
-                    query = query.eq('user_id', user.id);
-                } else {
-                    query = query.eq('session_id', sessionId);
-                }
 
                 const { data: conversations, error } = await query;
 
@@ -128,22 +126,57 @@ export const ChatBot: React.FC<ChatBotProps> = ({ isOpen, setIsOpen }) => {
 
     // 4. UPDATED: Delete Logic (No longer uses confirm() alert)
     const handleConfirmDelete = async () => {
-        if (!user) return;
-        
         // Close the popup immediately for better UX
-        setShowDeleteConfirm(false); 
+        setShowDeleteConfirm(false);
         setIsLoading(true);
 
         try {
-            const { error } = await supabase
-                .from('chat_conversations')
-                .delete()
-                .eq('user_id', user.id);
+            // Find all conversations belonging to this session or user
+            let query = supabase.from('chat_conversations').select('id');
+            if (user) {
+                query = query.or(`user_id.eq.${user.id},session_id.eq.${sessionId}`);
+            } else {
+                query = query.eq('session_id', sessionId);
+            }
 
-            if (error) throw error;
+            const { data: convs, error: fetchError } = await query;
+            if (fetchError) throw fetchError;
+
+            // Collect all unique IDs to delete
+            const convIdsToClear = new Set<string>();
+            if (conversationId) convIdsToClear.add(conversationId);
+            if (convs) {
+                convs.forEach(c => convIdsToClear.add(c.id));
+            }
+
+            if (convIdsToClear.size > 0) {
+                const convIds = Array.from(convIdsToClear);
+
+                // 1. Explicitly delete messages first to avoid cascade failure
+                const { error: msgError } = await supabase
+                    .from('chat_messages')
+                    .delete()
+                    .in('conversation_id', convIds);
+                if (msgError) throw msgError;
+
+                // 2. Then delete the conversations
+                const { error: convError } = await supabase
+                    .from('chat_conversations')
+                    .delete()
+                    .in('id', convIds);
+                if (convError) throw convError;
+            }
 
             setMessages([]);
             setConversationId(null);
+
+            let newSessionId = `session_${Date.now()}_${Math.random()}`;
+            if (typeof window !== 'undefined') {
+                sessionStorage.removeItem('chat_session_id');
+                sessionStorage.setItem('chat_session_id', newSessionId);
+            }
+            setSessionId(newSessionId);
+
             toast({
                 title: "History Cleared",
                 description: "Your chat history has been permanently deleted.",
@@ -239,7 +272,7 @@ export const ChatBot: React.FC<ChatBotProps> = ({ isOpen, setIsOpen }) => {
 
             mediaRecorder.onstop = async () => {
                 const recordingDuration = Date.now() - recordingStartTime;
-                
+
                 if (recordingDuration < 500) {
                     toast({
                         title: t('chatbot.error_title', 'Error'),
@@ -258,7 +291,7 @@ export const ChatBot: React.FC<ChatBotProps> = ({ isOpen, setIsOpen }) => {
 
                     try {
                         const langCode = detectedLanguage === 'hi-IN' ? 'hi-IN' : 'en-IN';
-                        
+
                         const { data, error } = await supabase.functions.invoke('speech-to-text', {
                             body: { audio: base64Audio, language: langCode }
                         });
@@ -313,7 +346,7 @@ export const ChatBot: React.FC<ChatBotProps> = ({ isOpen, setIsOpen }) => {
         <>
             {isOpen && (
                 <div className="fixed bottom-6 right-6 w-96 h-[600px] bg-background border border-border rounded-lg shadow-2xl flex flex-col z-50 overflow-hidden">
-                    
+
                     {/* --- NEW CUSTOM DELETE OVERLAY --- */}
                     {showDeleteConfirm && (
                         <div className="absolute inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-6 animate-in fade-in duration-200">
@@ -326,15 +359,15 @@ export const ChatBot: React.FC<ChatBotProps> = ({ isOpen, setIsOpen }) => {
                                     Are you sure you want to delete all conversation history? This action cannot be undone.
                                 </p>
                                 <div className="flex gap-3 justify-end pt-2">
-                                    <Button 
-                                        variant="outline" 
+                                    <Button
+                                        variant="outline"
                                         onClick={() => setShowDeleteConfirm(false)}
                                         className="w-full"
                                     >
                                         Cancel
                                     </Button>
-                                    <Button 
-                                        variant="destructive" 
+                                    <Button
+                                        variant="destructive"
                                         onClick={handleConfirmDelete}
                                         className="w-full"
                                     >
@@ -359,20 +392,18 @@ export const ChatBot: React.FC<ChatBotProps> = ({ isOpen, setIsOpen }) => {
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div className="flex items-center gap-1">
-                            {user && (
-                                <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    // CHANGED: Now opens the custom UI instead of alert()
-                                    onClick={() => setShowDeleteConfirm(true)}
-                                    className="hover:bg-primary-foreground/20 text-white/80 hover:text-white"
-                                    title="Clear Chat History"
-                                >
-                                    <Trash2 className="h-5 w-5" />
-                                </Button>
-                            )}
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                // CHANGED: Now opens the custom UI instead of alert()
+                                onClick={() => setShowDeleteConfirm(true)}
+                                className="hover:bg-primary-foreground/20 text-white/80 hover:text-white"
+                                title="Clear Chat History"
+                            >
+                                <Trash2 className="h-5 w-5" />
+                            </Button>
 
                             <Button
                                 variant="ghost"
@@ -399,11 +430,10 @@ export const ChatBot: React.FC<ChatBotProps> = ({ isOpen, setIsOpen }) => {
                                     className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                                 >
                                     <div
-                                        className={`max-w-[80%] rounded-lg p-3 ${
-                                            msg.role === 'user'
-                                                ? 'bg-gradient-to-r from-green-600 to-emerald-700 text-primary-foreground'
-                                                : 'bg-muted'
-                                        }`}
+                                        className={`max-w-[80%] rounded-lg p-3 ${msg.role === 'user'
+                                            ? 'bg-gradient-to-r from-green-600 to-emerald-700 text-primary-foreground'
+                                            : 'bg-muted'
+                                            }`}
                                     >
                                         {msg.role === 'user' ? (
                                             <p className="text-sm whitespace-pre-wrap">{msg.content}</p>

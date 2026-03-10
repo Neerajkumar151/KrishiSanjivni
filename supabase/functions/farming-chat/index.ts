@@ -15,7 +15,7 @@ serve(async (req) => {
 
   try {
     const { messages, sessionId, conversationId } = await req.json();
-    
+
     const GEMINI_API_KEY = Deno.env.get("GEMINI_API_KEY");
     const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
     const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
@@ -36,9 +36,12 @@ serve(async (req) => {
     // Get or create conversation
     let convId = conversationId;
     if (!convId) {
+      const insertData: any = { session_id: sessionId };
+      if (userId) insertData.user_id = userId;
+
       const { data: conv, error: convError } = await supabase
         .from('chat_conversations')
-        .insert({ session_id: sessionId })
+        .insert(insertData)
         .select()
         .single();
       if (convError) throw convError;
@@ -80,10 +83,10 @@ ${paymentHistory.data.map((p: any) => `- ₹${p.amount} for ${p.type} (${p.payme
 ${toolBookings.data?.length ? `
 Tool Bookings:
 ${toolBookings.data
-  .slice()
-  .reverse()
-  .map((b)=>`- ${b.tools?.name}: ${b.start_date} to ${b.end_date} (${b.status}) - ₹${b.total_cost}`)
-  .join('\n')}
+            .slice()
+            .reverse()
+            .map((b) => `- ${b.tools?.name}: ${b.start_date} to ${b.end_date} (${b.status}) - ₹${b.total_cost}`)
+            .join('\n')}
 ` : ''}
 
 ${warehouseBookings.data?.length ? `
