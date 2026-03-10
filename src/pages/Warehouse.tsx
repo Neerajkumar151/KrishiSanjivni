@@ -70,10 +70,10 @@ const locationKeyMap: Record<string, string> = {
 };
 
 
-const getStorageTypes = (warehouse: Warehouse): string => {
-  if (!warehouse.storage_options || warehouse.storage_options.length === 0) return 'N/A';
+const getStorageTypes = (warehouse: Warehouse, t: any): string => {
+  if (!warehouse.storage_options || warehouse.storage_options.length === 0) return t('warehouse.na', { defaultValue: 'N/A' });
   const types = [...new Set(warehouse.storage_options.map(opt => opt.storage_type))];
-  return types.map(type => type.charAt(0).toUpperCase() + type.slice(1)).join(', ');
+  return types.map(type => t(`warehouse.${type}`, { defaultValue: type.charAt(0).toUpperCase() + type.slice(1) })).join(', ');
 };
 
 const getMinPrice = (warehouse: Warehouse): number => {
@@ -351,7 +351,7 @@ const Warehouse: React.FC = () => {
                 </div>
               </CardHeader>
               <CardContent className="flex-1 p-4">
-                <Badge variant="outline" className="mb-2 bg-slate-100 text-slate-700">{getStorageTypes(warehouse)}</Badge>
+                <Badge variant="outline" className="mb-2 bg-slate-100 text-slate-700">{getStorageTypes(warehouse, t)}</Badge>
                 <div className="space-y-2 text-sm">
                   <div className="flex items-center gap-2 text-muted-foreground">
                     <WarehouseIcon className="h-4 w-4 text-primary" />

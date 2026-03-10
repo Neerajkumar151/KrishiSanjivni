@@ -25,7 +25,7 @@ import {
 import { moderateMessage } from '@/lib/moderationPipeline';
 import { preloadModel } from '@/lib/toxicityDetector';
 import { shouldAIRespond } from '@/lib/ai/intentDetection';
-import { canAIReply } from '@/lib/ai/aiCooldown';
+import { canAIReply, getCooldownRemaining, COOLDOWN_MS } from '@/lib/ai/aiCooldown';
 import { generateAIResponse } from '@/lib/ai/aiAssistant';
 
 // Define the data structure for a message
@@ -42,6 +42,12 @@ interface Message {
     is_ai_message?: boolean;
 }
 
+interface QueueItem {
+    message: string;
+    userName: string;
+    userId: string;
+}
+
 // Helper component to render uploaded files
 const renderFileContent = (url: string) => {
     const fileType = url.split('.').pop()?.toLowerCase() || '';
@@ -53,6 +59,8 @@ const renderFileContent = (url: string) => {
     }
     return <a href={url} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline mt-2 block">Download File</a>;
 };
+
+const AI_MENTION_PREFIX = '@KrishiSanjivni AI ';
 
 export const ChatPage: React.FC = () => {
     const { t } = useTranslation();
@@ -66,6 +74,32 @@ export const ChatPage: React.FC = () => {
     const scrollAreaRef = useRef<HTMLDivElement>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const messageInputRef = useRef<HTMLInputElement>(null);
+    const [isAIMentioned, setIsAIMentioned] = useState(false);
+
+    // AI Queuing State
+    const [aiQueue, setAiQueue] = useState<QueueItem[]>([]);
+    const [isAIProcessing, setIsAIProcessing] = useState(false);
+
+    // Toggle AI mention in the message input
+    const handleAIMention = () => {
+        if (isAIMentioned) {
+            // Remove the prefix
+            setNewMessage(prev => prev.startsWith(AI_MENTION_PREFIX) ? prev.slice(AI_MENTION_PREFIX.length) : prev);
+            setIsAIMentioned(false);
+        } else {
+            // Add the prefix
+            setNewMessage(prev => AI_MENTION_PREFIX + prev);
+            setIsAIMentioned(true);
+        }
+        setTimeout(() => {
+            const input = messageInputRef.current;
+            if (input) {
+                input.focus();
+                const len = input.value.length;
+                input.setSelectionRange(len, len);
+            }
+        }, 0);
+    };
 
     // Function to scroll to the bottom of the chat
     const scrollToBottom = () => {
@@ -126,10 +160,76 @@ export const ChatPage: React.FC = () => {
         };
     }, [user?.id]);
 
-    // Scroll to bottom when new messages are added
     useEffect(() => {
         scrollToBottom();
     }, [messages]);
+
+    // === AI QUEUE WORKER ===
+    useEffect(() => {
+        const processQueue = async () => {
+            if (aiQueue.length === 0 || isAIProcessing) return;
+
+            setIsAIProcessing(true);
+
+            // Wait until cooldown is over
+            const waitTime = getCooldownRemaining();
+            if (waitTime > 0) {
+                await new Promise(resolve => setTimeout(resolve, waitTime + 500)); // Buffer of 500ms
+            }
+
+            // double check gatekeeper
+            if (!canAIReply()) {
+                setIsAIProcessing(false);
+                return;
+            }
+
+            const current = aiQueue[0];
+
+            try {
+                const aiReplyText = await generateAIResponse(current.message);
+                const userFirstName = current.userName?.split(' ')[0] || 'User';
+                const messageSnippet = current.message.length > 60
+                    ? current.message.substring(0, 60) + "..."
+                    : current.message;
+
+                const taggedReply = `> **Replying to ${userFirstName}**\n> "${messageSnippet}"\n\n${aiReplyText}`;
+
+                const aiMessageToInsert = {
+                    message: taggedReply,
+                    user_id: current.userId,
+                    channel_id: 1,
+                    is_ai_message: true
+                };
+
+                const { data: insertedAIMessage, error: aiInsertError } = await supabase
+                    .from('messages')
+                    .insert(aiMessageToInsert)
+                    .select()
+                    .single();
+
+                if (aiInsertError) throw aiInsertError;
+
+                // Add to UI manually for instant feedback
+                const optimisticAI: Message = {
+                    ...insertedAIMessage,
+                    profiles: {
+                        full_name: "Krishisanjivni AI",
+                        avatar_url: "/ai-avatar.png", // Or whatever AI avatar you use
+                    }
+                };
+                setMessages(prev => [...prev, optimisticAI]);
+
+            } catch (err) {
+                console.error("AI Queue Error:", err);
+            } finally {
+                // Remove processed item and reset processing state
+                setAiQueue(prev => prev.slice(1));
+                setIsAIProcessing(false);
+            }
+        };
+
+        processQueue();
+    }, [aiQueue, isAIProcessing]);
 
     const handleSendMessage = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -212,49 +312,33 @@ export const ChatPage: React.FC = () => {
             setMessages(currentMessages => [...currentMessages, optimisticMessage]);
 
             // Clear the input fields on success
+            const wasMentioned = isAIMentioned;
             setNewMessage('');
             setFileToUpload(null);
+            setIsAIMentioned(false);
             if (fileInputRef.current) fileInputRef.current.value = "";
 
             // Refocus the input field after sending
             setTimeout(() => messageInputRef.current?.focus(), 0);
 
             // === AI ASSISTANT PIPELINE ===
-            // Run asynchronously without blocking the user
-            setTimeout(async () => {
-                if (!messageToInsert.message) return; // Only AI respond to text
-                if (!shouldAIRespond(messageToInsert.message)) return;
-                if (!canAIReply()) return;
+            // Strip the mention prefix to get the actual question for the AI
+            const actualQuestion = messageToInsert.message.startsWith(AI_MENTION_PREFIX.trim())
+                ? messageToInsert.message.slice(AI_MENTION_PREFIX.trim().length).trim()
+                : messageToInsert.message;
 
-                try {
-                    const aiReply = await generateAIResponse(messageToInsert.message);
+            // Force-queue if user used @mention, otherwise use normal detection
+            const shouldQueue = wasMentioned
+                ? !!actualQuestion
+                : (messageToInsert.message && shouldAIRespond(messageToInsert.message));
 
-                    const aiMessageToInsert = {
-                        message: aiReply,
-                        user_id: user.id, // Using the user's ID as the "sender" context, but flagged as AI
-                        channel_id: 1,
-                        is_ai_message: true
-                    };
-
-                    const { data: insertedAIMessage, error: aiInsertError } = await supabase
-                        .from('messages')
-                        .insert(aiMessageToInsert)
-                        .select()
-                        .single();
-
-                    if (aiInsertError) console.error("AI Insert Error:", aiInsertError);
-
-                    if (insertedAIMessage) {
-                        setMessages(currentMessages => [...currentMessages, {
-                            ...insertedAIMessage,
-                            profiles: { full_name: 'KrishiSanjivni AI', avatar_url: undefined }
-                        } as Message]);
-                    }
-
-                } catch (error) {
-                    console.error("AI Assistant Error:", error);
-                }
-            }, 500);
+            if (shouldQueue) {
+                setAiQueue(prev => [...prev, {
+                    message: actualQuestion,
+                    userName: profile.full_name || 'User',
+                    userId: user.id
+                }]);
+            }
 
         } catch (error: any) {
             console.error("Failed to send message:", error);
@@ -445,6 +529,26 @@ export const ChatPage: React.FC = () => {
                         </div>
                     ) : (
                         <form onSubmit={handleSendMessage} className="flex flex-col gap-2 pt-2 border-t">
+                            {/* AI Mention Tag Badge */}
+                            {isAIMentioned && (
+                                <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/30 dark:to-teal-950/30 border border-emerald-200 dark:border-emerald-800 rounded-lg text-sm animate-in slide-in-from-bottom-2 duration-200">
+                                    <img src="/chat-gpt.webp" alt="AI" className="h-5 w-5 flex-shrink-0 rounded-full object-contain" />
+                                    <span className="font-semibold text-emerald-700 dark:text-emerald-300">@KrishiSanjivni AI</span>
+                                    <span className="text-emerald-600/70 dark:text-emerald-400/70 text-xs">will answer your question</span>
+                                    <Button
+                                        type="button"
+                                        variant="ghost"
+                                        size="icon"
+                                        className="h-5 w-5 ml-auto hover:bg-emerald-100 dark:hover:bg-emerald-900/50 rounded-full"
+                                        onClick={() => {
+                                            setNewMessage(prev => prev.startsWith(AI_MENTION_PREFIX) ? prev.slice(AI_MENTION_PREFIX.length) : prev);
+                                            setIsAIMentioned(false);
+                                        }}
+                                    >
+                                        <XCircle className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
+                                    </Button>
+                                </div>
+                            )}
                             {fileToUpload && (
                                 <div className="flex items-center gap-2 p-2 bg-muted rounded-md text-sm">
                                     <Paperclip className="h-4 w-4" />
@@ -473,7 +577,6 @@ export const ChatPage: React.FC = () => {
                                                 return;
                                             }
                                             setFileToUpload(file);
-                                            // Focus the message input after selecting a file
                                             setTimeout(() => messageInputRef.current?.focus(), 0);
                                         }
                                     }}
@@ -482,11 +585,30 @@ export const ChatPage: React.FC = () => {
                                 <Button type="button" variant="outline" size="icon" onClick={() => fileInputRef.current?.click()} disabled={isSending}>
                                     <Paperclip className="h-4 w-4" />
                                 </Button>
+                                <Button
+                                    type="button"
+                                    variant={isAIMentioned ? "default" : "outline"}
+                                    size="icon"
+                                    onClick={handleAIMention}
+                                    disabled={isSending}
+                                    className={isAIMentioned
+                                        ? "bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white border-0 shadow-md shadow-emerald-500/25"
+                                        : "hover:border-emerald-400 hover:text-emerald-600"
+                                    }
+                                    title="Tag @KrishiSanjivni AI"
+                                >
+                                    <img src="/chat-gpt.webp" alt="AI" className="h-5 w-5 rounded-full object-contain" />
+                                </Button>
                                 <Input
                                     ref={messageInputRef}
                                     value={newMessage}
-                                    onChange={(e) => setNewMessage(e.target.value)}
-                                    placeholder="Type a message or upload a file..."
+                                    onChange={(e) => {
+                                        const val = e.target.value;
+                                        setNewMessage(val);
+                                        // Sync mention state if user manually types/removes the prefix
+                                        setIsAIMentioned(val.startsWith(AI_MENTION_PREFIX));
+                                    }}
+                                    placeholder={isAIMentioned ? "Ask KrishiSanjivni AI anything..." : "Type a message or upload a file..."}
                                     disabled={isSending}
                                     autoComplete="off"
                                     onKeyDown={(e) => {

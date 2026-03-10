@@ -1,164 +1,175 @@
-
 {
-    "logo": {
-        "tagline": "साथ मिलकर आगे बढ़ें",
-        "KrishiSanjivni": "कृषिसंजीवनी"
-    },
-    "nav": {
-        "home": "मुख पृष्ठ",
-        "tools": "उपकरण",
-        "warehouse": "गोदाम",
-        "soilCheck": "मिट्टी की जाँच",
-        "community": "समुदाय",
-        "more": "अधिक",
-        "resources": "📚 संसाधन (योजनाएँ और नीतियाँ)",
-        "weather": "🌤️ वास्तविक समय का मौसम",
-        "marketPrices": "💰 बाज़ार मूल्य",
-        "adminPanel": "एडमिन पैनल",
-        "profile": "प्रोफ़ाइल",
-        "paymentHistory": "भुगतान इतिहास",
-        "logout": "लॉग आउट",
-        "login": "लॉग इन करें"
-    },
-    "contact": {
-        "location": "नोएडा, उत्तर प्रदेश, भारत"
-    },
-    "footer": {
-        "tagline_p": "किसानों को अत्याधुनिक तकनीक, विशेषज्ञ ज्ञान और एक सहायक समुदाय के साथ सशक्त बनाना ताकि वे स्थायी सफलता प्राप्त कर सकें।",
-        "contact_title": "हमसे संपर्क करें",
-        "services_title": "सेवाएँ",
-        "service_equipment": "खेती के उपकरण",
-        "service_warehouse": "गोदाम समाधान",
-        "service_soil": "मिट्टी की जाँच",
-        "service_community": "समुदाय",
-        "service_contact": "हमसे संपर्क करें",
-        "newsletter_title": "समाचार पत्र",
-        "newsletter_p": "साप्ताहिक खेती के सुझाव और अपडेट सीधे अपने इनबॉक्स में प्राप्त करें।",
-        "email_placeholder": "आपका ईमेल",
-        "copyright_base": "© 2025 कृषि संजीवनी। सभी अधिकार सुरक्षित। द्वारा",
-        "privacy_policy": "गोपनीयता नीति",
-        "terms_of_service": "सेवा की शर्तें",
-        "cookie_policy": "कुकी नीति"
-    },
-    "hero": {
-        "title": "बुद्धिमत्ता और प्रौद्योगिकी के साथ भारतीय कृषि का आधुनिकीकरण",
-        "subtitle": "फार्म प्रबंधन, उपकरण किराए पर लेने और बाजार तक पहुंच के लिए आपका व्यापक मंच।",
-        "getStarted": "शुरू करें",
-        "learnMore": "और जानें"
-    },
-    "ai_button": "एआई",
-    "smart_farming_revolution": "स्मार्ट खेती क्रांति",
-    "growing_future_title_1": "के साथ भविष्य की खेती",
-    "growing_future_title_2": "स्मार्ट कृषि",
-    "growing_future_subtitle": "एआई-संचालित अंतर्दृष्टि, आधुनिक उपकरणों और वास्तविक समय के बाजार खुफिया के साथ अपने संचालन को बदलने वाले हजारों किसानों से जुड़ें।",
-    "explore_now": "अभी अन्वेषण करें",
-    "watch_demo": "डेमो देखें",
-    "modern_platform_title": "आधुनिक मंच",
-    "modern_platform_subtitle": "कहीं से भी एक्सेस करें",
-    "ai_powered_label": "संचालित",
-    "ai_assistant_title": "24/7 एआई सहायक",
-    "ai_assistant_subtitle": "तत्काल समर्थन",
-    "stats": {
-        "active_farmers_count": "10K+",
-        "tools_available_count": "500+",
-        "satisfaction_rate_count": "98%",
-        "active_farmers_label": "सक्रिय किसान",
-        "tools_available_label": "उपलब्ध उपकरण",
-        "satisfaction_rate_label": "संतुष्टि",
-        "managed_hectares_count": "50M+",
-        "managed_hectares_label": "प्रबंधित हेक्टेयर",
-        "ai_support_count": "24/7",
-        "ai_support_label": "एआई समर्थन"
-    },
-    "about": {
-        "story_label": "हमारी कहानी",
-        "title": "नवाचार के माध्यम से कृषि में क्रांति लाना",
-        "p1": "कृषि संजीवनी का जन्म एक साधारण दृष्टिकोण से हुआ था: पारंपरिक खेती के ज्ञान और आधुनिक तकनीक के बीच की खाई को पाटना। हम किसानों को अप्रत्याशित मौसम से लेकर बाजार की अस्थिर कीमतों तक रोज़मर्रा की चुनौतियों को समझते हैं।",
-        "p2": "हमारा मंच ऐसे समाधान देने के लिए अत्याधुनिक एआई, वास्तविक समय के डेटा विश्लेषण और कृषि पद्धतियों की गहरी समझ को जोड़ता है जो वास्तव में फर्क करते हैं। हम सिर्फ सॉफ्टवेयर नहीं बना रहे हैं; हम दूरदर्शी किसानों के एक समुदाय का पोषण कर रहे हैं।",
-        "feature_trusted_title": "विश्वसनीय और सुरक्षित",
-        "feature_trusted_subtitle": "आपके डेटा और लेनदेन की सुरक्षा के लिए बैंक-ग्रेड सुरक्षा",
-        "feature_community_title": "समुदाय पहले",
-        "feature_community_subtitle": "स्थानीय समुदायों का समर्थन करते हुए, किसानों के लिए, किसानों के साथ बनाया गया"
-    },
-    "founded_year": "2025",
-    "founded_label": "स्थापित",
-    "sustainable_growth_title": "टिकाऊ विकास",
-    "sustainable_growth_subtitle": "पूरे भारत में 10,000+ किसानों को सशक्त बनाना",
-    "value": {
-        "farmer_centric_title": "किसान-केंद्रित",
-        "farmer_centric_p": "किसानों को उनके दैनिक कार्यों में आने वाली वास्तविक चुनौतियों को समझकर बनाया गया",
-        "technology_driven_title": "प्रौद्योगिकी-संचालित",
-        "technology_driven_p": "कार्रवाई योग्य अंतर्दृष्टि और समाधान प्रदान करने के लिए एआई और आधुनिक उपकरणों का लाभ उठाना",
-        "trusted_partner_title": "विश्वसनीय भागीदार",
-        "trusted_partner_p": "समुदायों में टिकाऊ और लाभदायक खेती पद्धतियों का समर्थन करना",
-        "eco_friendly_title": "पर्यावरण के अनुकूल",
-        "eco_friendly_p": "आने वाली पीढ़ियों के लिए हमारे पर्यावरण की रक्षा करने वाली टिकाऊ पद्धतियों को बढ़ावा देना"
-    },
-    "features": {
-        "title": "व्यापक विशेषताएँ",
-        "subtitle": "अपने खेती के कार्यों का आधुनिकीकरण करने के लिए आपको जो कुछ भी चाहिए"
-    },
-    "feature": {
-        "tools_title": "उपकरण किराए पर लेना",
-        "tools_p": "बुवाई, कटाई और सभी कृषि कार्यों के लिए कृषि उपकरण और मशीनरी बुक करें",
-        "tools_action": "अन्वेषण करें",
-        "warehouse_title": "गोदाम भंडारण",
-        "warehouse_p": "क्षमता और भंडारण की स्थिति के विवरण के साथ गोदाम स्थान खोजें और बुक करें",
-        "warehouse_action": "अभी बुक करें",
-        "soil_title": "मिट्टी विश्लेषण",
-        "soil_p": "मिट्टी की जांच लॉग करें, एनपीके/पीएच रीडिंग प्राप्त करें, और उर्वरक सिफारिशें प्राप्त करें",
-        "soil_action": "विश्लेषण प्राप्त करें",
-        "market_title": "बाज़ार की जानकारी",
-        "market_p": "वास्तविक समय में स्थानीय मंडी की कीमतें और फसल की मांग की अंतर्दृष्टि देखें",
-        "market_action": "कीमतें देखें",
-        "finance_title": "वित्त और योजनाएँ",
-        "finance_p": "क्रेडिट कार्ड, बीमा, सब्सिडी और सरकारी योजनाओं पर मार्गदर्शन",
-        "finance_action": "और जानें",
-        "weather_title": "मौसम और सलाह",
-        "weather_p": "हाइपर-लोकल मौसम अपडेट, कीट अलर्ट और सिंचाई मार्गदर्शन",
-        "weather_action": "अपडेट प्राप्त करें",
-        "ai_title": "एआई सहायता",
-        "ai_p": "स्मार्ट चैटबॉट जो चरण-दर-चरण मार्गदर्शन प्रदान करता है, प्रश्नों का उत्तर देता है, और प्रशासनिक प्रश्नों में 24/7 सहायता करता है",
-        "ai_action": "अभी चैट करें"
-    },
-    "testimonial": {
-        "section_title": "किसानों द्वारा विश्वसनीय",
-        "section_subtitle": "उस बढ़ते समुदाय से सुनें जो कृषि संजीवनी के साथ सफलता प्राप्त कर रहा है।",
-        "amit_name": "अमित शर्मा",
-        "amit_role": "गेहूं किसान, पंजाब",
-        "amit_feedback": "उपकरण बुकिंग प्रणाली ने मुझे इस कटाई के मौसम में बहुत समय और पैसा बचाया। सब कुछ कुशल और विश्वसनीय था।",
-        "sunita_name": "सुनीता देवी",
-        "sunita_role": "सब्जी उत्पादक, महाराष्ट्र",
-        "sunita_feedback": "वास्तविक समय के मौसम अलर्ट और मिट्टी की जांच की सिफारिशों ने मेरी उपज में जबरदस्त सुधार किया है। अत्यधिक अनुशंसित!",
-        "ravi_name": "रवि कुमार",
-        "ravi_role": "मक्का किसान, बिहार",
-        "ravi_feedback": "बाज़ार मूल्य सुविधा एक गेम-चेेंजर है। मुझे आखिरकार पता चला कि अधिकतम लाभ के लिए अपनी फसल बेचने का सबसे अच्छा समय क्या है।",
-        "priya_name": "प्रिया सिंह",
-        "priya_role": "जैविक किसान, कर्नाटक",
-        "priya_feedback": "सरकारी योजनाओं और वित्तीय सलाह तक पहुंच ने मुझे अपने संचालन का विस्तार करने के लिए ऋण सुरक्षित करने में मदद की है। धन्यवाद!",
-        "rajesh_name": "राजेश पटेल",
-        "rajesh_role": "कपास किसान, गुजरात",
-        "rajesh_feedback": "एआई सहायक तत्काल कीट और रोग की पहचान के लिए शानदार है। यह मेरी जेब में एक विशेषज्ञ कृषि वैज्ञानिक होने जैसा है।"
-    },
-    "index": {
-        "links_title": "सरकारी और भागीदार लिंक"
-    },
-
-    "community_page": {
+  "chat": {
+    "general_chat": "सामान्य चैट",
+    "message_deleted": "संदेश हटा दिया गया",
+    "user_banned": "उपयोगकर्ता को प्रतिबंधित कर दिया गया है",
+    "confirm_delete_title": "संदेश हटाएं",
+    "confirm_delete_desc": "क्या आप वाकई इस संदेश को हटाना चाहते हैं? यह क्रिया पूर्ववत नहीं की जा सकती।",
+    "confirm_ban_title": "उपयोगकर्ता को प्रतिबंधित करें",
+    "confirm_ban_desc": "क्या आप वाकई प्रतिबंधित करना चाहते हैं",
+    "ban_consequence": "यह उनके सभी संदेशों को भी हटा देगा और उन्हें फिर से चैट करने से रोक देगा।",
+    "ban": "उपयोगकर्ता को प्रतिबंधित करें",
+    "banned_message": "आपके खाते को चैट में भाग लेने से प्रतिबंधित कर दिया गया है।",
+    "login_to_chat": "चैट में शामिल होने के लिए कृपया लॉगिन करें।"
+  },
+  "logo": {
+    "tagline": "साथ मिलकर आगे बढ़ें",
+    "KrishiSanjivni": "कृषिसंजीवनी"
+  },
+  "nav": {
+    "home": "मुख पृष्ठ",
+    "tools": "उपकरण",
+    "warehouse": "गोदाम",
+    "soilCheck": "मिट्टी की जाँच",
+    "community": "समुदाय",
+    "more": "अधिक",
+    "resources": "📚 संसाधन (योजनाएँ और नीतियाँ)",
+    "weather": "🌤️ वास्तविक समय का मौसम",
+    "marketPrices": "💰 बाज़ार मूल्य",
+    "adminPanel": "एडमिन पैनल",
+    "profile": "प्रोफ़ाइल",
+    "paymentHistory": "भुगतान इतिहास",
+    "logout": "लॉग आउट",
+    "login": "लॉग इन करें"
+  },
+  "contact": {
+    "location": "नोएडा, उत्तर प्रदेश, भारत"
+  },
+  "footer": {
+    "tagline_p": "किसानों को अत्याधुनिक तकनीक, विशेषज्ञ ज्ञान और एक सहायक समुदाय के साथ सशक्त बनाना ताकि वे स्थायी सफलता प्राप्त कर सकें।",
+    "contact_title": "हमसे संपर्क करें",
+    "services_title": "सेवाएँ",
+    "service_equipment": "खेती के उपकरण",
+    "service_warehouse": "गोदाम समाधान",
+    "service_soil": "मिट्टी की जाँच",
+    "service_community": "समुदाय",
+    "service_contact": "हमसे संपर्क करें",
+    "newsletter_title": "समाचार पत्र",
+    "newsletter_p": "साप्ताहिक खेती के सुझाव और अपडेट सीधे अपने इनबॉक्स में प्राप्त करें।",
+    "email_placeholder": "आपका ईमेल",
+    "copyright_base": "© 2025 कृषि संजीवनी। सभी अधिकार सुरक्षित। द्वारा",
+    "privacy_policy": "गोपनीयता नीति",
+    "terms_of_service": "सेवा की शर्तें",
+    "cookie_policy": "कुकी नीति"
+  },
+  "hero": {
+    "title": "बुद्धिमत्ता और प्रौद्योगिकी के साथ भारतीय कृषि का आधुनिकीकरण",
+    "subtitle": "फार्म प्रबंधन, उपकरण किराए पर लेने और बाजार तक पहुंच के लिए आपका व्यापक मंच।",
+    "getStarted": "शुरू करें",
+    "learnMore": "और जानें"
+  },
+  "ai_button": "एआई",
+  "smart_farming_revolution": "स्मार्ट खेती क्रांति",
+  "growing_future_title_1": "के साथ भविष्य की खेती",
+  "growing_future_title_2": "स्मार्ट कृषि",
+  "growing_future_subtitle": "एआई-संचालित अंतर्दृष्टि, आधुनिक उपकरणों और वास्तविक समय के बाजार खुफिया के साथ अपने संचालन को बदलने वाले हजारों किसानों से जुड़ें।",
+  "explore_now": "अभी अन्वेषण करें",
+  "watch_demo": "डेमो देखें",
+  "modern_platform_title": "आधुनिक मंच",
+  "modern_platform_subtitle": "कहीं से भी एक्सेस करें",
+  "ai_powered_label": "संचालित",
+  "ai_assistant_title": "24/7 एआई सहायक",
+  "ai_assistant_subtitle": "तत्काल समर्थन",
+  "stats": {
+    "active_farmers_count": "10K+",
+    "tools_available_count": "500+",
+    "satisfaction_rate_count": "98%",
+    "active_farmers_label": "सक्रिय किसान",
+    "tools_available_label": "उपलब्ध उपकरण",
+    "satisfaction_rate_label": "संतुष्टि",
+    "managed_hectares_count": "50M+",
+    "managed_hectares_label": "प्रबंधित हेक्टेयर",
+    "ai_support_count": "24/7",
+    "ai_support_label": "एआई समर्थन"
+  },
+  "about": {
+    "story_label": "हमारी कहानी",
+    "title": "नवाचार के माध्यम से कृषि में क्रांति लाना",
+    "p1": "कृषि संजीवनी का जन्म एक साधारण दृष्टिकोण से हुआ था: पारंपरिक खेती के ज्ञान और आधुनिक तकनीक के बीच की खाई को पाटना। हम किसानों को अप्रत्याशित मौसम से लेकर बाजार की अस्थिर कीमतों तक रोज़मर्रा की चुनौतियों को समझते हैं।",
+    "p2": "हमारा मंच ऐसे समाधान देने के लिए अत्याधुनिक एआई, वास्तविक समय के डेटा विश्लेषण और कृषि पद्धतियों की गहरी समझ को जोड़ता है जो वास्तव में फर्क करते हैं। हम सिर्फ सॉफ्टवेयर नहीं बना रहे हैं; हम दूरदर्शी किसानों के एक समुदाय का पोषण कर रहे हैं।",
+    "feature_trusted_title": "विश्वसनीय और सुरक्षित",
+    "feature_trusted_subtitle": "आपके डेटा और लेनदेन की सुरक्षा के लिए बैंक-ग्रेड सुरक्षा",
+    "feature_community_title": "समुदाय पहले",
+    "feature_community_subtitle": "स्थानीय समुदायों का समर्थन करते हुए, किसानों के लिए, किसानों के साथ बनाया गया"
+  },
+  "founded_year": "2025",
+  "founded_label": "स्थापित",
+  "sustainable_growth_title": "टिकाऊ विकास",
+  "sustainable_growth_subtitle": "पूरे भारत में 10,000+ किसानों को सशक्त बनाना",
+  "value": {
+    "farmer_centric_title": "किसान-केंद्रित",
+    "farmer_centric_p": "किसानों को उनके दैनिक कार्यों में आने वाली वास्तविक चुनौतियों को समझकर बनाया गया",
+    "technology_driven_title": "प्रौद्योगिकी-संचालित",
+    "technology_driven_p": "कार्रवाई योग्य अंतर्दृष्टि और समाधान प्रदान करने के लिए एआई और आधुनिक उपकरणों का लाभ उठाना",
+    "trusted_partner_title": "विश्वसनीय भागीदार",
+    "trusted_partner_p": "समुदायों में टिकाऊ और लाभदायक खेती पद्धतियों का समर्थन करना",
+    "eco_friendly_title": "पर्यावरण के अनुकूल",
+    "eco_friendly_p": "आने वाली पीढ़ियों के लिए हमारे पर्यावरण की रक्षा करने वाली टिकाऊ पद्धतियों को बढ़ावा देना"
+  },
+  "features": {
+    "title": "व्यापक विशेषताएँ",
+    "subtitle": "अपने खेती के कार्यों का आधुनिकीकरण करने के लिए आपको जो कुछ भी चाहिए"
+  },
+  "feature": {
+    "tools_title": "उपकरण किराए पर लेना",
+    "tools_p": "बुवाई, कटाई और सभी कृषि कार्यों के लिए कृषि उपकरण और मशीनरी बुक करें",
+    "tools_action": "अन्वेषण करें",
+    "warehouse_title": "गोदाम भंडारण",
+    "warehouse_p": "क्षमता और भंडारण की स्थिति के विवरण के साथ गोदाम स्थान खोजें और बुक करें",
+    "warehouse_action": "अभी बुक करें",
+    "soil_title": "मिट्टी विश्लेषण",
+    "soil_p": "मिट्टी की जांच लॉग करें, एनपीके/पीएच रीडिंग प्राप्त करें, और उर्वरक सिफारिशें प्राप्त करें",
+    "soil_action": "विश्लेषण प्राप्त करें",
+    "market_title": "बाज़ार की जानकारी",
+    "market_p": "वास्तविक समय में स्थानीय मंडी की कीमतें और फसल की मांग की अंतर्दृष्टि देखें",
+    "market_action": "कीमतें देखें",
+    "finance_title": "वित्त और योजनाएँ",
+    "finance_p": "क्रेडिट कार्ड, बीमा, सब्सिडी और सरकारी योजनाओं पर मार्गदर्शन",
+    "finance_action": "और जानें",
+    "weather_title": "मौसम और सलाह",
+    "weather_p": "हाइपर-लोकल मौसम अपडेट, कीट अलर्ट और सिंचाई मार्गदर्शन",
+    "weather_action": "अपडेट प्राप्त करें",
+    "ai_title": "एआई सहायता",
+    "ai_p": "स्मार्ट चैटबॉट जो चरण-दर-चरण मार्गदर्शन प्रदान करता है, प्रश्नों का उत्तर देता है, और प्रशासनिक प्रश्नों में 24/7 सहायता करता है",
+    "ai_action": "अभी चैट करें"
+  },
+  "testimonial": {
+    "section_title": "किसानों द्वारा विश्वसनीय",
+    "section_subtitle": "उस बढ़ते समुदाय से सुनें जो कृषि संजीवनी के साथ सफलता प्राप्त कर रहा है।",
+    "amit_name": "अमित शर्मा",
+    "amit_role": "गेहूं किसान, पंजाब",
+    "amit_feedback": "उपकरण बुकिंग प्रणाली ने मुझे इस कटाई के मौसम में बहुत समय और पैसा बचाया। सब कुछ कुशल और विश्वसनीय था।",
+    "sunita_name": "सुनीता देवी",
+    "sunita_role": "सब्जी उत्पादक, महाराष्ट्र",
+    "sunita_feedback": "वास्तविक समय के मौसम अलर्ट और मिट्टी की जांच की सिफारिशों ने मेरी उपज में जबरदस्त सुधार किया है। अत्यधिक अनुशंसित!",
+    "ravi_name": "रवि कुमार",
+    "ravi_role": "मक्का किसान, बिहार",
+    "ravi_feedback": "बाज़ार मूल्य सुविधा एक गेम-चेेंजर है। मुझे आखिरकार पता चला कि अधिकतम लाभ के लिए अपनी फसल बेचने का सबसे अच्छा समय क्या है।",
+    "priya_name": "प्रिया सिंह",
+    "priya_role": "जैविक किसान, कर्नाटक",
+    "priya_feedback": "सरकारी योजनाओं और वित्तीय सलाह तक पहुंच ने मुझे अपने संचालन का विस्तार करने के लिए ऋण सुरक्षित करने में मदद की है। धन्यवाद!",
+    "rajesh_name": "राजेश पटेल",
+    "rajesh_role": "कपास किसान, गुजरात",
+    "rajesh_feedback": "एआई सहायक तत्काल कीट और रोग की पहचान के लिए शानदार है। यह मेरी जेब में एक विशेषज्ञ कृषि वैज्ञानिक होने जैसा है।"
+  },
+  "index": {
+    "links_title": "सरकारी और भागीदार लिंक"
+  },
+  "community_page": {
     "mission_title": "हमारा मिशन",
     "mission_description": "एक सहायक नेटवर्क बनाना जहाँ किसान स्वतंत्र रूप से ज्ञान का आदान-प्रदान कर सकें, चुनौतियों का समाधान खोज सकें, और अपनी उपज और स्थिरता में सुधार के लिए अभिनव प्रथाओं की खोज कर सकें।",
     "features_title": "आप यहां क्या कर सकते हैं",
     "features": {
-        "ask_questions": "प्रश्न पूछें और अनुभवी साथियों से उत्तर प्राप्त करें।",
-        "share_experiences": "अपनी खेती की सफलताओं और सीखे गए सबक साझा करें।",
-        "find_solutions": "फसल प्रबंधन और मिट्टी के स्वास्थ्य के लिए व्यावहारिक समाधान खोजें।",
-        "stay_updated": "नवीनतम कृषि प्रवृत्तियों और प्रौद्योगिकियों पर अपडेट रहें।"
+      "ask_questions": "प्रश्न पूछें और अनुभवी साथियों से उत्तर प्राप्त करें।",
+      "share_experiences": "अपनी खेती की सफलताओं और सीखे गए सबक साझा करें।",
+      "find_solutions": "फसल प्रबंधन और मिट्टी के स्वास्थ्य के लिए व्यावहारिक समाधान खोजें।",
+      "stay_updated": "नवीनतम कृषि प्रवृत्तियों और प्रौद्योगिकियों पर अपडेट रहें।"
     },
     "join_title": "बातचीत में शामिल हों",
     "join_description": "आपकी आवाज़ मायने रखती है। एक नई चर्चा शुरू करें, किसी विषय पर जवाब दें, या समुदाय से अपना परिचय कराएं।",
     "join_button": "चर्चा शुरू करें"
-},
-"ai_showcase": {
+  },
+  "ai_showcase": {
     "tag": "एआई-संचालित बुद्धिमत्ता",
     "title_part1": "आपका व्यक्तिगत खेती",
     "title_part2": "एआई सहायक",
@@ -182,8 +193,8 @@
     "q_soil_nitrogen": "मैं मिट्टी में नाइट्रोजन का स्तर कैसे सुधार सकता हूँ?",
     "q_wheat_rust": "गेहूं के रस्ट रोग के संकेत क्या हैं?",
     "q_tomato_irrigation": "मुझे अपने टमाटर की फसलों की सिंचाई कब करनी चाहिए?"
-},
-"chatbot": {
+  },
+  "chatbot": {
     "bot_name": "कृषि संजीवनी सहायक",
     "bot_status": "ऑनलाइन",
     "intro_line1": "नमस्ते! मैं आपका कृषि संजीवनी सहायक हूँ।",
@@ -193,26 +204,26 @@
     "error_send_failed": "संदेश भेजने में विफल रहा",
     "error_transcribe_failed": "ऑडियो को ट्रांसक्राइब करने में विफल रहा",
     "error_microphone_access": "माइक्रोफ़ोन तक पहुँचा नहीं जा सका"
-},
-"community_section": {
+  },
+  "community_section": {
     "title": "हमारे बढ़ते समुदाय में शामिल हों",
     "subtitle": "हजारों किसानों और कृषि पेशेवरों के साथ जुड़ें, सीखें और आगे बढ़ें",
     "explore_button": "अभी अन्वेषण करें",
     "features": {
-        "expert_network_title": "विशेषज्ञ नेटवर्क",
-        "expert_network_description": "दुनिया भर के कृषि विशेषज्ञों, कृषि वैज्ञानिकों और सफल किसानों से जुड़ें।",
-        "community_forums_title": "सामुदायिक मंच",
-        "community_forums_description": "चर्चाओं में भाग लें, प्रश्न पूछें और साथियों के साथ अपने खेती के अनुभव साझा करें।",
-        "knowledge_library_title": "ज्ञान पुस्तकालय",
-        "knowledge_library_description": "आधुनिक खेती की तकनीकों पर हजारों लेखों, गाइडों और शोध पत्रों तक पहुंचें।",
-        "success_stories_title": "सफलता की कहानियाँ",
-        "success_stories_description": "उन वास्तविक किसानों से प्रेरणा लें जिन्होंने हमारे मंच का उपयोग करके अपने कार्यों को बदल दिया।"
+      "expert_network_title": "विशेषज्ञ नेटवर्क",
+      "expert_network_description": "दुनिया भर के कृषि विशेषज्ञों, कृषि वैज्ञानिकों और सफल किसानों से जुड़ें।",
+      "community_forums_title": "सामुदायिक मंच",
+      "community_forums_description": "चर्चाओं में भाग लें, प्रश्न पूछें और साथियों के साथ अपने खेती के अनुभव साझा करें।",
+      "knowledge_library_title": "ज्ञान पुस्तकालय",
+      "knowledge_library_description": "आधुनिक खेती की तकनीकों पर हजारों लेखों, गाइडों और शोध पत्रों तक पहुंचें।",
+      "success_stories_title": "सफलता की कहानियाँ",
+      "success_stories_description": "उन वास्तविक किसानों से प्रेरणा लें जिन्होंने हमारे मंच का उपयोग करके अपने कार्यों को बदल दिया।"
     },
     "cta_title": "अपनी खेती को बदलने के लिए तैयार हैं?",
     "cta_subtitle": "हजारों किसानों से जुड़ें जो पहले से ही हमारे समुदाय और संसाधनों से लाभ उठा रहे हैं।",
     "cta_button": "आज ही शुरू करें"
-},
-"hero_section": {
+  },
+  "hero_section": {
     "tag": "उन्नत कृषि प्रौद्योगिकी द्वारा संचालित",
     "title_part1": "सफलता की खेती,",
     "title_part2": "साथ मिलकर आगे बढ़ें",
@@ -220,52 +231,49 @@
     "button_join": "समुदाय में शामिल हों",
     "button_explore": "सेवाएँ एक्सप्लोर करें",
     "stats": {
-        "farmers_count": "10K+",
-        "farmers_label": "सक्रिय किसान",
-        "advisors_count": "500+",
-        "advisors_label": "विशेषज्ञ सलाहकार",
-        "success_count": "95%",
-        "success_label": "सफलता दर",
-        "ai_support_count": "24/7",
-        "ai_support_label": "एआई समर्थन"
+      "farmers_count": "10K+",
+      "farmers_label": "सक्रिय किसान",
+      "advisors_count": "500+",
+      "advisors_label": "विशेषज्ञ सलाहकार",
+      "success_count": "95%",
+      "success_label": "सफलता दर",
+      "ai_support_count": "24/7",
+      "ai_support_label": "एआई समर्थन"
     }
-},
-"services_section": {
+  },
+  "services_section": {
     "title": "स्मार्ट समाधानों के साथ किसानों को सशक्त बनाना",
     "subtitle": "कृषि संजीवनी आधुनिक कृषि के हर पहलू को सरल बनाती है — मिट्टी के स्वास्थ्य से लेकर भंडारण और एआई सहायता तक।",
     "learn_more": "और जानें",
     "features": {
-        "smart_tools_title": "स्मार्ट खेती उपकरण",
-        "smart_tools_description": "आधुनिक खेती के उपकरण और मशीनें आसानी से किराए पर लें या बुक करें। ट्रैक्टरों से लेकर सीडर तक, कृषि संजीवनी के माध्यम से कभी भी किफायती उपकरणों तक पहुंचें।",
-        "warehouse_booking_title": "गोदाम बुकिंग और भंडारण",
-        "warehouse_booking_description": "सुरक्षित फसल भंडारण के लिए सुरक्षित, जलवायु-नियंत्रित गोदाम बुक करें। अपनी गोदाम बुकिंग ट्रैक करें और उपलब्धता ऑनलाइन प्रबंधित करें।",
-        "soil_testing_title": "मिट्टी स्वास्थ्य और उर्वरता परीक्षण",
-        "soil_testing_description": "विश्लेषण के लिए अपने मिट्टी के नमूने जमा करें और पोषक तत्वों, पीएच और नमी पर सटीक रिपोर्ट प्राप्त करें — जो आपको बेहतर फसलें और उर्वरक की योजना बनाने में मदद करती है।",
-        "ai_insights_title": "एआई-आधारित मिट्टी और फसल अंतर्दृष्टि",
-        "ai_insights_description": "मिट्टी की गुणवत्ता को समझने और फसल वृद्धि और स्थिरता के लिए वास्तविक समय की सिफारिशें प्राप्त करने के लिए हमारी एआई-संचालित मिट्टी जांच प्रणाली का उपयोग करें।",
-        "ai_chatbot_title": "कृषि संजीवनी एआई चैटबॉट",
-        "ai_chatbot_description": "24/7 खेती सहायता प्राप्त करें — मौसम अपडेट, सरकारी योजना की जानकारी, ऋण पात्रता, और विशेषज्ञ सलाह सीधे अपने चैटबॉट से।",
-        "farmer_community_title": "किसान समुदाय और समर्थन",
-        "farmer_community_description": "किसानों के एक बढ़ते समुदाय में शामिल हों, अनुभव साझा करें, और कृषि संजीवनी नेटवर्क के माध्यम से कृषि विशेषज्ञों और साथियों से सहायता प्राप्त करें।"
+      "smart_tools_title": "स्मार्ट खेती उपकरण",
+      "smart_tools_description": "आधुनिक खेती के उपकरण और मशीनें आसानी से किराए पर लें या बुक करें। ट्रैक्टरों से लेकर सीडर तक, कृषि संजीवनी के माध्यम से कभी भी किफायती उपकरणों तक पहुंचें।",
+      "warehouse_booking_title": "गोदाम बुकिंग और भंडारण",
+      "warehouse_booking_description": "सुरक्षित फसल भंडारण के लिए सुरक्षित, जलवायु-नियंत्रित गोदाम बुक करें। अपनी गोदाम बुकिंग ट्रैक करें और उपलब्धता ऑनलाइन प्रबंधित करें।",
+      "soil_testing_title": "मिट्टी स्वास्थ्य और उर्वरता परीक्षण",
+      "soil_testing_description": "विश्लेषण के लिए अपने मिट्टी के नमूने जमा करें और पोषक तत्वों, पीएच और नमी पर सटीक रिपोर्ट प्राप्त करें — जो आपको बेहतर फसलें और उर्वरक की योजना बनाने में मदद करती है।",
+      "ai_insights_title": "एआई-आधारित मिट्टी और फसल अंतर्दृष्टि",
+      "ai_insights_description": "मिट्टी की गुणवत्ता को समझने और फसल वृद्धि और स्थिरता के लिए वास्तविक समय की सिफारिशें प्राप्त करने के लिए हमारी एआई-संचालित मिट्टी जांच प्रणाली का उपयोग करें।",
+      "ai_chatbot_title": "कृषि संजीवनी एआई चैटबॉट",
+      "ai_chatbot_description": "24/7 खेती सहायता प्राप्त करें — मौसम अपडेट, सरकारी योजना की जानकारी, ऋण पात्रता, और विशेषज्ञ सलाह सीधे अपने चैटबॉट से।",
+      "farmer_community_title": "किसान समुदाय और समर्थन",
+      "farmer_community_description": "किसानों के एक बढ़ते समुदाय में शामिल हों, अनुभव साझा करें, और कृषि संजीवनी नेटवर्क के माध्यम से कृषि विशेषज्ञों और साथियों से सहायता प्राप्त करें।"
     }
-},
-"common": {
+  },
+  "common": {
     "phone": "संपर्क फ़ोन"
-},
-"soil": {
+  },
+  "soil": {
     "page_title": "मिट्टी स्वास्थ्य और विश्लेषण अनुरोध",
     "page_subtitle": "अपनी उपज को अधिकतम करने के लिए विशेषज्ञ सिफारिशें प्राप्त करने हेतु अपने मिट्टी के मापदंडों को जमा करें या प्रयोगशाला विश्लेषण का अनुरोध करें।",
-    
     "feature_analysis_title": "व्यापक विश्लेषण",
     "feature_analysis_description": "पीएच, एनपीके स्तर, नमी और कार्बनिक पदार्थ की मात्रा पर विस्तृत जानकारी प्राप्त करें",
     "feature_crop_title": "फसल सिफारिशें",
     "feature_crop_description": "आपकी मिट्टी की संरचना के आधार पर अनुकूलित फसल सुझाव प्राप्त करें",
     "feature_expert_title": "विशेषज्ञ विश्लेषण",
     "feature_expert_description": "हमारे कृषि विशेषज्ञ समीक्षा करेंगे और व्यक्तिगत सिफारिशें प्रदान करेंगे",
-
     "form_request_title": "मिट्टी विश्लेषण का अनुरोध करें",
     "form_request_description": "अपने खेत के लिए व्यापक मिट्टी विश्लेषण का अनुरोध करने हेतु नीचे दिए गए विवरण भरें",
-    
     "farm_info_title": "खेत की जानकारी",
     "location": "स्थान",
     "location_placeholder": "उदाहरण: पंजाब, लुधियाना",
@@ -274,14 +282,12 @@
     "crop_placeholder": "उदाहरण: गेहूं, चावल, कपास",
     "soilType": "मिट्टी का प्रकार",
     "select_soil_type": "मिट्टी का प्रकार चुनें",
-    
     "type_clay": "चिकनी मिट्टी",
     "type_sandy": "रेतीली",
     "type_loamy": "दोमट",
     "type_silty": "गाददार",
     "type_peaty": "पीटदार",
     "type_chalky": "चूनायुक्त",
-    
     "parameters_title": "मिट्टी के मापदंड (वैकल्पिक)",
     "parameters_subtitle": "यदि आपके पास मौजूदा परीक्षण परिणाम हैं, तो आप उन्हें यहां प्रदान कर सकते हैं",
     "ph": "पीएच स्तर",
@@ -294,29 +300,26 @@
     "level_high": "उच्च",
     "organicMatter": "कार्बनिक पदार्थ (%)",
     "moisture": "नमी (%)",
-
     "additional_info_title": "अतिरिक्त जानकारी",
     "sample_count_label": "नमूनों की संख्या",
     "notes_label": "अतिरिक्त नोट्स",
     "notes_placeholder": "अपनी मिट्टी या विशिष्ट चिंताओं के बारे में कोई अतिरिक्त जानकारी...",
     "phone_placeholder": "उदाहरण: +91 98765 43210",
-    
     "analyze": "मिट्टी का विश्लेषण करें",
     "submitting": "जमा किया जा रहा है...",
-
     "toast": {
-        "auth_title": "प्रमाणीकरण आवश्यक है",
-        "auth_description": "मिट्टी जांच अनुरोध जमा करने के लिए कृपया साइन इन करें",
-        "fail_title": "जमा करना विफल",
-        "fail_description": "मिट्टी जांच अनुरोध जमा करने में विफल रहा: ",
-        "success_title": "अनुरोध जमा किया गया",
-        "success_description": "आपका मिट्टी विश्लेषण अनुरोध सफलतापूर्वक जमा कर दिया गया है। यह अब समीक्षा के लिए व्यवस्थापक को दिखाई दे रहा है।"
+      "auth_title": "प्रमाणीकरण आवश्यक है",
+      "auth_description": "मिट्टी जांच अनुरोध जमा करने के लिए कृपया साइन इन करें",
+      "fail_title": "जमा करना विफल",
+      "fail_description": "मिट्टी जांच अनुरोध जमा करने में विफल रहा: ",
+      "success_title": "अनुरोध जमा किया गया",
+      "success_description": "आपका मिट्टी विश्लेषण अनुरोध सफलतापूर्वक जमा कर दिया गया है। यह अब समीक्षा के लिए व्यवस्थापक को दिखाई दे रहा है।"
     }
-},
-"common1": {
+  },
+  "common1": {
     "ai": "एआई"
   },
-   "warehouse": {
+  "warehouse": {
     "title": "उपलब्ध गोदाम",
     "subtitle": "अपनी आवश्यकता के लिए सही भंडारण समाधान खोजें।",
     "loading": "उपलब्ध गोदाम लोड हो रहे हैं...",
@@ -340,7 +343,11 @@
     "features": "विशेषताएँ:",
     "bookNow": "अभी बुक करें",
     "noResults": "आपकी खोज से मेल खाते कोई गोदाम नहीं मिले",
-    "tryAdjust": "कृपया अपने फ़िल्टर या खोज शब्द समायोजित करें।"
+    "tryAdjust": "कृपया अपने फ़िल्टर या खोज शब्द समायोजित करें।",
+    "available_status": "उपलब्ध",
+    "full_status": "पूर्ण (फुल)",
+    "sold": "बिक गया",
+    "na": "N/A"
   },
   "tools": {
     "title": "उपलब्ध उपकरण",
@@ -361,7 +368,7 @@
     "loginRequiredDesc": "कृपया उपकरण बुक करने के लिए लॉगिन करें",
     "rentNow": "अभी किराए पर लें"
   },
-   "weather": {
+  "weather": {
     "title": "रीयल-टाइम मौसम पूर्वानुमान",
     "subtitle": "बेहतर कृषि निर्णयों के लिए सटीक मौसम जानकारी प्राप्त करें",
     "toastSuccess": "{{city}} का मौसम डेटा सफलतापूर्वक प्राप्त हुआ!",
@@ -470,7 +477,6 @@
   "Zinc Sulphate": "जिंक सल्फेट",
   "Gypsum": "जिप्सम",
   "Organic Compost": "जैविक कंपोस्ट",
-
   "auth": {
     "signIn": "साइन इन करें",
     "signUp": "साइन अप करें",
@@ -543,7 +549,6 @@
   "total_cost": "कुल लागत",
   "rejection_reason": "अस्वीकृति का कारण",
   "loading_bookings": "बुकिंग लोड हो रही हैं...",
-
   "privacy": {
     "hero": {
       "badge": "गोपनीयता नीति",
@@ -614,64 +619,61 @@
       "desc2": "मुख्य अपडेट की सूचना आपको ईमेल या ऐप नोटिफिकेशन के माध्यम से दी जाएगी।"
     }
   },
-
-"categories": {
-  "sprayer": "स्प्रेयर",
-  "transplanter": "रोपाई मशीन",
-  "harrow": "हैरो",
-  "cultivator": "कल्टीवेटर",
-  "mulcher": "मल्चर",
-  "seeder": "बीज ड्रिल",
-  "cutter": "कटर",
-  "harvester": "हार्वेस्टर",
-  "pump": "पंप",
-  "tractor": "ट्रैक्टर",
-  "planter": "प्लांटर",
-  "thresher": "थ्रेशर",
-  "leveller": "लेवलर",
-  "utility": "उपयोगी उपकरण",
-  "plough": "हल",
-  "reaper": "रीपर",
-  "handTool": "हाथ उपकरण",
-  "tiller": "टिलर",
-  "rotavator": "रोटावेटर",
-  "irrigation": "सिंचाई",
-  "broadcaster": "उर्वरक फैलाने की मशीन",
-  "weeder": "निराई मशीन",
-  "loader": "लोडर",
-  "baler": "बेलर",
-  "trolley": "ट्रॉली"
-},
-
-"locations": {
-  "bangaloreKarnataka": "बेंगलुरु, कर्नाटक",
-  "srinagarJammuKashmir": "श्रीनगर, जम्मू और कश्मीर",
-  "tumkurKarnataka": "तुमकुरु, कर्नाटक",
-  "ahmedabadGujarat": "अहमदाबाद, गुजरात",
-  "kolkataWestBengal": "कोलकाता, पश्चिम बंगाल",
-  "cuttackOdisha": "कटक, ओडिशा",
-  "indoreMadhyaPradesh": "इंदौर, मध्य प्रदेश",
-  "idukkiKerala": "इडुक्की, केरल",
-  "karnalHaryana": "करनाल, हरियाणा",
-  "noida": "नोएडा",
-  "jaipurRajasthan": "जयपुर, राजस्थान",
-  "rajkotGujarat": "राजकोट, गुजरात",
-  "anandGujarat": "आनंद, गुजरात",
-  "jodhpurRajasthan": "जोधपुर, राजस्थान",
-  "chennaiTamilNadu": "चेन्नई, तमिलनाडु",
-  "gurugramHaryana": "गुरुग्राम, हरियाणा",
-  "ludhianaPunjab": "लुधियाना, पंजाब",
-  "nashikMaharashtra": "नासिक, महाराष्ट्र",
-  "siliguriWestBengal": "सिलीगुड़ी, पश्चिम बंगाल",
-  "kanpurUttarPradesh": "कानपुर, उत्तर प्रदेश",
-  "bhubaneswarOdisha": "भुवनेश्वर, ओडिशा",
-  "lucknowUttarPradesh": "लखनऊ, उत्तर प्रदेश",
-  "delhi": "दिल्ली",
-  "puneMaharashtra": "पुणे, महाराष्ट्र",
-  "gunturAndhraPradesh": "गुंटूर, आंध्र प्रदेश",
-  "maduraiTamilNadu": "मदुरै, तमिलनाडु"
-},
-
+  "categories": {
+    "sprayer": "स्प्रेयर",
+    "transplanter": "रोपाई मशीन",
+    "harrow": "हैरो",
+    "cultivator": "कल्टीवेटर",
+    "mulcher": "मल्चर",
+    "seeder": "बीज ड्रिल",
+    "cutter": "कटर",
+    "harvester": "हार्वेस्टर",
+    "pump": "पंप",
+    "tractor": "ट्रैक्टर",
+    "planter": "प्लांटर",
+    "thresher": "थ्रेशर",
+    "leveller": "लेवलर",
+    "utility": "उपयोगी उपकरण",
+    "plough": "हल",
+    "reaper": "रीपर",
+    "handTool": "हाथ उपकरण",
+    "tiller": "टिलर",
+    "rotavator": "रोटावेटर",
+    "irrigation": "सिंचाई",
+    "broadcaster": "उर्वरक फैलाने की मशीन",
+    "weeder": "निराई मशीन",
+    "loader": "लोडर",
+    "baler": "बेलर",
+    "trolley": "ट्रॉली"
+  },
+  "locations": {
+    "bangaloreKarnataka": "बेंगलुरु, कर्नाटक",
+    "srinagarJammuKashmir": "श्रीनगर, जम्मू और कश्मीर",
+    "tumkurKarnataka": "तुमकुरु, कर्नाटक",
+    "ahmedabadGujarat": "अहमदाबाद, गुजरात",
+    "kolkataWestBengal": "कोलकाता, पश्चिम बंगाल",
+    "cuttackOdisha": "कटक, ओडिशा",
+    "indoreMadhyaPradesh": "इंदौर, मध्य प्रदेश",
+    "idukkiKerala": "इडुक्की, केरल",
+    "karnalHaryana": "करनाल, हरियाणा",
+    "noida": "नोएडा",
+    "jaipurRajasthan": "जयपुर, राजस्थान",
+    "rajkotGujarat": "राजकोट, गुजरात",
+    "anandGujarat": "आनंद, गुजरात",
+    "jodhpurRajasthan": "जोधपुर, राजस्थान",
+    "chennaiTamilNadu": "चेन्नई, तमिलनाडु",
+    "gurugramHaryana": "गुरुग्राम, हरियाणा",
+    "ludhianaPunjab": "लुधियाना, पंजाब",
+    "nashikMaharashtra": "नासिक, महाराष्ट्र",
+    "siliguriWestBengal": "सिलीगुड़ी, पश्चिम बंगाल",
+    "kanpurUttarPradesh": "कानपुर, उत्तर प्रदेश",
+    "bhubaneswarOdisha": "भुवनेश्वर, ओडिशा",
+    "lucknowUttarPradesh": "लखनऊ, उत्तर प्रदेश",
+    "delhi": "दिल्ली",
+    "puneMaharashtra": "पुणे, महाराष्ट्र",
+    "gunturAndhraPradesh": "गुंटूर, आंध्र प्रदेश",
+    "maduraiTamilNadu": "मदुरै, तमिलनाडु"
+  },
   "Your Privacy Matters": "आपकी गोपनीयता मायने रखती है",
   "Privacy Policy": "गोपनीयता नीति",
   "At KrishiSanjivni, we're committed to protecting your personal information and being transparent about how we collect, use, and safeguard your data.": "कृषिसंजीवनी में, हम आपकी व्यक्तिगत जानकारी की रक्षा करने और हम आपका डेटा कैसे एकत्र, उपयोग और सुरक्षित करते हैं, इस बारे में पारदर्शी रहने के लिए प्रतिबद्ध हैं।",
@@ -767,8 +769,6 @@
   "Policy Updates": "नीति अपडेट",
   "We may update this Privacy Policy from time to time to reflect changes in our practices or for legal, regulatory, or operational reasons. When we make significant changes, we'll notify you via email or through a prominent notice on our platform.": "हम अपनी प्रथाओं में बदलाव या कानूनी, नियामक, या परिचालन कारणों से समय-समय पर इस गोपनीयता नीति को अपडेट कर सकते हैं। जब हम महत्वपूर्ण परिवर्तन करते हैं, तो हम आपको ईमेल के माध्यम से या हमारे मंच पर एक प्रमुख नोटिस के माध्यम से सूचित करेंगे।",
   "We encourage you to review this Privacy Policy periodically to stay informed about how we're protecting your information.": "हम आपको समय-समय पर इस गोपनीयता नीति की समीक्षा करने के लिए प्रोत्साहित करते हैं ताकि आप इस बारे में सूचित रहें कि हम आपकी जानकारी की रक्षा कैसे कर रहे हैं।",
-
-
   "Welcome to": "स्वागत है",
   "KrishiSanjivni": "कृषिसंजीवनी",
   "your trusted partner in modern farming solutions.": "आधुनिक कृषि समाधानों में आपका विश्वसनीय भागीदार।",
@@ -864,7 +864,6 @@
   "Report Issue": "समस्या की रिपोर्ट करें",
   "By using KrishiSanjivni, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.": "कृषिसंजीवनी का उपयोग करके, आप स्वीकार करते हैं कि आपने इन सेवा की शर्तों को पढ़, समझ लिया है और इनसे बंधे होने के लिए सहमत हैं।",
   "Thank you for being part of the KrishiSanjivni community! 🌾": "कृषिसंजीवनी समुदाय का हिस्सा बनने के लिए धन्यवाद! 🌾",
-
   "Examples:": "उदाहरण:",
   "Cookie Policy": "कुकी नीति",
   "We use cookies to enhance your experience on KrishiSanjivni and provide you with personalized services. This policy explains how and why we use cookies on our platform.": "हम कृषिसंजीवनी पर आपके अनुभव को बढ़ाने और आपको व्यक्तिगत सेवाएं प्रदान करने के लिए कुकीज़ का उपयोग करते हैं। यह नीति बताती है कि हम अपने प्लेटफ़ॉर्म पर कुकीज़ का उपयोग कैसे और क्यों करते हैं।",
@@ -872,16 +871,13 @@
   "What Are Cookies?": "कुकीज़ क्या हैं?",
   "Cookies are small text files that are placed on your device (computer, smartphone, or tablet) when you visit our website. They help us recognize your device, remember your preferences, and improve your overall experience on KrishiSanjivni.": "कुकीज़ छोटी टेक्स्ट फ़ाइलें होती हैं जो आपके डिवाइस (कंप्यूटर, स्मार्टफ़ोन, या टैबलेट) पर तब रखी जाती हैं जब आप हमारी वेबसाइट पर जाते हैं। वे हमें आपके डिवाइस को पहचानने, आपकी प्राथमिकताओं को याद रखने और कृषिसंजीवनी पर आपके समग्र अनुभव को बेहतर बनाने में मदद करती हैं।",
   "By using cookies, we can provide you with a more personalized experience, analyze how our platform is used, and continuously improve our services to better serve the farming community.": "कुकीज़ का उपयोग करके, हम आपको अधिक व्यक्तिगत अनुभव प्रदान कर सकते हैं, हमारे प्लेटफ़ॉर्म का उपयोग कैसे किया जाता है इसका विश्लेषण कर सकते हैं, और कृषक समुदाय की बेहतर सेवा के लिए अपनी सेवाओं में लगातार सुधार कर सकते हैं।",
-
   "You have the right to accept or reject cookies. Most web browsers automatically accept cookies, but you can usually modify your browser settings to decline cookies if you prefer.": "आपको कुकीज़ स्वीकार करने या अस्वीकार करने का अधिकार है। अधिकांश वेब ब्राउज़र स्वचालित रूप से कुकीज़ स्वीकार करते हैं, लेकिन यदि आप चाहें तो कुकीज़ को अस्वीकार करने के लिए आप आमतौर पर अपनी ब्राउज़र सेटिंग्स को संशोधित कर सकते हैं।",
   "1. Types of Cookies We Use": "1. हम जिन प्रकार की कुकीज़ का उपयोग करते हैं",
   "KrishiSanjivni uses different types of cookies to serve various purposes. Here's a breakdown of each type:": "कृषिसंजीवनी विभिन्न उद्देश्यों की पूर्ति के लिए विभिन्न प्रकार की कुकीज़ का उपयोग करती है। यहाँ प्रत्येक प्रकार का विवरण दिया गया है:",
-  
   "These cookies are necessary for the website to function properly. Without them, you won't be able to use basic features like logging in, accessing your account, or using our services.": "वेबसाइट को ठीक से काम करने के लिए ये कुकीज़ आवश्यक हैं। इनके बिना, आप लॉग इन करने, अपने खाते तक पहुंचने, या हमारी सेवाओं का उपयोग करने जैसी बुनियादी सुविधाओं का उपयोग नहीं कर पाएंगे।",
   "Session authentication cookies": "सत्र प्रमाणीकरण कुकीज़",
   "Security cookies to prevent fraud": "धोखाधड़ी रोकने के लिए सुरक्षा कुकीज़",
   "Load balancing cookies": "लोड बैलेंसिंग कुकीज़",
-
   "These cookies allow us to remember your preferences and choices (like your preferred language, region, or display settings) to provide you with a more personalized experience.": "ये कुकीज़ हमें आपकी प्राथमिकताओं और विकल्पों (जैसे आपकी पसंदीदा भाषा, क्षेत्र, या प्रदर्शन सेटिंग्स) को याद रखने की अनुमति देती हैं ताकि आपको अधिक व्यक्तिगत अनुभव प्रदान किया जा सके।",
   "Language preference cookies": "भाषा वरीयता कुकीज़",
   "Theme and display settings": "थीम और प्रदर्शन सेटिंग्स",
@@ -905,7 +901,6 @@
   "KrishiSanjivni uses cookies to enhance your experience and provide better services. Here's how we use them:": "कृषिसंजीवनी आपके अनुभव को बढ़ाने और बेहतर सेवाएं प्रदान करने के लिए कुकीज़ का उपयोग करती है। यहाँ हम उनका उपयोग कैसे करते हैं:",
   "Authentication & Security": "प्रमाणीकरण और सुरक्षा",
   "To keep you logged in securely and protect your account from unauthorized access.": "आपको सुरक्षित रूप से लॉग इन रखने और आपके खाते को अनधिकृत पहुंच से बचाने के लिए।",
-  
   "To remember your preferences, settings, and customizations, making your experience more tailored and efficient.": "आपकी प्राथमिकताओं, सेटिंग्स और अनुकूलन को याद रखने के लिए, आपके अनुभव को अधिक अनुकूलित और कुशल बनाने के लिए।",
   "Analytics & Performance": "विश्लेषिकी और प्रदर्शन",
   "To analyze how users interact with our platform, identify popular features, and understand usage patterns to improve our services.": "उपयोगकर्ता हमारे प्लेटफ़ॉर्म के साथ कैसे बातचीत करते हैं, इसका विश्लेषण करने, लोकप्रिय सुविधाओं की पहचान करने और हमारी सेवाओं को बेहतर बनाने के लिए उपयोग पैटर्न को समझने के लिए।",
@@ -970,7 +965,6 @@
   "Terms of Service": "सेवा की शर्तें",
   "Platform usage terms": "प्लेटफ़ॉर्म उपयोग की शर्तें",
   "3. cookies2": "3. तृतीय-पक्ष कुकीज़",
-
   "toast.messageEmpty": "संदेश खाली नहीं हो सकता!",
   "toast.submitFailed": "सबमिट करने में विफल: ",
   "toast.submitSuccess": "संदेश सफलतापूर्वक सबमिट किया गया!",
@@ -988,13 +982,10 @@
   "form.placeholder": "अपना संदेश लिखें...",
   "form.submit": "संदेश भेजें",
   "contact.mapTitle": "कृषिसंजीवनी स्थान",
-
-
   "Jalyukta Shivar Abhiyan": "जलयुक्त शिवार अभियान",
   "Water conservation & micro-irrigation.": "जल संरक्षण और सूक्ष्म सिंचाई।",
   "Irrigation": "सिंचाई",
   "Farmers in drought-prone areas": "सूखाग्रस्त क्षेत्रों के किसान",
-
   "Maharashtra Crop Insurance": "महाराष्ट्र फसल बीमा",
   "Covers crop loss due to natural disasters.": "प्राकृतिक आपदाओं के कारण फसल के नुकसान को कवर करता है।",
   "Insurance": "बीमा",
@@ -1026,7 +1017,6 @@
   "CM Kisan Sahay Yojana": "मुख्यमंत्री किसान सहाय योजना",
   "Compensation for crop loss due to calamities.": "आपदाओं के कारण फसल के नुकसान के लिए मुआवजा।",
   "Farmers cultivating notified crops": "अधिसूचित फसलों की खेती करने वाले किसान",
-
   "Gujarat Seed Subsidy": "गुजरात बीज सब्सिडी",
   "Subsidy for certified seeds.": "प्रमाणित बीजों के लिए सब्सिडी।",
   "Gujarat Income Support": "गुजरात आय सहायता",
@@ -1152,7 +1142,6 @@
   "AP Rythu Bima Yojana": "एपी रैतु बीमा योजना",
   "Crop insurance & financial assistance.": "फसल बीमा और वित्तीय सहायता।",
   "Farmers in AP": "एपी के किसान",
-  
   "AP Micro Irrigation": "एपी सूक्ष्म सिंचाई",
   "AP Soil Health Program": "एपी मृदा स्वास्थ्य कार्यक्रम",
   "AP KCC": "एपी केसीसी",
@@ -1173,36 +1162,27 @@
   "Haryana Technology Adoption": "हरियाणा प्रौद्योगिकी को अपनाना",
   "Haryana Sustainable Agriculture": "हरियाणा सतत कृषि",
   "Promotes eco-friendly & resilient farming.": "पर्यावरण के अनुकूल और लचीली खेती को बढ़ावा देता है।",
-
-
   "PM-KISAN": "पीएम-किसान",
   "Income support of ₹6,000 per year to farmers.": "किसानों को प्रति वर्ष ₹6,000 की आय सहायता।",
   "All landholding farmers": "सभी भूमिधारक किसान",
   "All India": "अखिल भारतीय",
   "PMFBY": "पीएमएफबीवाई",
   "Crop insurance covering yield loss due to natural calamities, pests & diseases.": "प्राकृतिक आपदाओं, कीटों और बीमारियों के कारण उपज हानि को कवर करने वाला फसल बीमा।",
-  
   "Soil Health Card Scheme": "मृदा स्वास्थ्य कार्ड योजना",
   "Provides farmers with soil health cards with crop-wise recommendations.": "किसानों को फसल-वार सिफारिशों के साथ मृदा स्वास्थ्य कार्ड प्रदान करता है।",
-  
   "All farmers with agricultural land": "कृषि भूमि वाले सभी किसान",
   "Paramparagat Krishi Vikas Yojana (PKVY)": "परंपरागत कृषि विकास योजना (पीकेवीवाई)",
   "Promotes organic farming through cluster-based approach with financial assistance.": "वित्तीय सहायता के साथ क्लस्टर-आधारित दृष्टिकोण के माध्यम से जैविक खेती को बढ़ावा देता है।",
-  
   "Groups practicing organic farming": "जैविक खेती करने वाले समूह",
   "Pradhan Mantri Krishi Sinchai Yojana (PMKSY)": "प्रधानमंत्री कृषि सिंचाई योजना (पीएमकेएसवाई)",
   "Expand cultivated area with assured irrigation, improve water use efficiency.": "सुनिश्चित सिंचाई के साथ खेती के क्षेत्र का विस्तार करें, जल उपयोग दक्षता में सुधार करें।",
-  
   "Farmers with agricultural land": "कृषि भूमि वाले किसान",
   "Kisan Credit Card (KCC)": "किसान क्रेडिट कार्ड (केसीसी)",
   "Provides timely credit support at concessional interest rates.": "रियायती ब्याज दरों पर समय पर ऋण सहायता प्रदान करता है।",
-  
   "National Mission for Sustainable Agriculture (NMSA)": "राष्ट्रीय सतत कृषि मिशन (एनएमएसए)",
   "Promotes sustainable practices through soil, water, and climate resilience.": "मिट्टी, पानी और जलवायु लचीलापन के माध्यम से सतत प्रथाओं को बढ़ावा देता है।",
-  
   "Sub-Mission on Agricultural Mechanization (SMAM)": "कृषि मशीनीकरण पर उप-मिशन (एसएमएएम)",
   "Financial assistance for farm machinery & equipment to boost mechanization.": "मशीनीकरण को बढ़ावा देने के लिए कृषि मशीनरी और उपकरणों के लिए वित्तीय सहायता।",
-  
   "Farmers, SHGs, FPOs": "किसान, एसएचजी (स्वयं सहायता समूह), एफपीओ (किसान उत्पादक संगठन)",
   "National Agricultural Market (eNAM)": "राष्ट्रीय कृषि बाजार (ई-नाम)",
   "Promotes online trading of farm produce.": "कृषि उपज के ऑनलाइन व्यापार को बढ़ावा देता है।",
@@ -1236,7 +1216,6 @@
   "Kisan Sarvhit Bima Yojana": "किसान सर्वहित बीमा योजना",
   "Insurance for accidental death, disability & hospitalization.": "आकस्मिक मृत्यु, विकलांगता और अस्पताल में भर्ती होने के लिए बीमा।",
   "Farmer families": "किसान परिवार",
-  
   "UP Seed Subsidy Program": "यूपी बीज सब्सिडी कार्यक्रम",
   "All farmers in UP": "यूपी के सभी किसान",
   "UP Kisan Credit Card": "यूपी किसान क्रेडिट कार्ड",
@@ -1252,11 +1231,9 @@
   "UP Farmer Technology Program": "यूपी किसान प्रौद्योगिकी कार्यक्रम",
   "Training and demonstration of modern agricultural tech.": "आधुनिक कृषि तकनीक का प्रशिक्षण और प्रदर्शन।",
   "UP Income Support Yojana": "यूपी आय सहायता योजना",
-
   "All land-owning farmers": "सभी भूमिधारक किसान",
   "Bhavantar Bhugtan Yojana": "भावंतर भुगतान योजना",
   "Price difference compensation for oilseeds & pulses.": "तिलहन और दालों के लिए मूल्य अंतर मुआवजा।",
-  
   "Bihar": "बिहार",
   "Bihar State Crop Insurance Scheme": "बिहार राज्य फसल बीमा योजना",
   "Insurance coverage for crop loss due to natural disasters.": "प्राकृतिक आपदाओं के कारण फसल के नुकसान के लिए बीमा कवरेज।",
@@ -1270,7 +1247,6 @@
   "Bihar Agricultural Mechanization Support": "बिहार कृषि मशीनीकरण समर्थन",
   "Subsidy for farm machinery purchase.": "कृषि मशीनरी खरीद के लिए सब्सिडी।",
   "Bihar Organic Farming Support": "बिहार जैविक खेती समर्थन",
-
   "Bihar Technology Adoption Program": "बिहार प्रौद्योगिकी अपनाने का कार्यक्रम",
   "Demonstration of modern agriculture technologies.": "आधुनिक कृषि प्रौद्योगिकियों का प्रदर्शन।",
   "Bihar Sustainable Agriculture Initiative": "बिहार सतत कृषि पहल",
@@ -1285,13 +1261,11 @@
   "Telangana Soil Health Program": "तेलंगाना मृदा स्वास्थ्य कार्यक्रम",
   "Soil testing and nutrient management support.": "मिट्टी परीक्षण और पोषक तत्व प्रबंधन समर्थन।",
   "Telangana Micro Irrigation Scheme": "तेलंगाना सूक्ष्म सिंचाई योजना",
-
   "Farmers in Telangana": "तेलंगाना के किसान",
   "Telangana Kisan Credit Card": "तेलंगाना किसान क्रेडिट कार्ड",
   "Telangana Agricultural Mechanization": "तेलंगाना कृषि मशीनीकरण",
   "Financial assistance for farm machinery.": "कृषि मशीनरी के लिए वित्तीय सहायता।",
   "Telangana Organic Farming Program": "तेलंगाना जैविक खेती कार्यक्रम",
-
   "Telangana Technology Adoption Program": "तेलंगाना प्रौद्योगिकी अपनाने का कार्यक्रम",
   "Training in modern agri tech and practices.": "आधुनिक कृषि तकनीक और प्रथाओं में प्रशिक्षण।",
   "Telangana Sustainable Agriculture Program": "तेलंगाना सतत कृषि कार्यक्रम",
@@ -1299,12 +1273,10 @@
   "Raita Siri Scheme": "रायता सिरी योजना",
   "Financial support for millet cultivation.": "बाजरा की खेती के लिए वित्तीय सहायता।",
   "Millet farmers": "बाजरा किसान",
-
   "Karnataka Crop Insurance Scheme": "कर्नाटक फसल बीमा योजना",
   "Insurance coverage for crop losses.": "फसल के नुकसान के लिए बीमा कवरेज।",
   "All farmers in Karnataka": "कर्नाटक के सभी किसान",
   "Karnataka Soil Health Program": "कर्नाटक मृदा स्वास्थ्य कार्यक्रम",
- 
   "Krishi Bhagya Scheme": "कृषि भाग्य योजना",
   "Supports micro-irrigation & water conservation.": "सूक्ष्म सिंचाई और जल संरक्षण का समर्थन करता है।",
   "Farmers in Karnataka": "कर्नाटक के किसान",
@@ -1312,11 +1284,9 @@
   "Karnataka Agricultural Mechanization": "कर्नाटक कृषि मशीनीकरण",
   "Financial support for farm equipment.": "कृषि उपकरणों के लिए वित्तीय सहायता।",
   "Karnataka Organic Farming Program": "कर्नाटक जैविक खेती कार्यक्रम",
-
   "Karnataka Technology Adoption Program": "कर्नाटक प्रौद्योगिकी अपनाने का कार्यक्रम",
   "Demonstration of modern agriculture tech.": "आधुनिक कृषि तकनीक का प्रदर्शन।",
   "Karnataka Sustainable Agriculture Program": "कर्नाटक सतत कृषि कार्यक्रम",
-
   "All": "सभी",
   "Government Schemes & Yojanas": "सरकारी योजनाएं और परियोजनाएं",
   "Explore central and state government schemes designed to empower Indian farmers": "भारतीय किसानों को सशक्त बनाने के लिए डिज़ाइन की गई केंद्र और राज्य सरकार की योजनाओं का अन्वेषण करें",
@@ -1331,5 +1301,4 @@
   "Ministry of Agriculture": "कृषि मंत्रालय",
   "PM-KISAN Portal": "पीएम-किसान पोर्टल",
   "Open Government Data": "खुला सरकारी डेटा"
-
 }

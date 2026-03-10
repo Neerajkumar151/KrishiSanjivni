@@ -1,162 +1,175 @@
 {
-    "logo": {
-        "tagline": "একসাথে এগিয়ে চলি",
-        "KrishiSanjivni": "কৃষিসঞ্জীবনী"
-    },
-    "nav": {
-        "home": "হোম",
-        "tools": "সরঞ্জাম",
-        "warehouse": "গুদাম",
-        "soilCheck": "মাটি পরীক্ষা",
-        "community": "সম্প্রদায়",
-        "more": "আরো",
-        "resources": "📚 সম্পদ (স্কিম এবং নীতি)",
-        "weather": "🌤️ রিয়েল-টাইম আবহাওয়া",
-        "marketPrices": "💰 বাজার দর",
-        "adminPanel": "অ্যাডমিন প্যানেল",
-        "profile": "প্রোফাইল",
-        "paymentHistory": "পেমেন্ট ইতিহাস",
-        "logout": "লগ আউট",
-        "login": "লগইন"
-    },
-    "contact": {
-        "location": "নয়ডা, উত্তর প্রদেশ, ভারত"
-    },
-    "footer": {
-        "tagline_p": "কৃষকদের অত্যাধুনিক প্রযুক্তি, বিশেষজ্ঞ জ্ঞান এবং একটি সহায়ক সম্প্রদায়ের সাথে ক্ষমতায়ন করা যাতে তারা টেকসই সাফল্য অর্জন করতে পারে।",
-        "contact_title": "যোগাযোগ করুন",
-        "services_title": "পরিষেবা সমূহ",
-        "service_equipment": "কৃষি সরঞ্জাম",
-        "service_warehouse": "গুদাম সমাধান",
-        "service_soil": "মাটি পরীক্ষা",
-        "service_community": "সম্প্রদায়",
-        "service_contact": "যোগাযোগ করুন",
-        "newsletter_title": "নিউজলেটার",
-        "newsletter_p": "আপনার ইনবক্সে সাপ্তাহিক কৃষি টিপস এবং আপডেট পান।",
-        "email_placeholder": "আপনার ইমেল",
-        "copyright_base": "© 2025 কৃষি সঞ্জীবনী। সমস্ত অধিকার সংরক্ষিত। দ্বারা",
-        "privacy_policy": "গোপনীয়তা নীতি",
-        "terms_of_service": "পরিষেবার শর্তাবলী",
-        "cookie_policy": "কুকি নীতি"
-    },
-    "hero": {
-        "title": "বুদ্ধিমত্তা এবং প্রযুক্তির সাথে ভারতীয় কৃষিকে আধুনিকীকরণ করা",
-        "subtitle": "ফার্ম ব্যবস্থাপনা, সরঞ্জাম ভাড়া এবং বাজার অ্যাক্সেসের জন্য আপনার ব্যাপক প্ল্যাটফর্ম।",
-        "getStarted": "শুরু করুন",
-        "learnMore": "আরও জানুন"
-    },
-    "ai_button": "এআই",
-    "smart_farming_revolution": "স্মার্ট ফার্মিং বিপ্লব",
-    "growing_future_title_1": "দিয়ে ভবিষ্যতের চাষাবাদ",
-    "growing_future_title_2": "স্মার্ট কৃষি",
-    "growing_future_subtitle": "এআই-চালিত অন্তর্দৃষ্টি, আধুনিক সরঞ্জাম এবং রিয়েল-টাইম বাজার বুদ্ধিমত্তার সাথে তাদের কার্যক্রমকে রূপান্তরকারী হাজার হাজার কৃষকের সাথে যোগ দিন।",
-    "explore_now": "এখনই এক্সপ্লোর করুন",
-    "watch_demo": "ডেমো দেখুন",
-    "modern_platform_title": "আধুনিক প্ল্যাটফর্ম",
-    "modern_platform_subtitle": "যে কোনও জায়গা থেকে অ্যাক্সেস করুন",
-    "ai_powered_label": "দ্বারা চালিত",
-    "ai_assistant_title": "24/7 এআই সহকারী",
-    "ai_assistant_subtitle": "তাৎক্ষণিক সমর্থন",
-    "stats": {
-        "active_farmers_count": "10K+",
-        "tools_available_count": "500+",
-        "satisfaction_rate_count": "98%",
-        "active_farmers_label": "সক্রিয় কৃষক",
-        "tools_available_label": "উপলব্ধ সরঞ্জাম",
-        "satisfaction_rate_label": "সন্তোষ",
-        "managed_hectares_count": "50M+",
-        "managed_hectares_label": "পরিচালিত হেক্টর",
-        "ai_support_count": "24/7",
-        "ai_support_label": "এআই সাপোর্ট"
-    },
-    "about": {
-        "story_label": "আমাদের গল্প",
-        "title": "উদ্ভাবনের মাধ্যমে কৃষিতে বিপ্লব আনা",
-        "p1": "কৃষি সঞ্জীবনী একটি সাধারণ দৃষ্টিভঙ্গি থেকে জন্মগ্রহণ করেছিল: ঐতিহ্যবাহী কৃষিকাজ জ্ঞান এবং আধুনিক প্রযুক্তির মধ্যে ব্যবধান পূরণ করা। আমরা অপ্রত্যাশিত আবহাওয়া থেকে শুরু করে বাজার মূল্যের ওঠানামা পর্যন্ত কৃষকরা যে দৈনিক চ্যালেঞ্জগুলির মুখোমুখি হন তা বুঝতে পারি।",
-        "p2": "আমাদের প্ল্যাটফর্ম অত্যাধুনিক এআই, রিয়েল-টাইম ডেটা অ্যানালিটিক্স এবং কৃষি পদ্ধতির গভীর বোঝাকে একত্রিত করে এমন সমাধান সরবরাহ করে যা সত্যিই পার্থক্য তৈরি করে। আমরা কেবল সফ্টওয়্যার তৈরি করছি না; আমরা দূরদর্শী কৃষকদের একটি সম্প্রদায় গড়ে তুলছি।",
-        "feature_trusted_title": "বিশ্বস্ত ও সুরক্ষিত",
-        "feature_trusted_subtitle": "আপনার ডেটা এবং লেনদেন রক্ষা করে এমন ব্যাংক-গ্রেড সুরক্ষা",
-        "feature_community_title": "সম্প্রদায় প্রথম",
-        "feature_community_subtitle": "স্থানীয় সম্প্রদায়কে সমর্থন করে, কৃষকদের জন্য, কৃষকদের সাথে তৈরি করা হয়েছে"
-    },
-    "founded_year": "2025",
-    "founded_label": "প্রতিষ্ঠিত",
-    "sustainable_growth_title": "টেকসই বৃদ্ধি",
-    "sustainable_growth_subtitle": "ভারত জুড়ে 10,000+ কৃষকদের ক্ষমতায়ন",
-    "value": {
-        "farmer_centric_title": "কৃষক-কেন্দ্রিক",
-        "farmer_centric_p": "কৃষকরা তাদের দৈনন্দিন কার্যক্রমে যে বাস্তব চ্যালেঞ্জগুলির মুখোমুখি হন তা বুঝে তৈরি করা হয়েছে",
-        "technology_driven_title": "প্রযুক্তি-চালিত",
-        "technology_driven_p": "কর্মক্ষম অন্তর্দৃষ্টি এবং সমাধান প্রদানের জন্য এআই এবং আধুনিক সরঞ্জাম ব্যবহার করা",
-        "trusted_partner_title": "বিশ্বস্ত অংশীদার",
-        "trusted_partner_p": "সম্প্রদায় জুড়ে টেকসই এবং লাভজনক চাষাবাদ পদ্ধতির সমর্থন করা",
-        "eco_friendly_title": "পরিবেশ-বান্ধব",
-        "eco_friendly_p": "ভবিষ্যত প্রজন্মের জন্য আমাদের পরিবেশকে রক্ষা করে এমন টেকসই অনুশীলনের প্রচার করা"
-    },
-    "features": {
-        "title": "ব্যাপক বৈশিষ্ট্য",
-        "subtitle": "আপনার কৃষিকাজ অপারেশন আধুনিকীকরণের জন্য আপনার যা কিছু প্রয়োজন"
-    },
-    "feature": {
-        "tools_title": "সরঞ্জাম ভাড়া",
-        "tools_p": "বীজ বপন, ফসল কাটা এবং সমস্ত খামারের কাজের জন্য কৃষি সরঞ্জাম এবং যন্ত্রপাতি বুক করুন",
-        "tools_action": "এক্সপ্লোর করুন",
-        "warehouse_title": "গুদাম সংরক্ষণ",
-        "warehouse_p": "ক্ষমতা এবং সংরক্ষণের শর্তাবলীর বিবরণ সহ গুদামের স্থান খুঁজুন এবং বুক করুন",
-        "warehouse_action": "এখনই বুক করুন",
-        "soil_title": "মাটি বিশ্লেষণ",
-        "soil_p": "মাটি পরীক্ষাগুলি লগ করুন, NPK/pH রিডিং পান এবং সারের সুপারিশগুলি গ্রহণ করুন",
-        "soil_action": "বিশ্লেষণ পান",
-        "market_title": "বাজার তথ্য",
-        "market_p": "রিয়েল-টাইমে স্থানীয় মন্ডির দাম এবং ফসলের চাহিদার অন্তর্দৃষ্টি দেখুন",
-        "market_action": "দাম দেখুন",
-        "finance_title": "অর্থ ও স্কিম",
-        "finance_p": "ক্রেডিট কার্ড, বীমা, ভর্তুকি এবং সরকারী স্কিমগুলিতে নির্দেশনা",
-        "finance_action": "আরও জানুন",
-        "weather_title": "আবহাওয়া ও পরামর্শ",
-        "weather_p": "হাইপার-স্থানীয় আবহাওয়ার আপডেট, কীটপতঙ্গের সতর্কতা এবং সেচের নির্দেশনা",
-        "weather_action": "আপডেট পান",
-        "ai_title": "এআই সহায়তা",
-        "ai_p": "স্মার্ট চ্যাটবট ধাপে ধাপে নির্দেশনা প্রদান করে, প্রশ্নের উত্তর দেয় এবং প্রশাসনিক প্রশ্নে 24/7 সহায়তা করে",
-        "ai_action": "এখনই চ্যাট করুন"
-    },
-    "testimonial": {
-        "section_title": "কৃষকদের দ্বারা বিশ্বস্ত",
-        "section_subtitle": "যে ক্রমবর্ধমান সম্প্রদায় কৃষি সঞ্জীবনী নিয়ে সাফল্য অর্জন করছে, তাদের কথা শুনুন।",
-        "amit_name": "অমিত শর্মা",
-        "amit_role": "গম চাষী, পাঞ্জাব",
-        "amit_feedback": "সরঞ্জাম বুকিং সিস্টেম এই ফসল কাটার মরসুমে আমার অনেক সময় এবং অর্থ বাঁচিয়েছে। সবকিছু দক্ষ এবং নির্ভরযোগ্য ছিল।",
-        "sunita_name": "সুনীতা দেবী",
-        "sunita_role": "সবজি চাষী, মহারাষ্ট্র",
-        "sunita_feedback": "রিয়েল-টাইম আবহাওয়ার সতর্কতা এবং মাটি পরীক্ষার সুপারিশগুলি আমার ফলনকে নাটকীয়ভাবে উন্নত করেছে। অত্যন্ত সুপারিশ করা হয়!",
-        "ravi_name": "রবি কুমার",
-        "ravi_role": "ভুট্টা চাষী, বিহার",
-        "ravi_feedback": "বাজারের মূল্য বৈশিষ্ট্যটি একটি গেম-চেঞ্জার। আমার ফসল সর্বাধিক লাভের জন্য বিক্রি করার সেরা সময় কখন তা আমি অবশেষে জানতে পেরেছি।",
-        "priya_name": "প্রিয়া সিং",
-        "priya_role": "জৈব চাষী, কর্ণাটক",
-        "priya_feedback": "সরকারী স্কিম এবং আর্থিক পরামর্শের অ্যাক্সেস আমাকে আমার কার্যক্রম প্রসারিত করার জন্য ঋণ সুরক্ষিত করতে সহায়তা করেছে। ধন্যবাদ!",
-        "rajesh_name": "রাজেশ প্যাটেল",
-        "rajesh_role": "তুলা চাষী, গুজরাট",
-        "rajesh_feedback": "তাৎক্ষণিক কীটপতঙ্গ এবং রোগ শনাক্তকরণের জন্য এআই সহকারী দুর্দান্ত। এটি আমার পকেটে একজন বিশেষজ্ঞ কৃষিবিদ থাকার মতো।"
-    },
-    "index": {
-        "links_title": "সরকারি ও অংশীদার লিঙ্ক"
-    },
-    "community_page": {
+  "chat": {
+    "general_chat": "সাধারণ চ্যাট",
+    "message_deleted": "বার্তা মুছে ফেলা হয়েছে",
+    "user_banned": "ব্যবহারকারীকে নিষিদ্ধ করা হয়েছে",
+    "confirm_delete_title": "বার্তা মুছুন",
+    "confirm_delete_desc": "আপনি কি নিশ্চিত যে আপনি এই বার্তাটি মুছতে চান? এই ক্রিয়াটি ফেরানো যাবে না।",
+    "confirm_ban_title": "ব্যবহারকারীকে নিষিদ্ধ করুন",
+    "confirm_ban_desc": "আপনি কি নিশ্চিত যে আপনি নিষিদ্ধ করতে চান",
+    "ban_consequence": "এটি তাদের সমস্ত বার্তাও মুছে ফেলবে এবং তাদের আবার চ্যাট করতে বাধা দেবে।",
+    "ban": "ব্যবহারকারীকে নিষিদ্ধ করুন",
+    "banned_message": "আপনার অ্যাকাউন্ট চ্যাট থেকে নিষিদ্ধ করা হয়েছে।",
+    "login_to_chat": "চ্যাটে যোগ দিতে দয়া করে লগইন করুন।"
+  },
+  "logo": {
+    "tagline": "একসাথে এগিয়ে চলি",
+    "KrishiSanjivni": "কৃষিসঞ্জীবনী"
+  },
+  "nav": {
+    "home": "হোম",
+    "tools": "সরঞ্জাম",
+    "warehouse": "গুদাম",
+    "soilCheck": "মাটি পরীক্ষা",
+    "community": "সম্প্রদায়",
+    "more": "আরো",
+    "resources": "📚 সম্পদ (স্কিম এবং নীতি)",
+    "weather": "🌤️ রিয়েল-টাইম আবহাওয়া",
+    "marketPrices": "💰 বাজার দর",
+    "adminPanel": "অ্যাডমিন প্যানেল",
+    "profile": "প্রোফাইল",
+    "paymentHistory": "পেমেন্ট ইতিহাস",
+    "logout": "লগ আউট",
+    "login": "লগইন"
+  },
+  "contact": {
+    "location": "নয়ডা, উত্তর প্রদেশ, ভারত"
+  },
+  "footer": {
+    "tagline_p": "কৃষকদের অত্যাধুনিক প্রযুক্তি, বিশেষজ্ঞ জ্ঞান এবং একটি সহায়ক সম্প্রদায়ের সাথে ক্ষমতায়ন করা যাতে তারা টেকসই সাফল্য অর্জন করতে পারে।",
+    "contact_title": "যোগাযোগ করুন",
+    "services_title": "পরিষেবা সমূহ",
+    "service_equipment": "কৃষি সরঞ্জাম",
+    "service_warehouse": "গুদাম সমাধান",
+    "service_soil": "মাটি পরীক্ষা",
+    "service_community": "সম্প্রদায়",
+    "service_contact": "যোগাযোগ করুন",
+    "newsletter_title": "নিউজলেটার",
+    "newsletter_p": "আপনার ইনবক্সে সাপ্তাহিক কৃষি টিপস এবং আপডেট পান।",
+    "email_placeholder": "আপনার ইমেল",
+    "copyright_base": "© 2025 কৃষি সঞ্জীবনী। সমস্ত অধিকার সংরক্ষিত। দ্বারা",
+    "privacy_policy": "গোপনীয়তা নীতি",
+    "terms_of_service": "পরিষেবার শর্তাবলী",
+    "cookie_policy": "কুকি নীতি"
+  },
+  "hero": {
+    "title": "বুদ্ধিমত্তা এবং প্রযুক্তির সাথে ভারতীয় কৃষিকে আধুনিকীকরণ করা",
+    "subtitle": "ফার্ম ব্যবস্থাপনা, সরঞ্জাম ভাড়া এবং বাজার অ্যাক্সেসের জন্য আপনার ব্যাপক প্ল্যাটফর্ম।",
+    "getStarted": "শুরু করুন",
+    "learnMore": "আরও জানুন"
+  },
+  "ai_button": "এআই",
+  "smart_farming_revolution": "স্মার্ট ফার্মিং বিপ্লব",
+  "growing_future_title_1": "দিয়ে ভবিষ্যতের চাষাবাদ",
+  "growing_future_title_2": "স্মার্ট কৃষি",
+  "growing_future_subtitle": "এআই-চালিত অন্তর্দৃষ্টি, আধুনিক সরঞ্জাম এবং রিয়েল-টাইম বাজার বুদ্ধিমত্তার সাথে তাদের কার্যক্রমকে রূপান্তরকারী হাজার হাজার কৃষকের সাথে যোগ দিন।",
+  "explore_now": "এখনই এক্সপ্লোর করুন",
+  "watch_demo": "ডেমো দেখুন",
+  "modern_platform_title": "আধুনিক প্ল্যাটফর্ম",
+  "modern_platform_subtitle": "যে কোনও জায়গা থেকে অ্যাক্সেস করুন",
+  "ai_powered_label": "দ্বারা চালিত",
+  "ai_assistant_title": "24/7 এআই সহকারী",
+  "ai_assistant_subtitle": "তাৎক্ষণিক সমর্থন",
+  "stats": {
+    "active_farmers_count": "10K+",
+    "tools_available_count": "500+",
+    "satisfaction_rate_count": "98%",
+    "active_farmers_label": "সক্রিয় কৃষক",
+    "tools_available_label": "উপলব্ধ সরঞ্জাম",
+    "satisfaction_rate_label": "সন্তোষ",
+    "managed_hectares_count": "50M+",
+    "managed_hectares_label": "পরিচালিত হেক্টর",
+    "ai_support_count": "24/7",
+    "ai_support_label": "এআই সাপোর্ট"
+  },
+  "about": {
+    "story_label": "আমাদের গল্প",
+    "title": "উদ্ভাবনের মাধ্যমে কৃষিতে বিপ্লব আনা",
+    "p1": "কৃষি সঞ্জীবনী একটি সাধারণ দৃষ্টিভঙ্গি থেকে জন্মগ্রহণ করেছিল: ঐতিহ্যবাহী কৃষিকাজ জ্ঞান এবং আধুনিক প্রযুক্তির মধ্যে ব্যবধান পূরণ করা। আমরা অপ্রত্যাশিত আবহাওয়া থেকে শুরু করে বাজার মূল্যের ওঠানামা পর্যন্ত কৃষকরা যে দৈনিক চ্যালেঞ্জগুলির মুখোমুখি হন তা বুঝতে পারি।",
+    "p2": "আমাদের প্ল্যাটফর্ম অত্যাধুনিক এআই, রিয়েল-টাইম ডেটা অ্যানালিটিক্স এবং কৃষি পদ্ধতির গভীর বোঝাকে একত্রিত করে এমন সমাধান সরবরাহ করে যা সত্যিই পার্থক্য তৈরি করে। আমরা কেবল সফ্টওয়্যার তৈরি করছি না; আমরা দূরদর্শী কৃষকদের একটি সম্প্রদায় গড়ে তুলছি।",
+    "feature_trusted_title": "বিশ্বস্ত ও সুরক্ষিত",
+    "feature_trusted_subtitle": "আপনার ডেটা এবং লেনদেন রক্ষা করে এমন ব্যাংক-গ্রেড সুরক্ষা",
+    "feature_community_title": "সম্প্রদায় প্রথম",
+    "feature_community_subtitle": "স্থানীয় সম্প্রদায়কে সমর্থন করে, কৃষকদের জন্য, কৃষকদের সাথে তৈরি করা হয়েছে"
+  },
+  "founded_year": "2025",
+  "founded_label": "প্রতিষ্ঠিত",
+  "sustainable_growth_title": "টেকসই বৃদ্ধি",
+  "sustainable_growth_subtitle": "ভারত জুড়ে 10,000+ কৃষকদের ক্ষমতায়ন",
+  "value": {
+    "farmer_centric_title": "কৃষক-কেন্দ্রিক",
+    "farmer_centric_p": "কৃষকরা তাদের দৈনন্দিন কার্যক্রমে যে বাস্তব চ্যালেঞ্জগুলির মুখোমুখি হন তা বুঝে তৈরি করা হয়েছে",
+    "technology_driven_title": "প্রযুক্তি-চালিত",
+    "technology_driven_p": "কর্মক্ষম অন্তর্দৃষ্টি এবং সমাধান প্রদানের জন্য এআই এবং আধুনিক সরঞ্জাম ব্যবহার করা",
+    "trusted_partner_title": "বিশ্বস্ত অংশীদার",
+    "trusted_partner_p": "সম্প্রদায় জুড়ে টেকসই এবং লাভজনক চাষাবাদ পদ্ধতির সমর্থন করা",
+    "eco_friendly_title": "পরিবেশ-বান্ধব",
+    "eco_friendly_p": "ভবিষ্যত প্রজন্মের জন্য আমাদের পরিবেশকে রক্ষা করে এমন টেকসই অনুশীলনের প্রচার করা"
+  },
+  "features": {
+    "title": "ব্যাপক বৈশিষ্ট্য",
+    "subtitle": "আপনার কৃষিকাজ অপারেশন আধুনিকীকরণের জন্য আপনার যা কিছু প্রয়োজন"
+  },
+  "feature": {
+    "tools_title": "সরঞ্জাম ভাড়া",
+    "tools_p": "বীজ বপন, ফসল কাটা এবং সমস্ত খামারের কাজের জন্য কৃষি সরঞ্জাম এবং যন্ত্রপাতি বুক করুন",
+    "tools_action": "এক্সপ্লোর করুন",
+    "warehouse_title": "গুদাম সংরক্ষণ",
+    "warehouse_p": "ক্ষমতা এবং সংরক্ষণের শর্তাবলীর বিবরণ সহ গুদামের স্থান খুঁজুন এবং বুক করুন",
+    "warehouse_action": "এখনই বুক করুন",
+    "soil_title": "মাটি বিশ্লেষণ",
+    "soil_p": "মাটি পরীক্ষাগুলি লগ করুন, NPK/pH রিডিং পান এবং সারের সুপারিশগুলি গ্রহণ করুন",
+    "soil_action": "বিশ্লেষণ পান",
+    "market_title": "বাজার তথ্য",
+    "market_p": "রিয়েল-টাইমে স্থানীয় মন্ডির দাম এবং ফসলের চাহিদার অন্তর্দৃষ্টি দেখুন",
+    "market_action": "দাম দেখুন",
+    "finance_title": "অর্থ ও স্কিম",
+    "finance_p": "ক্রেডিট কার্ড, বীমা, ভর্তুকি এবং সরকারী স্কিমগুলিতে নির্দেশনা",
+    "finance_action": "আরও জানুন",
+    "weather_title": "আবহাওয়া ও পরামর্শ",
+    "weather_p": "হাইপার-স্থানীয় আবহাওয়ার আপডেট, কীটপতঙ্গের সতর্কতা এবং সেচের নির্দেশনা",
+    "weather_action": "আপডেট পান",
+    "ai_title": "এআই সহায়তা",
+    "ai_p": "স্মার্ট চ্যাটবট ধাপে ধাপে নির্দেশনা প্রদান করে, প্রশ্নের উত্তর দেয় এবং প্রশাসনিক প্রশ্নে 24/7 সহায়তা করে",
+    "ai_action": "এখনই চ্যাট করুন"
+  },
+  "testimonial": {
+    "section_title": "কৃষকদের দ্বারা বিশ্বস্ত",
+    "section_subtitle": "যে ক্রমবর্ধমান সম্প্রদায় কৃষি সঞ্জীবনী নিয়ে সাফল্য অর্জন করছে, তাদের কথা শুনুন।",
+    "amit_name": "অমিত শর্মা",
+    "amit_role": "গম চাষী, পাঞ্জাব",
+    "amit_feedback": "সরঞ্জাম বুকিং সিস্টেম এই ফসল কাটার মরসুমে আমার অনেক সময় এবং অর্থ বাঁচিয়েছে। সবকিছু দক্ষ এবং নির্ভরযোগ্য ছিল।",
+    "sunita_name": "সুনীতা দেবী",
+    "sunita_role": "সবজি চাষী, মহারাষ্ট্র",
+    "sunita_feedback": "রিয়েল-টাইম আবহাওয়ার সতর্কতা এবং মাটি পরীক্ষার সুপারিশগুলি আমার ফলনকে নাটকীয়ভাবে উন্নত করেছে। অত্যন্ত সুপারিশ করা হয়!",
+    "ravi_name": "রবি কুমার",
+    "ravi_role": "ভুট্টা চাষী, বিহার",
+    "ravi_feedback": "বাজারের মূল্য বৈশিষ্ট্যটি একটি গেম-চেঞ্জার। আমার ফসল সর্বাধিক লাভের জন্য বিক্রি করার সেরা সময় কখন তা আমি অবশেষে জানতে পেরেছি।",
+    "priya_name": "প্রিয়া সিং",
+    "priya_role": "জৈব চাষী, কর্ণাটক",
+    "priya_feedback": "সরকারী স্কিম এবং আর্থিক পরামর্শের অ্যাক্সেস আমাকে আমার কার্যক্রম প্রসারিত করার জন্য ঋণ সুরক্ষিত করতে সহায়তা করেছে। ধন্যবাদ!",
+    "rajesh_name": "রাজেশ প্যাটেল",
+    "rajesh_role": "তুলা চাষী, গুজরাট",
+    "rajesh_feedback": "তাৎক্ষণিক কীটপতঙ্গ এবং রোগ শনাক্তকরণের জন্য এআই সহকারী দুর্দান্ত। এটি আমার পকেটে একজন বিশেষজ্ঞ কৃষিবিদ থাকার মতো।"
+  },
+  "index": {
+    "links_title": "সরকারি ও অংশীদার লিঙ্ক"
+  },
+  "community_page": {
     "mission_title": "আমাদের লক্ষ্য",
     "mission_description": "একটি সহায়ক নেটওয়ার্ক তৈরি করা যেখানে কৃষকরা অবাধে জ্ঞান বিনিময় করতে পারে, চ্যালেঞ্জগুলির সমাধান খুঁজে পেতে পারে এবং তাদের ফলন ও স্থিতিশীলতা উন্নত করতে উদ্ভাবনী অনুশীলনগুলি আবিষ্কার করতে পারে।",
     "features_title": "আপনি এখানে কী করতে পারেন",
     "features": {
-        "ask_questions": "প্রশ্ন জিজ্ঞাসা করুন এবং অভিজ্ঞ সহকর্মীদের কাছ থেকে উত্তর পান।",
-        "share_experiences": "আপনার নিজের চাষাবাদের সাফল্য এবং শেখা পাঠগুলি ভাগ করুন।",
-        "find_solutions": "ফসল ব্যবস্থাপনা এবং মাটির স্বাস্থ্যের জন্য ব্যবহারিক সমাধান খুঁজুন।",
-        "stay_updated": "সর্বশেষ কৃষি প্রবণতা এবং প্রযুক্তি সম্পর্কে আপডেট থাকুন।"
+      "ask_questions": "প্রশ্ন জিজ্ঞাসা করুন এবং অভিজ্ঞ সহকর্মীদের কাছ থেকে উত্তর পান।",
+      "share_experiences": "আপনার নিজের চাষাবাদের সাফল্য এবং শেখা পাঠগুলি ভাগ করুন।",
+      "find_solutions": "ফসল ব্যবস্থাপনা এবং মাটির স্বাস্থ্যের জন্য ব্যবহারিক সমাধান খুঁজুন।",
+      "stay_updated": "সর্বশেষ কৃষি প্রবণতা এবং প্রযুক্তি সম্পর্কে আপডেট থাকুন।"
     },
     "join_title": "কথোপকথনে যোগ দিন",
     "join_description": "আপনার কণ্ঠস্বর গুরুত্বপূর্ণ। একটি নতুন আলোচনা শুরু করুন, একটি বিষয়ে উত্তর দিন, অথবা সম্প্রদায়ের কাছে নিজেকে পরিচয় করিয়ে দিন।",
     "join_button": "একটি আলোচনা শুরু করুন"
-},
-"ai_showcase": {
+  },
+  "ai_showcase": {
     "tag": "এআই-চালিত বুদ্ধিমত্তা",
     "title_part1": "আপনার ব্যক্তিগত চাষাবাদ",
     "title_part2": "এআই সহকারী",
@@ -180,8 +193,8 @@
     "q_soil_nitrogen": "আমি মাটির নাইট্রোজেন স্তর কীভাবে উন্নত করব?",
     "q_wheat_rust": "গমের মরিচা রোগের লক্ষণ কী?",
     "q_tomato_irrigation": "আমার টমেটো ফসলে কখন সেচ দেওয়া উচিত?"
-},
-"chatbot": {
+  },
+  "chatbot": {
     "bot_name": "কৃষি সঞ্জীবনী সহকারী",
     "bot_status": "অনলাইন",
     "intro_line1": "হাই! আমি আপনার কৃষি সঞ্জীবনী সহকারী।",
@@ -191,26 +204,26 @@
     "error_send_failed": "বার্তা পাঠাতে ব্যর্থ হয়েছে",
     "error_transcribe_failed": "অডিও প্রতিলিপি করতে ব্যর্থ হয়েছে",
     "error_microphone_access": "মাইক্রোফোন অ্যাক্সেস করা যায়নি"
-},
-"community_section": {
+  },
+  "community_section": {
     "title": "আমাদের সমৃদ্ধ সম্প্রদায়ে যোগ দিন",
     "subtitle": "হাজার হাজার কৃষক এবং কৃষি পেশাদারদের সাথে সংযুক্ত হন, শিখুন এবং বেড়ে উঠুন",
     "explore_button": "এখনই এক্সপ্লোর করুন",
     "features": {
-        "expert_network_title": "বিশেষজ্ঞ নেটওয়ার্ক",
-        "expert_network_description": "বিশ্বজুড়ে কৃষি বিশেষজ্ঞ, কৃষিবিদ এবং সফল কৃষকদের সাথে সংযুক্ত হন।",
-        "community_forums_title": "সম্প্রদায় ফোরাম",
-        "community_forums_description": "আলোচনায় অংশ নিন, প্রশ্ন জিজ্ঞাসা করুন এবং সহকর্মীদের সাথে আপনার চাষের অভিজ্ঞতাগুলি ভাগ করুন।",
-        "knowledge_library_title": "জ্ঞান গ্রন্থাগার",
-        "knowledge_library_description": "আধুনিক চাষাবাদের কৌশলগুলির উপর হাজার হাজার নিবন্ধ, নির্দেশিকা এবং গবেষণা পত্র অ্যাক্সেস করুন।",
-        "success_stories_title": "সাফল্যের গল্প",
-        "success_stories_description": "যেসব প্রকৃত কৃষক আমাদের প্ল্যাটফর্ম ব্যবহার করে তাদের কার্যক্রমকে পরিবর্তন করেছেন, তাদের দ্বারা অনুপ্রাণিত হন।"
+      "expert_network_title": "বিশেষজ্ঞ নেটওয়ার্ক",
+      "expert_network_description": "বিশ্বজুড়ে কৃষি বিশেষজ্ঞ, কৃষিবিদ এবং সফল কৃষকদের সাথে সংযুক্ত হন।",
+      "community_forums_title": "সম্প্রদায় ফোরাম",
+      "community_forums_description": "আলোচনায় অংশ নিন, প্রশ্ন জিজ্ঞাসা করুন এবং সহকর্মীদের সাথে আপনার চাষের অভিজ্ঞতাগুলি ভাগ করুন।",
+      "knowledge_library_title": "জ্ঞান গ্রন্থাগার",
+      "knowledge_library_description": "আধুনিক চাষাবাদের কৌশলগুলির উপর হাজার হাজার নিবন্ধ, নির্দেশিকা এবং গবেষণা পত্র অ্যাক্সেস করুন।",
+      "success_stories_title": "সাফল্যের গল্প",
+      "success_stories_description": "যেসব প্রকৃত কৃষক আমাদের প্ল্যাটফর্ম ব্যবহার করে তাদের কার্যক্রমকে পরিবর্তন করেছেন, তাদের দ্বারা অনুপ্রাণিত হন।"
     },
     "cta_title": "আপনার চাষাবাদ রূপান্তর করতে প্রস্তুত?",
     "cta_subtitle": "আমাদের সম্প্রদায় এবং সংস্থান থেকে ইতিমধ্যে উপকৃত হচ্ছেন এমন হাজার হাজার কৃষকদের সাথে যোগ দিন।",
     "cta_button": "আজই শুরু করুন"
-},
-"hero_section": {
+  },
+  "hero_section": {
     "tag": "উন্নত কৃষি প্রযুক্তি দ্বারা চালিত",
     "title_part1": "সাফল্য অর্জন,",
     "title_part2": "একসাথে এগিয়ে চলি",
@@ -218,52 +231,49 @@
     "button_join": "সম্প্রদায়ে যোগ দিন",
     "button_explore": "পরিষেবাগুলি এক্সপ্লোর করুন",
     "stats": {
-        "farmers_count": "10K+",
-        "farmers_label": "সক্রিয় কৃষক",
-        "advisors_count": "500+",
-        "advisors_label": "বিশেষজ্ঞ উপদেষ্টা",
-        "success_count": "95%",
-        "success_label": "সাফল্যের হার",
-        "ai_support_count": "24/7",
-        "ai_support_label": "এআই সাপোর্ট"
+      "farmers_count": "10K+",
+      "farmers_label": "সক্রিয় কৃষক",
+      "advisors_count": "500+",
+      "advisors_label": "বিশেষজ্ঞ উপদেষ্টা",
+      "success_count": "95%",
+      "success_label": "সাফল্যের হার",
+      "ai_support_count": "24/7",
+      "ai_support_label": "এআই সাপোর্ট"
     }
-},
-"services_section": {
+  },
+  "services_section": {
     "title": "স্মার্ট সমাধানের মাধ্যমে কৃষকদের ক্ষমতায়ন",
     "subtitle": "কৃষি সঞ্জীবনী আধুনিক কৃষির প্রতিটি দিককে সরল করে — মাটির স্বাস্থ্য থেকে শুরু করে সংরক্ষণ এবং এআই সহায়তা পর্যন্ত।",
     "learn_more": "আরও জানুন",
     "features": {
-        "smart_tools_title": "স্মার্ট চাষের সরঞ্জাম",
-        "smart_tools_description": "আধুনিক চাষের সরঞ্জাম এবং মেশিন সহজেই ভাড়া বা বুক করুন। ট্র্যাক্টর থেকে শুরু করে সিডার পর্যন্ত, কৃষি সঞ্জীবনী মাধ্যমে যে কোনও সময় সাশ্রয়ী মূল্যের সরঞ্জাম অ্যাক্সেস করুন।",
-        "warehouse_booking_title": "গুদাম বুকিং ও সংরক্ষণ",
-        "warehouse_booking_description": "নিরাপদ ফসল সংরক্ষণের জন্য সুরক্ষিত, জলবায়ু-নিয়ন্ত্রিত গুদাম বুক করুন। আপনার গুদাম বুকিং ট্র্যাক করুন এবং অনলাইনে প্রাপ্যতা পরিচালনা করুন।",
-        "soil_testing_title": "মাটির স্বাস্থ্য ও উর্বরতা পরীক্ষা",
-        "soil_testing_description": "বিশ্লেষণের জন্য আপনার মাটির নমুনা জমা দিন এবং পুষ্টি, পিএইচ এবং আর্দ্রতা সম্পর্কে সঠিক প্রতিবেদন পান — যা আপনাকে আরও ভাল ফসল এবং সারের পরিকল্পনা করতে সহায়তা করে।",
-        "ai_insights_title": "এআই-ভিত্তিক মাটি ও ফসল অন্তর্দৃষ্টি",
-        "ai_insights_description": "মাটির গুণমান বুঝতে এবং ফসলের বৃদ্ধি ও স্থায়িত্বের জন্য রিয়েল-টাইম সুপারিশ পেতে আমাদের এআই-চালিত মাটি পরীক্ষা ব্যবস্থা ব্যবহার করুন।",
-        "ai_chatbot_title": "কৃষি সঞ্জীবনী এআই চ্যাটবট",
-        "ai_chatbot_description": "24/7 চাষের সহায়তা পান — আবহাওয়ার আপডেট, সরকারী স্কিম সম্পর্কিত তথ্য, ঋণের যোগ্যতা এবং বিশেষজ্ঞের পরামর্শ সরাসরি আপনার চ্যাটবট থেকে।",
-        "farmer_community_title": "কৃষক সম্প্রদায় ও সমর্থন",
-        "farmer_community_description": "কৃষকদের একটি ক্রমবর্ধমান সম্প্রদায়ে যোগ দিন, অভিজ্ঞতা ভাগ করুন এবং কৃষি সঞ্জীবনী নেটওয়ার্ক জুড়ে কৃষি বিশেষজ্ঞ এবং সহকর্মীদের কাছ থেকে সহায়তা পান।"
+      "smart_tools_title": "স্মার্ট চাষের সরঞ্জাম",
+      "smart_tools_description": "আধুনিক চাষের সরঞ্জাম এবং মেশিন সহজেই ভাড়া বা বুক করুন। ট্র্যাক্টর থেকে শুরু করে সিডার পর্যন্ত, কৃষি সঞ্জীবনী মাধ্যমে যে কোনও সময় সাশ্রয়ী মূল্যের সরঞ্জাম অ্যাক্সেস করুন।",
+      "warehouse_booking_title": "গুদাম বুকিং ও সংরক্ষণ",
+      "warehouse_booking_description": "নিরাপদ ফসল সংরক্ষণের জন্য সুরক্ষিত, জলবায়ু-নিয়ন্ত্রিত গুদাম বুক করুন। আপনার গুদাম বুকিং ট্র্যাক করুন এবং অনলাইনে প্রাপ্যতা পরিচালনা করুন।",
+      "soil_testing_title": "মাটির স্বাস্থ্য ও উর্বরতা পরীক্ষা",
+      "soil_testing_description": "বিশ্লেষণের জন্য আপনার মাটির নমুনা জমা দিন এবং পুষ্টি, পিএইচ এবং আর্দ্রতা সম্পর্কে সঠিক প্রতিবেদন পান — যা আপনাকে আরও ভাল ফসল এবং সারের পরিকল্পনা করতে সহায়তা করে।",
+      "ai_insights_title": "এআই-ভিত্তিক মাটি ও ফসল অন্তর্দৃষ্টি",
+      "ai_insights_description": "মাটির গুণমান বুঝতে এবং ফসলের বৃদ্ধি ও স্থায়িত্বের জন্য রিয়েল-টাইম সুপারিশ পেতে আমাদের এআই-চালিত মাটি পরীক্ষা ব্যবস্থা ব্যবহার করুন।",
+      "ai_chatbot_title": "কৃষি সঞ্জীবনী এআই চ্যাটবট",
+      "ai_chatbot_description": "24/7 চাষের সহায়তা পান — আবহাওয়ার আপডেট, সরকারী স্কিম সম্পর্কিত তথ্য, ঋণের যোগ্যতা এবং বিশেষজ্ঞের পরামর্শ সরাসরি আপনার চ্যাটবট থেকে।",
+      "farmer_community_title": "কৃষক সম্প্রদায় ও সমর্থন",
+      "farmer_community_description": "কৃষকদের একটি ক্রমবর্ধমান সম্প্রদায়ে যোগ দিন, অভিজ্ঞতা ভাগ করুন এবং কৃষি সঞ্জীবনী নেটওয়ার্ক জুড়ে কৃষি বিশেষজ্ঞ এবং সহকর্মীদের কাছ থেকে সহায়তা পান।"
     }
-},
-"common": {
+  },
+  "common": {
     "phone": "যোগাযোগের ফোন"
-},
-"soil": {
+  },
+  "soil": {
     "page_title": "মাটির স্বাস্থ্য ও বিশ্লেষণ অনুরোধ",
     "page_subtitle": "আপনার ফলন সর্বাধিক করার জন্য বিশেষজ্ঞের সুপারিশ পেতে আপনার মাটির পরামিতি জমা দিন বা ল্যাব বিশ্লেষণের জন্য অনুরোধ করুন।",
-    
     "feature_analysis_title": "বিস্তৃত বিশ্লেষণ",
     "feature_analysis_description": "pH, NPK স্তর, আর্দ্রতা এবং জৈব পদার্থের পরিমাণ সম্পর্কে বিস্তারিত অন্তর্দৃষ্টি পান",
     "feature_crop_title": "ফসলের সুপারিশ",
     "feature_crop_description": "আপনার মাটির গঠনের উপর ভিত্তি করে তৈরি করা ফসলের পরামর্শ গ্রহণ করুন",
     "feature_expert_title": "বিশেষজ্ঞ বিশ্লেষণ",
     "feature_expert_description": "আমাদের কৃষি বিশেষজ্ঞরা পর্যালোচনা করবেন এবং ব্যক্তিগতকৃত সুপারিশ প্রদান করবেন",
-
     "form_request_title": "মাটি বিশ্লেষণের অনুরোধ করুন",
     "form_request_description": "আপনার খামারের জন্য একটি বিস্তৃত মাটি বিশ্লেষণের অনুরোধ করতে নিচের বিবরণগুলি পূরণ করুন",
-    
     "farm_info_title": "খামারের তথ্য",
     "location": "অবস্থান",
     "location_placeholder": "যেমন: পাঞ্জাব, লুধিয়ানা",
@@ -272,14 +282,12 @@
     "crop_placeholder": "যেমন: গম, ধান, তুলা",
     "soilType": "মাটির প্রকার",
     "select_soil_type": "মাটির প্রকার নির্বাচন করুন",
-    
     "type_clay": "কাদামাটি",
     "type_sandy": "বেলে",
     "type_loamy": "দোআঁশ",
     "type_silty": "পলি",
     "type_peaty": "পিটি",
     "type_chalky": "খড়িমাটি",
-    
     "parameters_title": "মাটির পরামিতি (ঐচ্ছিক)",
     "parameters_subtitle": "আপনার যদি বিদ্যমান পরীক্ষার ফলাফল থাকে, তবে আপনি সেগুলি এখানে সরবরাহ করতে পারেন",
     "ph": "pH স্তর",
@@ -292,27 +300,23 @@
     "level_high": "উচ্চ",
     "organicMatter": "জৈব পদার্থ (%)",
     "moisture": "আর্দ্রতা (%)",
-
     "additional_info_title": "অতিরিক্ত তথ্য",
     "sample_count_label": "নমুনার সংখ্যা",
     "notes_label": "অতিরিক্ত নোট",
     "notes_placeholder": "আপনার মাটি বা নির্দিষ্ট উদ্বেগ সম্পর্কে কোনো অতিরিক্ত তথ্য...",
     "phone_placeholder": "যেমন: +91 98765 43210",
-    
     "analyze": "মাটি বিশ্লেষণ করুন",
     "submitting": "জমা দেওয়া হচ্ছে...",
-
     "toast": {
-        "auth_title": "প্রমাণীকরণ প্রয়োজন",
-        "auth_description": "মাটি পরীক্ষার অনুরোধ জমা দিতে অনুগ্রহ করে সাইন ইন করুন",
-        "fail_title": "জমা দিতে ব্যর্থ",
-        "fail_description": "মাটি পরীক্ষার অনুরোধ জমা দিতে ব্যর্থ হয়েছে: ",
-        "success_title": "অনুরোধ জমা দেওয়া হয়েছে",
-        "success_description": "আপনার মাটি বিশ্লেষণের অনুরোধ সফলভাবে জমা দেওয়া হয়েছে। এটি এখন পর্যালোচনার জন্য প্রশাসকের কাছে দৃশ্যমান।"
+      "auth_title": "প্রমাণীকরণ প্রয়োজন",
+      "auth_description": "মাটি পরীক্ষার অনুরোধ জমা দিতে অনুগ্রহ করে সাইন ইন করুন",
+      "fail_title": "জমা দিতে ব্যর্থ",
+      "fail_description": "মাটি পরীক্ষার অনুরোধ জমা দিতে ব্যর্থ হয়েছে: ",
+      "success_title": "অনুরোধ জমা দেওয়া হয়েছে",
+      "success_description": "আপনার মাটি বিশ্লেষণের অনুরোধ সফলভাবে জমা দেওয়া হয়েছে। এটি এখন পর্যালোচনার জন্য প্রশাসকের কাছে দৃশ্যমান।"
     }
-},
-
-"common1": {
+  },
+  "common1": {
     "ai": "এআই"
   },
   "warehouse": {
@@ -339,7 +343,11 @@
     "features": "বৈশিষ্ট্য:",
     "bookNow": "এখনই বুক করুন",
     "noResults": "আপনার অনুসন্ধানের সাথে মেলে এমন কোনও গুদাম পাওয়া যায়নি",
-    "tryAdjust": "আপনার ফিল্টার বা অনুসন্ধান শব্দ পরিবর্তন করে দেখুন।"
+    "tryAdjust": "আপনার ফিল্টার বা অনুসন্ধান শব্দ পরিবর্তন করে দেখুন।",
+    "available_status": "উপলব্ধ",
+    "full_status": "পূর্ণ",
+    "sold": "বিক্রি হয়ে গেছে",
+    "na": "প্রযোজ্য নয়"
   },
   "tools": {
     "title": "উপলব্ধ সরঞ্জাম",
@@ -417,7 +425,7 @@
     },
     "loadingMarket": "মার্কেট মূল্য লোড হচ্ছে..."
   },
-"Real-Time Market & Fertilizer Prices": "রিয়েল-টাইম বাজার ও সার মূল্য",
+  "Real-Time Market & Fertilizer Prices": "রিয়েল-টাইম বাজার ও সার মূল্য",
   "Live commodity & fertilizer rates with stylish UI, auto-refresh every 5 minutes": "স্টাইলিশ UI সহ সরাসরি কৃষিপণ্য এবং সার রেট, প্রতি 5 মিনিটে স্বয়ংক্রিয় রিফ্রেশ",
   "Last updated": "শেষ আপডেট",
   "Commodity Prices": "কৃষিপণ্য মূল্য",
@@ -469,7 +477,6 @@
   "Zinc Sulphate": "জিঙ্ক সালফেট",
   "Gypsum": "জিপসাম",
   "Organic Compost": "জৈব কম্পোস্ট",
-
   "auth": {
     "signIn": "সাইন ইন করুন",
     "signUp": "সাইন আপ করুন",
@@ -542,7 +549,6 @@
   "total_cost": "মোট খরচ",
   "rejection_reason": "প্রত্যাখ্যানের কারণ",
   "loading_bookings": "বুকিং লোড হচ্ছে...",
-
   "privacy": {
     "hero": {
       "badge": "গোপনীয়তা নীতি",
@@ -613,64 +619,61 @@
       "desc2": "গুরুত্বপূর্ণ পরিবর্তন সম্পর্কে আপনাকে জানানো হবে।"
     }
   },
-
   "categories": {
-  "sprayer": "স্প্রেয়ার",
-  "transplanter": "রোপণ যন্ত্র",
-  "harrow": "হ্যারো",
-  "cultivator": "কাল্টিভেটর",
-  "mulcher": "মালচার",
-  "seeder": "বীজ বপন যন্ত্র",
-  "cutter": "কাটার",
-  "harvester": "হারভেস্টার",
-  "pump": "পাম্প",
-  "tractor": "ট্রাক্টর",
-  "planter": "রোপণ যন্ত্র",
-  "thresher": "ধান মাড়াই যন্ত্র",
-  "leveller": "সমতল যন্ত্র",
-  "utility": "ব্যবহারিক সরঞ্জাম",
-  "plough": "হাল",
-  "reaper": "কাটাই যন্ত্র",
-  "handTool": "হাতের সরঞ্জাম",
-  "tiller": "টিলার",
-  "rotavator": "রোটাভেটর",
-  "irrigation": "সেচ",
-  "broadcaster": "সার ছড়ানোর যন্ত্র",
-  "weeder": "আগাছা পরিষ্কার যন্ত্র",
-  "loader": "লোডার",
-  "baler": "বেলার",
-  "trolley": "ট্রলি"
-},
-
-"locations": {
-  "bangaloreKarnataka": "বেঙ্গালুরু, কর্ণাটক",
-  "srinagarJammuKashmir": "শ্রীনগর, জম্মু ও কাশ্মীর",
-  "tumkurKarnataka": "তুমকুর, কর্ণাটক",
-  "ahmedabadGujarat": "আহমেদাবাদ, গুজরাট",
-  "kolkataWestBengal": "কলকাতা, পশ্চিমবঙ্গ",
-  "cuttackOdisha": "কটক, ওডিশা",
-  "indoreMadhyaPradesh": "ইন্দোর, মধ্যপ্রদেশ",
-  "idukkiKerala": "ইডুক্কি, কেরালা",
-  "karnalHaryana": "করনাল, হরিয়ানা",
-  "noida": "নয়ডা",
-  "jaipurRajasthan": "জয়পুর, রাজস্থান",
-  "rajkotGujarat": "রাজকোট, গুজরাট",
-  "anandGujarat": "আনন্দ, গুজরাট",
-  "jodhpurRajasthan": "জোধপুর, রাজস্থান",
-  "chennaiTamilNadu": "চেন্নাই, তামিলনাড়ু",
-  "gurugramHaryana": "গুরুগ্রাম, হরিয়ানা",
-  "ludhianaPunjab": "লুধিয়ানা, পাঞ্জাব",
-  "nashikMaharashtra": "নাসিক, মহারাষ্ট্র",
-  "siliguriWestBengal": "শিলিগুড়ি, পশ্চিমবঙ্গ",
-  "kanpurUttarPradesh": "কানপুর, উত্তরপ্রদেশ",
-  "bhubaneswarOdisha": "ভুবনেশ্বর, ওডিশা",
-  "lucknowUttarPradesh": "লখনউ, উত্তরপ্রদেশ",
-  "delhi": "দিল্লি",
-  "puneMaharashtra": "পুনে, মহারাষ্ট্র",
-  "gunturAndhraPradesh": "গুন্টুর, অন্ধ্রপ্রদেশ",
-  "maduraiTamilNadu": "মাদুরাই, তামিলনাড়ু"
-},
-
+    "sprayer": "স্প্রেয়ার",
+    "transplanter": "রোপণ যন্ত্র",
+    "harrow": "হ্যারো",
+    "cultivator": "কাল্টিভেটর",
+    "mulcher": "মালচার",
+    "seeder": "বীজ বপন যন্ত্র",
+    "cutter": "কাটার",
+    "harvester": "হারভেস্টার",
+    "pump": "পাম্প",
+    "tractor": "ট্রাক্টর",
+    "planter": "রোপণ যন্ত্র",
+    "thresher": "ধান মাড়াই যন্ত্র",
+    "leveller": "সমতল যন্ত্র",
+    "utility": "ব্যবহারিক সরঞ্জাম",
+    "plough": "হাল",
+    "reaper": "কাটাই যন্ত্র",
+    "handTool": "হাতের সরঞ্জাম",
+    "tiller": "টিলার",
+    "rotavator": "রোটাভেটর",
+    "irrigation": "সেচ",
+    "broadcaster": "সার ছড়ানোর যন্ত্র",
+    "weeder": "আগাছা পরিষ্কার যন্ত্র",
+    "loader": "লোডার",
+    "baler": "বেলার",
+    "trolley": "ট্রলি"
+  },
+  "locations": {
+    "bangaloreKarnataka": "বেঙ্গালুরু, কর্ণাটক",
+    "srinagarJammuKashmir": "শ্রীনগর, জম্মু ও কাশ্মীর",
+    "tumkurKarnataka": "তুমকুর, কর্ণাটক",
+    "ahmedabadGujarat": "আহমেদাবাদ, গুজরাট",
+    "kolkataWestBengal": "কলকাতা, পশ্চিমবঙ্গ",
+    "cuttackOdisha": "কটক, ওডিশা",
+    "indoreMadhyaPradesh": "ইন্দোর, মধ্যপ্রদেশ",
+    "idukkiKerala": "ইডুক্কি, কেরালা",
+    "karnalHaryana": "করনাল, হরিয়ানা",
+    "noida": "নয়ডা",
+    "jaipurRajasthan": "জয়পুর, রাজস্থান",
+    "rajkotGujarat": "রাজকোট, গুজরাট",
+    "anandGujarat": "আনন্দ, গুজরাট",
+    "jodhpurRajasthan": "জোধপুর, রাজস্থান",
+    "chennaiTamilNadu": "চেন্নাই, তামিলনাড়ু",
+    "gurugramHaryana": "গুরুগ্রাম, হরিয়ানা",
+    "ludhianaPunjab": "লুধিয়ানা, পাঞ্জাব",
+    "nashikMaharashtra": "নাসিক, মহারাষ্ট্র",
+    "siliguriWestBengal": "শিলিগুড়ি, পশ্চিমবঙ্গ",
+    "kanpurUttarPradesh": "কানপুর, উত্তরপ্রদেশ",
+    "bhubaneswarOdisha": "ভুবনেশ্বর, ওডিশা",
+    "lucknowUttarPradesh": "লখনউ, উত্তরপ্রদেশ",
+    "delhi": "দিল্লি",
+    "puneMaharashtra": "পুনে, মহারাষ্ট্র",
+    "gunturAndhraPradesh": "গুন্টুর, অন্ধ্রপ্রদেশ",
+    "maduraiTamilNadu": "মাদুরাই, তামিলনাড়ু"
+  },
   "Your Privacy Matters": "আপনার গোপনীয়তা গুরুত্বপূর্ণ",
   "Privacy Policy": "গোপনীয়তা নীতি",
   "At KrishiSanjivni, we're committed to protecting your personal information and being transparent about how we collect, use, and safeguard your data.": "কৃষিসঞ্জীবনী-তে, আমরা আপনার ব্যক্তিগত তথ্য রক্ষা করতে এবং আমরা কীভাবে আপনার ডেটা সংগ্রহ, ব্যবহার এবং সুরক্ষিত করি সে সম্পর্কে স্বচ্ছ থাকতে প্রতিশ্রুতিবদ্ধ।",
@@ -766,8 +769,6 @@
   "Policy Updates": "নীতি আপডেট",
   "We may update this Privacy Policy from time to time to reflect changes in our practices or for legal, regulatory, or operational reasons. When we make significant changes, we'll notify you via email or through a prominent notice on our platform.": "আমরা আমাদের অনুশীলনের পরিবর্তনগুলি বা আইনি, নিয়ন্ত্রক বা परिचालनগত কারণে সময়ে সময়ে এই গোপনীয়তা নীতি আপডেট করতে পারি। যখন আমরা উল্লেখযোগ্য পরিবর্তন করি, তখন আমরা আপনাকে ইমেলের মাধ্যমে বা আমাদের প্ল্যাটফর্মে একটি বিশিষ্ট বিজ্ঞপ্তির মাধ্যমে অবহিত করব।",
   "We encourage you to review this Privacy Policy periodically to stay informed about how we're protecting your information.": "আমরা কীভাবে আপনার তথ্য রক্ষা করছি সে সম্পর্কে অবগত থাকার জন্য আপনাকে পর্যায়ক্রমে এই গোপনীয়তা নীতি পর্যালোচনা করতে উত্সাহিত করি।",
-
-  
   "Welcome to": "স্বাগতম",
   "KrishiSanjivni": "কৃষিসঞ্জীবনী",
   "your trusted partner in modern farming solutions.": "আধুনিক কৃষি সমাধানে আপনার বিশ্বস্ত অংশীদার।",
@@ -863,26 +864,20 @@
   "Report Issue": "সমস্যা রিপোর্ট করুন",
   "By using KrishiSanjivni, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.": "কৃষিসঞ্জীবনী ব্যবহার করে, আপনি স্বীকার করছেন যে আপনি এই পরিষেবার শর্তাবলী পড়েছেন, বুঝতে পেরেছেন এবং এতে আবদ্ধ হতে সম্মত হয়েছেন।",
   "Thank you for being part of the KrishiSanjivni community! 🌾": "কৃষিসঞ্জীবনী সম্প্রদায়ের অংশ হওয়ার জন্য আপনাকে ধন্যবাদ! 🌾",
-
-
   "Examples:": "উদাহরণ:",
-
   "Cookie Policy": "কুকি নীতি",
   "We use cookies to enhance your experience on KrishiSanjivni and provide you with personalized services. This policy explains how and why we use cookies on our platform.": "আমরা কৃষিসঞ্জীবনী-তে আপনার অভিজ্ঞতা বাড়াতে এবং আপনাকে ব্যক্তিগতকৃত পরিষেবা প্রদান করতে কুকি ব্যবহার করি। এই নীতি ব্যাখ্যা করে যে আমরা কীভাবে এবং কেন আমাদের প্ল্যাটফর্মে কুকি ব্যবহার করি।",
   "Last Updated": "সর্বশেষ আপডেট",
   "What Are Cookies?": "কুকি কি?",
   "Cookies are small text files that are placed on your device (computer, smartphone, or tablet) when you visit our website. They help us recognize your device, remember your preferences, and improve your overall experience on KrishiSanjivni.": "কুকি হল ছোট টেক্সট ফাইল যা আপনি যখন আমাদের ওয়েবসাইট পরিদর্শন করেন তখন আপনার ডিভাইসে (কম্পিউটার, স্মার্টফোন বা ট্যাবলেট) রাখা হয়। সেগুলি আমাদের আপনার ডিভাইস চিনতে, আপনার পছন্দগুলি মনে রাখতে এবং কৃষিসঞ্জীবনী-তে আপনার সামগ্রিক অভিজ্ঞতা উন্নত করতে সাহায্য করে।",
   "By using cookies, we can provide you with a more personalized experience, analyze how our platform is used, and continuously improve our services to better serve the farming community.": "কুকি ব্যবহার করে, আমরা আপনাকে আরও ব্যক্তিগতকৃত অভিজ্ঞতা প্রদান করতে পারি, আমাদের প্ল্যাটফর্ম কীভাবে ব্যবহৃত হয় তা বিশ্লেষণ করতে পারি এবং কৃষক সম্প্রদায়ের আরও ভাল পরিবেশন করার জন্য আমাদের পরিষেবাগুলি ক্রমাগত উন্নত করতে পারি।",
-
   "You have the right to accept or reject cookies. Most web browsers automatically accept cookies, but you can usually modify your browser settings to decline cookies if you prefer.": "আপনার কুকি গ্রহণ বা প্রত্যাখ্যান করার অধিকার আছে। বেশিরভাগ ওয়েব ব্রাউজার স্বয়ংক্রিয়ভাবে কুকি গ্রহণ করে, তবে আপনি যদি পছন্দ করেন তবে কুকি প্রত্যাখ্যান করতে আপনি সাধারণত আপনার ব্রাউজার সেটিংস পরিবর্তন করতে পারেন।",
   "1. Types of Cookies We Use": "১. আমরা যে ধরনের কুকি ব্যবহার করি",
   "KrishiSanjivni uses different types of cookies to serve various purposes. Here's a breakdown of each type:": "কৃষিসঞ্জীবনী বিভিন্ন উদ্দেশ্যে বিভিন্ন ধরনের কুকি ব্যবহার করে। এখানে প্রতিটি ধরনের একটি বিবরণ দেওয়া হল:",
-
   "These cookies are necessary for the website to function properly. Without them, you won't be able to use basic features like logging in, accessing your account, or using our services.": "ওয়েবসাইট সঠিকভাবে কাজ করার জন্য এই কুকিগুলি প্রয়োজনীয়। সেগুলি ছাড়া, আপনি লগ ইন করা, আপনার অ্যাকাউন্ট অ্যাক্সেস করা বা আমাদের পরিষেবাগুলি ব্যবহার করার মতো মৌলিক বৈশিষ্ট্যগুলি ব্যবহার করতে পারবেন না।",
   "Session authentication cookies": "সেশন প্রমাণীকরণ কুকি",
   "Security cookies to prevent fraud": "জালিয়াতি প্রতিরোধে নিরাপত্তা কুকি",
   "Load balancing cookies": "লোড ব্যালেন্সিং কুকি",
-
   "These cookies allow us to remember your preferences and choices (like your preferred language, region, or display settings) to provide you with a more personalized experience.": "এই কুকিগুলি আমাদের আপনার পছন্দ এবং পছন্দগুলি (যেমন আপনার পছন্দের ভাষা, অঞ্চল বা প্রদর্শন সেটিংস) মনে রাখতে দেয় যাতে আপনাকে আরও ব্যক্তিগতকৃত অভিজ্ঞতা প্রদান করা যায়।",
   "Language preference cookies": "ভাষা পছন্দ কুকি",
   "Theme and display settings": "থিম এবং প্রদর্শন সেটিংস",
@@ -906,7 +901,6 @@
   "KrishiSanjivni uses cookies to enhance your experience and provide better services. Here's how we use them:": "কৃষিসঞ্জীবনী আপনার অভিজ্ঞতা বাড়াতে এবং আরও ভাল পরিষেবা সরবরাহ করতে কুকি ব্যবহার করে। আমরা সেগুলি কীভাবে ব্যবহার করি তা এখানে:",
   "Authentication & Security": "প্রমাণীকরণ এবং নিরাপত্তা",
   "To keep you logged in securely and protect your account from unauthorized access.": "আপনাকে নিরাপদে লগ ইন রাখতে এবং আপনার অ্যাকাউন্টকে অননুমোদিত অ্যাক্সেস থেকে রক্ষা করতে।",
-
   "To remember your preferences, settings, and customizations, making your experience more tailored and efficient.": "আপনার পছন্দ, সেটিংস এবং কাস্টমাইজেশন মনে রাখতে, আপনার অভিজ্ঞতাকে আরও উপযোগী এবং দক্ষ করে তুলতে।",
   "Analytics & Performance": "বিশ্লেষণ এবং কর্মক্ষমতা",
   "To analyze how users interact with our platform, identify popular features, and understand usage patterns to improve our services.": "ব্যবহারকারীরা কীভাবে আমাদের প্ল্যাটফর্মের সাথে যোগাযোগ করে তা বিশ্লেষণ করতে, জনপ্রিয় বৈশিষ্ট্যগুলি সনাক্ত করতে এবং আমাদের পরিষেবাগুলি উন্নত করতে ব্যবহারের ধরণগুলি বুঝতে।",
@@ -942,7 +936,6 @@
   "Mozilla Firefox": "মজিলা ফায়ারফক্স",
   "Safari": "সাফারি",
   "Microsoft Edge": "মাইক্রোসফট এজ",
-
   "Blocking or deleting cookies may affect your ability to use certain features of KrishiSanjivni. Some functionality may not work properly without cookies enabled.": "কুকি ব্লক করা বা মুছে ফেলা কৃষিসঞ্জীবনী-এর নির্দিষ্ট বৈশিষ্ট্যগুলি ব্যবহার করার আপনার ক্ষমতাকে প্রভাবিত করতে পারে। কুকি সক্রিয় না থাকলে কিছু কার্যকারিতা সঠিকভাবে কাজ নাও করতে পারে।",
   "5. Your Consent": "৫. আপনার সম্মতি",
   "By using KrishiSanjivni, you consent to our use of cookies as described in this Cookie Policy.": "কৃষিসঞ্জীবনী ব্যবহার করে, আপনি এই কুকি নীতিতে বর্ণিত কুকি ব্যবহারে সম্মতি দিচ্ছেন।",
@@ -968,12 +961,10 @@
   "Contact Our Privacy Team": "আমাদের গোপনীয়তা দলের সাথে যোগাযোগ করুন",
   "Related Policies": "সম্পর্কিত নীতি",
   "For more information about how we protect your data and our platform terms, please review:": "আমরা কীভাবে আপনার ডেটা রক্ষা করি এবং আমাদের প্ল্যাটফর্মের শর্তাবলী সম্পর্কে আরও তথ্যের জন্য, অনুগ্রহ করে পর্যালোচনা করুন:",
-
   "How we handle your data": "আমরা কিভাবে আপনার ডেটা পরিচালনা করি",
   "Terms of Service": "সেবার শর্তাবলী",
   "Platform usage terms": "প্ল্যাটফর্ম ব্যবহারের শর্তাবলী",
   "3. cookies2": "3. তৃতীয় পক্ষের কুকিজ",
-
   "toast.messageEmpty": "বার্তা খালি রাখা যাবে না!",
   "toast.submitFailed": "জমা দিতে ব্যর্থ: ",
   "toast.submitSuccess": "বার্তা সফলভাবে জমা দেওয়া হয়েছে!",
@@ -991,8 +982,6 @@
   "form.placeholder": "আপনার বার্তা লিখুন...",
   "form.submit": "বার্তা পাঠান",
   "contact.mapTitle": "কৃষিসঞ্জীবনী অবস্থান",
-
-
   "Jalyukta Shivar Abhiyan": "জলযুক্ত শিবার অভিযান",
   "Water conservation & micro-irrigation.": "জল সংরক্ষণ ও মাইক্রো-সেচ।",
   "Irrigation": "সেচ",
@@ -1028,7 +1017,6 @@
   "CM Kisan Sahay Yojana": "সিএম কিষাণ সহায়তা যোজনা",
   "Compensation for crop loss due to calamities.": "বিপর্যয়ের কারণে ফসল ক্ষতির জন্য ক্ষতিপূরণ।",
   "Farmers cultivating notified crops": "বিজ্ঞাপিত ফসল চাষকারী কৃষক",
-  
   "Gujarat Seed Subsidy": "গুজরাট বীজ ভর্তুকি",
   "Subsidy for certified seeds.": "প্রত্যয়িত বীজের জন্য ভর্তুকি।",
   "Gujarat Income Support": "গুজরাট আয় সহায়তা",
@@ -1067,7 +1055,6 @@
   "TN Micro Irrigation Scheme": "টিএন মাইক্রো সেচ প্রকল্প",
   "Supports drip & sprinkler irrigation.": "ড্রিপ ও স্প্রিংকলার সেচকে সমর্থন করে।",
   "TN Soil Health Program": "টিএন মৃত্তিকা স্বাস্থ্য কর্মসূচি",
-  
   "TN KCC": "টিএন কেসিসি",
   "TN Income Support Yojana": "টিএন আয় সহায়তা যোজনা",
   "Direct cash assistance for small farmers.": "ক্ষুদ্র কৃষকদের জন্য সরাসরি নগদ সহায়তা।",
@@ -1174,40 +1161,30 @@
   "Haryana Organic Farming": "হরিয়ানা জৈব চাষ",
   "Haryana Technology Adoption": "হরিয়ানা প্রযুক্তি গ্রহণ",
   "Haryana Sustainable Agriculture": "হরিয়ানা টেকসই কৃষি",
-
   "PM-KISAN": "পিএম-কিষাণ",
   "Income support of ₹6,000 per year to farmers.": "কৃষকদের জন্য বছরে ₹6,000 আয় সহায়তা।",
-  
   "All landholding farmers": "সমস্ত ভূমিধারী কৃষক",
   "All India": "সারা ভারত",
   "PMFBY": "পিএমএফবিওয়াই",
   "Crop insurance covering yield loss due to natural calamities, pests & diseases.": "প্রাকৃতিক দুর্যোগ, কীটপতঙ্গ ও রোগের কারণে ফলন ক্ষতি কভারকারী ফসল বীমা।",
-
   "Soil Health Card Scheme": "মৃত্তিকা স্বাস্থ্য কার্ড প্রকল্প",
   "Provides farmers with soil health cards with crop-wise recommendations.": "ফসল-ভিত্তিক সুপারিশ সহ মৃত্তিকা স্বাস্থ্য কার্ড কৃষকদের প্রদান করে।",
-  
   "All farmers with agricultural land": "কৃষি জমি সহ সমস্ত কৃষক",
   "Paramparagat Krishi Vikas Yojana (PKVY)": "পরম্পরাগত কৃষি বিকাশ যোজনা (পিকেভিওয়াই)",
   "Promotes organic farming through cluster-based approach with financial assistance.": "আর্থিক সহায়তার সাথে ক্লাস্টার-ভিত্তিক পদ্ধতির মাধ্যমে জৈব চাষের প্রচার করে।",
-  
   "Groups practicing organic farming": "জৈব চাষ অনুশীলনকারী গোষ্ঠী",
   "Pradhan Mantri Krishi Sinchai Yojana (PMKSY)": "প্রধানমন্ত্রী কৃষি সিঁচাই যোজনা (পিএমকেএসওয়াই)",
   "Expand cultivated area with assured irrigation, improve water use efficiency.": "নিশ্চিত সেচ সহ চাষের এলাকা বাড়ানো, জল ব্যবহারের দক্ষতা উন্নত করা।",
-  
   "Farmers with agricultural land": "কৃষি জমি সহ কৃষক",
   "Kisan Credit Card (KCC)": "কিষাণ ক্রেডিট কার্ড (কেসিসি)",
   "Provides timely credit support at concessional interest rates.": "সুবিধাভোগী সুদের হারে সময়মত ঋণ সহায়তা প্রদান করে।",
-
   "National Mission for Sustainable Agriculture (NMSA)": "জাতীয় টেকসই কৃষি মিশন (এনএমএসএ)",
   "Promotes sustainable practices through soil, water, and climate resilience.": "মাটি, জল এবং জলবায়ু স্থিতিস্থাপকতার মাধ্যমে টেকসই অনুশীলনের প্রচার করে।",
-
   "Sub-Mission on Agricultural Mechanization (SMAM)": "কৃষি যান্ত্রিকীকরণের উপর উপ-মিশন (এসএমএএম)",
   "Financial assistance for farm machinery & equipment to boost mechanization.": "যান্ত্রিকীকরণ বাড়াতে কৃষি যন্ত্রপাতি ও সরঞ্জামের জন্য আর্থিক সহায়তা।",
-  
   "Farmers, SHGs, FPOs": "কৃষক, স্বনির্ভর গোষ্ঠী (SHGs), কৃষক উৎপাদনকারী সংস্থা (FPOs)",
   "National Agricultural Market (eNAM)": "জাতীয় কৃষি বাজার (ই-নাম)",
   "Promotes online trading of farm produce.": "কৃষি পণ্যের অনলাইন ট্রেডিংকে উৎসাহিত করে।",
-  
   "Pradhan Mantri Kisan Mandhan Yojana": "প্রধানমন্ত্রী কিষাণ মান ধন যোজনা",
   "Pension scheme for small and marginal farmers.": "ক্ষুদ্র ও প্রান্তিক কৃষকদের জন্য পেনশন প্রকল্প।",
   "Small & marginal farmers": "ক্ষুদ্র ও প্রান্তিক কৃষক",
@@ -1238,9 +1215,7 @@
   "Kisan Sarvhit Bima Yojana": "কিষাণ সর্বহিত বীমা যোজনা",
   "Insurance for accidental death, disability & hospitalization.": "আকস্মিক মৃত্যু, অক্ষমতা এবং হাসপাতালে ভর্তির জন্য বীমা।",
   "Farmer families": "কৃষক পরিবার",
-
   "UP Seed Subsidy Program": "ইউপি বীজ ভর্তুকি কর্মসূচি",
-  
   "All farmers in UP": "ইউপি-র সমস্ত কৃষক",
   "UP Kisan Credit Card": "ইউপি কিষাণ ক্রেডিট কার্ড",
   "Credit support for cultivation and allied activities.": "চাষাবাদ ও আনুষঙ্গিক কাজের জন্য ঋণ সহায়তা।",
@@ -1249,17 +1224,14 @@
   "Supports drip & sprinkler irrigation systems.": "ড্রিপ ও স্প্রিংকলার সেচ ব্যবস্থাকে সমর্থন করে।",
   "UP Soil Health Management": "ইউপি মৃত্তিকা স্বাস্থ্য ব্যবস্থাপনা",
   "UP Organic Farming Initiative": "ইউপি জৈব চাষ উদ্যোগ",
-
   "UP Sustainable Agriculture Support": "ইউপি টেকসই কৃষি সমর্থন",
   "Promotes crop rotation & climate-resilient practices.": "শস্য আবর্তন ও জলবায়ু-স্থিতিস্থাপক অনুশীলনের প্রচার করে।",
   "UP Farmer Technology Program": "ইউপি কৃষক প্রযুক্তি কর্মসূচি",
   "Training and demonstration of modern agricultural tech.": "আধুনিক কৃষি প্রযুক্তির প্রশিক্ষণ ও প্রদর্শনী।",
   "UP Income Support Yojana": "ইউপি আয় সহায়তা যোজনা",
-
   "All land-owning farmers": "সমস্ত ভূমি মালিক কৃষক",
   "Bhavantar Bhugtan Yojana": "ভাবান্তর ভুক্তান যোজনা",
   "Price difference compensation for oilseeds & pulses.": "তৈলবীজ ও ডালের জন্য মূল্য পার্থক্য ক্ষতিপূরণ।",
-
   "Bihar": "বিহার",
   "Bihar State Crop Insurance Scheme": "বিহার রাজ্য ফসল বীমা প্রকল্প",
   "Insurance coverage for crop loss due to natural disasters.": "প্রাকৃতিক দুর্যোগের কারণে ফসল ক্ষতির জন্য বীমা কভারেজ।",
@@ -1273,7 +1245,6 @@
   "Bihar Agricultural Mechanization Support": "বিহার কৃষি যান্ত্রিকীকরণ সমর্থন",
   "Subsidy for farm machinery purchase.": "কৃষি যন্ত্রপাতি কেনার জন্য ভর্তুকি।",
   "Bihar Organic Farming Support": "বিহার জৈব চাষ সমর্থন",
-
   "Bihar Technology Adoption Program": "বিহার প্রযুক্তি গ্রহণ কর্মসূচি",
   "Demonstration of modern agriculture technologies.": "আধুনিক কৃষি প্রযুক্তির প্রদর্শনী।",
   "Bihar Sustainable Agriculture Initiative": "বিহার টেকসই কৃষি উদ্যোগ",
@@ -1293,7 +1264,6 @@
   "Telangana Agricultural Mechanization": "তেলেঙ্গানা কৃষি যান্ত্রিকীকরণ",
   "Financial assistance for farm machinery.": "কৃষি যন্ত্রপাতির জন্য আর্থিক সহায়তা।",
   "Telangana Organic Farming Program": "তেলেঙ্গানা জৈব চাষ কর্মসূচি",
-  
   "Telangana Technology Adoption Program": "তেলেঙ্গানা প্রযুক্তি গ্রহণ কর্মসূচি",
   "Training in modern agri tech and practices.": "আধুনিক কৃষি প্রযুক্তি ও অনুশীলনে প্রশিক্ষণ।",
   "Telangana Sustainable Agriculture Program": "তেলেঙ্গানা টেকসই কৃষি কর্মসূচি",
@@ -1317,10 +1287,7 @@
   "Demonstration of modern agriculture tech.": "আধুনিক কৃষি প্রযুক্তির প্রদর্শনী।",
   "Karnataka Sustainable Agriculture Program": "কর্ণাটক টেকসই কৃষি কর্মসূচি",
   "Promotes eco-friendly & resilient farming.": "পরিবেশ-বান্ধব ও স্থিতিস্থাপক চাষের প্রচার করে।",
-
-
   "All": "সব",
-
   "Government Schemes & Yojanas": "সরকারি প্রকল্প ও যোজনা",
   "Explore central and state government schemes designed to empower Indian farmers": "ভারতীয় কৃষকদের ক্ষমতায়নের জন্য ডিজাইন করা কেন্দ্রীয় ও রাজ্য সরকারের প্রকল্পগুলি অন্বেষণ করুন",
   "Search schemes...": "প্রকল্পগুলি খুঁজুন...",

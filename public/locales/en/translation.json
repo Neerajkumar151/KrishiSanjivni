@@ -1,164 +1,175 @@
-
 {
-    "logo": {
-        "KrishiSanjivni":"KrishiSanjivni",
-        "tagline": "Growing Together"
-    },
-    "nav": {
-        "home": "Home",
-        "tools": "Tools",
-        "warehouse": "Warehouse",
-        "soilCheck": "Soil Check",
-        "community": "Community",
-        "more": "More",
-        "resources": "📚 Resources (Schemes & Yojanas)",
-        "weather": "🌤️ Real-Time Weather",
-        "marketPrices": "💰 Market Prices",
-        "adminPanel": "Admin Panel",
-        "profile": "Profile",
-        "paymentHistory": "Payment History",
-        "logout": "Logout",
-        "login": "Login"
-    },
-    "contact": {
-        "location": "Noida, Uttar Pradesh, India"
-    },
-    "footer": {
-        "tagline_p": "Empowering farmers with cutting-edge technology, expert knowledge, and a supportive community to achieve sustainable success.",
-        "contact_title": "Contact Us",
-        "services_title": "Services",
-        "service_equipment": "Farming Equipment",
-        "service_warehouse": "Warehouse Solutions",
-        "service_soil": "Soil Testing",
-        "service_community": "Community",
-        "service_contact": "Contact Us",
-        "newsletter_title": "Newsletter",
-        "newsletter_p": "Get weekly farming tips and updates delivered to your inbox.",
-        "email_placeholder": "Your email",
-        "copyright_base": "© 2025 KrishiSanjivni. All rights reserved By",
-        "privacy_policy": "Privacy Policy",
-        "terms_of_service": "Terms of Service",
-        "cookie_policy": "Cookie Policy"
-    },
-    "hero": {
-        "title": "Modernizing Indian Agriculture with Intelligence and Technology",
-        "subtitle": "Your comprehensive platform for farm management, tool rentals, and market access.",
-        "getStarted": "Get Started",
-        "learnMore": "Learn More"
-    },
-    "ai_button": "AI",
-    "smart_farming_revolution": "Smart Farming Revolution",
-    "growing_future_title_1": "Growing the Future with",
-    "growing_future_title_2": "Smart Agriculture",
-    "growing_future_subtitle": "Join thousands of farmers transforming their operations with AI-powered insights, modern tools, and real-time market intelligence.",
-    "explore_now": "Explore Now",
-    "watch_demo": "Watch Demo",
-    "modern_platform_title": "Modern Platform",
-    "modern_platform_subtitle": "Access from anywhere",
-    "ai_powered_label": "Powered",
-    "ai_assistant_title": "24/7 AI Assistant",
-    "ai_assistant_subtitle": "Instant Support",
-    "stats": {
-        "active_farmers_count": "10K+",
-        "tools_available_count": "500+",
-        "satisfaction_rate_count": "98%",
-        "active_farmers_label": "Active Farmers",
-        "tools_available_label": "Tools Available",
-        "satisfaction_rate_label": "Satisfaction",
-        "managed_hectares_count": "50M+",
-        "managed_hectares_label": "Hectares Managed",
-        "ai_support_count": "24/7",
-        "ai_support_label": "AI Support"
-    },
-    "about": {
-        "story_label": "Our Story",
-        "title": "Revolutionizing Agriculture Through Innovation",
-        "p1": "KrishiSanjivni was born from a simple vision: to bridge the gap between traditional farming wisdom and modern technology. We understand the daily challenges farmers face, from unpredictable weather to fluctuating market prices.",
-        "p2": "Our platform combines cutting-edge AI, real-time data analytics, and a deep understanding of agricultural practices to deliver solutions that truly make a difference. We're not just building software; we're cultivating a community of forward-thinking farmers.",
-        "feature_trusted_title": "Trusted & Secure",
-        "feature_trusted_subtitle": "Bank-grade security protecting your data and transactions",
-        "feature_community_title": "Community-First",
-        "feature_community_subtitle": "Built with farmers, for farmers, supporting local communities"
-    },
-    "founded_year": "2025",
-    "founded_label": "Founded",
-    "sustainable_growth_title": "Sustainable Growth",
-    "sustainable_growth_subtitle": "Empowering 10,000+ farmers across India",
-    "value": {
-        "farmer_centric_title": "Farmer-Centric",
-        "farmer_centric_p": "Built by understanding real challenges faced by farmers in their daily operations",
-        "technology_driven_title": "Technology-Driven",
-        "technology_driven_p": "Leveraging AI and modern tools to provide actionable insights and solutions",
-        "trusted_partner_title": "Trusted Partner",
-        "trusted_partner_p": "Supporting sustainable and profitable farming practices across communities",
-        "eco_friendly_title": "Eco-Friendly",
-        "eco_friendly_p": "Promoting sustainable practices that protect our environment for future generations"
-    },
-    "features": {
-        "title": "Comprehensive Features",
-        "subtitle": "Everything you need to modernize your farming operations"
-    },
-    "feature": {
-        "tools_title": "Tool Rentals",
-        "tools_p": "Book agricultural tools and machinery for sowing, harvesting, and all farm operations",
-        "tools_action": "Explore",
-        "warehouse_title": "Warehouse Storage",
-        "warehouse_p": "Find and book warehouse space with details on capacity and storage conditions",
-        "warehouse_action": "Book Now",
-        "soil_title": "Soil Analysis",
-        "soil_p": "Log soil checks, get NPK/pH readings, and receive fertilizer recommendations",
-        "soil_action": "Get Analysis",
-        "market_title": "Market Information",
-        "market_p": "View local Mandi prices and crop demand insights in real-time",
-        "market_action": "View Prices",
-        "finance_title": "Finance & Schemes",
-        "finance_p": "Guidance on credit cards, insurance, subsidies, and government schemes",
-        "finance_action": "Learn More",
-        "weather_title": "Weather & Advisory",
-        "weather_p": "Hyper-local weather updates, pest alerts, and irrigation guidance",
-        "weather_action": "Get Updates",
-        "ai_title": "AI Assistance",
-        "ai_p": "Smart chatbot providing step-by-step guidance, answering queries, and assisting with administrative questions 24/7",
-        "ai_action": "Chat Now"
-    },
-    "testimonial": {
-        "section_title": "Trusted by Farmers",
-        "section_subtitle": "Hear from the growing community that is achieving success with KrishiSanjivni.",
-        "amit_name": "Amit Sharma",
-        "amit_role": "Wheat Farmer, Punjab",
-        "amit_feedback": "The tools booking system saved me so much time and money this harvest season. Everything was efficient and reliable.",
-        "sunita_name": "Sunita Devi",
-        "sunita_role": "Vegetable Grower, Maharashtra",
-        "sunita_feedback": "Real-time weather alerts and the soil check recommendations have drastically improved my yield. Highly recommended!",
-        "ravi_name": "Ravi Kumar",
-        "ravi_role": "Maize Farmer, Bihar",
-        "ravi_feedback": "The Market Prices feature is a game-changer. I finally know the best time to sell my crop for maximum profit.",
-        "priya_name": "Priya Singh",
-        "priya_role": "Organic Farmer, Karnataka",
-        "priya_feedback": "Access to government schemes and financial advice has helped me secure a loan to expand my operations. Thank you!",
-        "rajesh_name": "Rajesh Patel",
-        "rajesh_role": "Cotton Farmer, Gujarat",
-        "rajesh_feedback": "The AI assistant is fantastic for instant pest and disease identification. It's like having an expert agronomist in my pocket."
-    },
-    "index": {
-        "links_title": "Government & Partner Links"
-    },
-
-    "community_page": {
+  "chat": {
+    "general_chat": "General Chat",
+    "message_deleted": "Message deleted",
+    "user_banned": "User has been banned",
+    "confirm_delete_title": "Delete Message",
+    "confirm_delete_desc": "Are you sure you want to delete this message? This action cannot be undone.",
+    "confirm_ban_title": "Ban User",
+    "confirm_ban_desc": "Are you sure you want to ban",
+    "ban_consequence": "This will also delete all their messages and prevent them from chatting again.",
+    "ban": "Ban User",
+    "banned_message": "Your account has been banned from participating in the chat.",
+    "login_to_chat": "Please log in to join the chat."
+  },
+  "logo": {
+    "KrishiSanjivni": "KrishiSanjivni",
+    "tagline": "Growing Together"
+  },
+  "nav": {
+    "home": "Home",
+    "tools": "Tools",
+    "warehouse": "Warehouse",
+    "soilCheck": "Soil Check",
+    "community": "Community",
+    "more": "More",
+    "resources": "📚 Resources (Schemes & Yojanas)",
+    "weather": "🌤️ Real-Time Weather",
+    "marketPrices": "💰 Market Prices",
+    "adminPanel": "Admin Panel",
+    "profile": "Profile",
+    "paymentHistory": "Payment History",
+    "logout": "Logout",
+    "login": "Login"
+  },
+  "contact": {
+    "location": "Noida, Uttar Pradesh, India"
+  },
+  "footer": {
+    "tagline_p": "Empowering farmers with cutting-edge technology, expert knowledge, and a supportive community to achieve sustainable success.",
+    "contact_title": "Contact Us",
+    "services_title": "Services",
+    "service_equipment": "Farming Equipment",
+    "service_warehouse": "Warehouse Solutions",
+    "service_soil": "Soil Testing",
+    "service_community": "Community",
+    "service_contact": "Contact Us",
+    "newsletter_title": "Newsletter",
+    "newsletter_p": "Get weekly farming tips and updates delivered to your inbox.",
+    "email_placeholder": "Your email",
+    "copyright_base": "© 2025 KrishiSanjivni. All rights reserved By",
+    "privacy_policy": "Privacy Policy",
+    "terms_of_service": "Terms of Service",
+    "cookie_policy": "Cookie Policy"
+  },
+  "hero": {
+    "title": "Modernizing Indian Agriculture with Intelligence and Technology",
+    "subtitle": "Your comprehensive platform for farm management, tool rentals, and market access.",
+    "getStarted": "Get Started",
+    "learnMore": "Learn More"
+  },
+  "ai_button": "AI",
+  "smart_farming_revolution": "Smart Farming Revolution",
+  "growing_future_title_1": "Growing the Future with",
+  "growing_future_title_2": "Smart Agriculture",
+  "growing_future_subtitle": "Join thousands of farmers transforming their operations with AI-powered insights, modern tools, and real-time market intelligence.",
+  "explore_now": "Explore Now",
+  "watch_demo": "Watch Demo",
+  "modern_platform_title": "Modern Platform",
+  "modern_platform_subtitle": "Access from anywhere",
+  "ai_powered_label": "Powered",
+  "ai_assistant_title": "24/7 AI Assistant",
+  "ai_assistant_subtitle": "Instant Support",
+  "stats": {
+    "active_farmers_count": "10K+",
+    "tools_available_count": "500+",
+    "satisfaction_rate_count": "98%",
+    "active_farmers_label": "Active Farmers",
+    "tools_available_label": "Tools Available",
+    "satisfaction_rate_label": "Satisfaction",
+    "managed_hectares_count": "50M+",
+    "managed_hectares_label": "Hectares Managed",
+    "ai_support_count": "24/7",
+    "ai_support_label": "AI Support"
+  },
+  "about": {
+    "story_label": "Our Story",
+    "title": "Revolutionizing Agriculture Through Innovation",
+    "p1": "KrishiSanjivni was born from a simple vision: to bridge the gap between traditional farming wisdom and modern technology. We understand the daily challenges farmers face, from unpredictable weather to fluctuating market prices.",
+    "p2": "Our platform combines cutting-edge AI, real-time data analytics, and a deep understanding of agricultural practices to deliver solutions that truly make a difference. We're not just building software; we're cultivating a community of forward-thinking farmers.",
+    "feature_trusted_title": "Trusted & Secure",
+    "feature_trusted_subtitle": "Bank-grade security protecting your data and transactions",
+    "feature_community_title": "Community-First",
+    "feature_community_subtitle": "Built with farmers, for farmers, supporting local communities"
+  },
+  "founded_year": "2025",
+  "founded_label": "Founded",
+  "sustainable_growth_title": "Sustainable Growth",
+  "sustainable_growth_subtitle": "Empowering 10,000+ farmers across India",
+  "value": {
+    "farmer_centric_title": "Farmer-Centric",
+    "farmer_centric_p": "Built by understanding real challenges faced by farmers in their daily operations",
+    "technology_driven_title": "Technology-Driven",
+    "technology_driven_p": "Leveraging AI and modern tools to provide actionable insights and solutions",
+    "trusted_partner_title": "Trusted Partner",
+    "trusted_partner_p": "Supporting sustainable and profitable farming practices across communities",
+    "eco_friendly_title": "Eco-Friendly",
+    "eco_friendly_p": "Promoting sustainable practices that protect our environment for future generations"
+  },
+  "features": {
+    "title": "Comprehensive Features",
+    "subtitle": "Everything you need to modernize your farming operations"
+  },
+  "feature": {
+    "tools_title": "Tool Rentals",
+    "tools_p": "Book agricultural tools and machinery for sowing, harvesting, and all farm operations",
+    "tools_action": "Explore",
+    "warehouse_title": "Warehouse Storage",
+    "warehouse_p": "Find and book warehouse space with details on capacity and storage conditions",
+    "warehouse_action": "Book Now",
+    "soil_title": "Soil Analysis",
+    "soil_p": "Log soil checks, get NPK/pH readings, and receive fertilizer recommendations",
+    "soil_action": "Get Analysis",
+    "market_title": "Market Information",
+    "market_p": "View local Mandi prices and crop demand insights in real-time",
+    "market_action": "View Prices",
+    "finance_title": "Finance & Schemes",
+    "finance_p": "Guidance on credit cards, insurance, subsidies, and government schemes",
+    "finance_action": "Learn More",
+    "weather_title": "Weather & Advisory",
+    "weather_p": "Hyper-local weather updates, pest alerts, and irrigation guidance",
+    "weather_action": "Get Updates",
+    "ai_title": "AI Assistance",
+    "ai_p": "Smart chatbot providing step-by-step guidance, answering queries, and assisting with administrative questions 24/7",
+    "ai_action": "Chat Now"
+  },
+  "testimonial": {
+    "section_title": "Trusted by Farmers",
+    "section_subtitle": "Hear from the growing community that is achieving success with KrishiSanjivni.",
+    "amit_name": "Amit Sharma",
+    "amit_role": "Wheat Farmer, Punjab",
+    "amit_feedback": "The tools booking system saved me so much time and money this harvest season. Everything was efficient and reliable.",
+    "sunita_name": "Sunita Devi",
+    "sunita_role": "Vegetable Grower, Maharashtra",
+    "sunita_feedback": "Real-time weather alerts and the soil check recommendations have drastically improved my yield. Highly recommended!",
+    "ravi_name": "Ravi Kumar",
+    "ravi_role": "Maize Farmer, Bihar",
+    "ravi_feedback": "The Market Prices feature is a game-changer. I finally know the best time to sell my crop for maximum profit.",
+    "priya_name": "Priya Singh",
+    "priya_role": "Organic Farmer, Karnataka",
+    "priya_feedback": "Access to government schemes and financial advice has helped me secure a loan to expand my operations. Thank you!",
+    "rajesh_name": "Rajesh Patel",
+    "rajesh_role": "Cotton Farmer, Gujarat",
+    "rajesh_feedback": "The AI assistant is fantastic for instant pest and disease identification. It's like having an expert agronomist in my pocket."
+  },
+  "index": {
+    "links_title": "Government & Partner Links"
+  },
+  "community_page": {
     "mission_title": "Our Mission",
     "mission_description": "To build a supportive network where farmers can freely exchange knowledge, find solutions to challenges, and discover innovative practices to improve their yields and sustainability.",
     "features_title": "What You Can Do Here",
     "features": {
-        "ask_questions": "Ask questions and get answers from experienced peers.",
-        "share_experiences": "Share your own farming successes and lessons learned.",
-        "find_solutions": "Find practical solutions for crop management and soil health.",
-        "stay_updated": "Stay updated on the latest agricultural trends and technologies."
+      "ask_questions": "Ask questions and get answers from experienced peers.",
+      "share_experiences": "Share your own farming successes and lessons learned.",
+      "find_solutions": "Find practical solutions for crop management and soil health.",
+      "stay_updated": "Stay updated on the latest agricultural trends and technologies."
     },
     "join_title": "Join the Conversation",
     "join_description": "Your voice matters. Start a new discussion, reply to a topic, or introduce yourself to the community.",
     "join_button": "Start a Discussion"
-},
-"ai_showcase": {
+  },
+  "ai_showcase": {
     "tag": "AI-Powered Intelligence",
     "title_part1": "Your Personal Farming",
     "title_part2": "AI Assistant",
@@ -182,8 +193,8 @@
     "q_soil_nitrogen": "How do I improve soil nitrogen levels?",
     "q_wheat_rust": "What are the signs of wheat rust disease?",
     "q_tomato_irrigation": "When should I irrigate my tomato crops?"
-},
-"chatbot": {
+  },
+  "chatbot": {
     "bot_name": "KrishiSanjivni Assistant",
     "bot_status": "Online",
     "intro_line1": "Hi! I'm your KrishiSanjivni assistant.",
@@ -193,26 +204,26 @@
     "error_send_failed": "Failed to send message",
     "error_transcribe_failed": "Failed to transcribe audio",
     "error_microphone_access": "Could not access microphone"
-},
-"community_section": {
+  },
+  "community_section": {
     "title": "Join Our Thriving Community",
     "subtitle": "Connect, learn, and grow with thousands of farmers and agricultural professionals",
     "explore_button": "Explore Now",
     "features": {
-        "expert_network_title": "Expert Network",
-        "expert_network_description": "Connect with agricultural experts, agronomists, and successful farmers from around the world.",
-        "community_forums_title": "Community Forums",
-        "community_forums_description": "Participate in discussions, ask questions, and share your farming experiences with peers.",
-        "knowledge_library_title": "Knowledge Library",
-        "knowledge_library_description": "Access thousands of articles, guides, and research papers on modern farming techniques.",
-        "success_stories_title": "Success Stories",
-        "success_stories_description": "Get inspired by real farmers who transformed their operations using our platform."
+      "expert_network_title": "Expert Network",
+      "expert_network_description": "Connect with agricultural experts, agronomists, and successful farmers from around the world.",
+      "community_forums_title": "Community Forums",
+      "community_forums_description": "Participate in discussions, ask questions, and share your farming experiences with peers.",
+      "knowledge_library_title": "Knowledge Library",
+      "knowledge_library_description": "Access thousands of articles, guides, and research papers on modern farming techniques.",
+      "success_stories_title": "Success Stories",
+      "success_stories_description": "Get inspired by real farmers who transformed their operations using our platform."
     },
     "cta_title": "Ready to Transform Your Farming?",
     "cta_subtitle": "Join thousands of farmers who are already benefiting from our community and resources.",
     "cta_button": "Get Started Today"
-},
-"hero_section": {
+  },
+  "hero_section": {
     "tag": "Powered by Advanced Agricultural Technology",
     "title_part1": "Cultivating Success,",
     "title_part2": "Growing Together",
@@ -220,52 +231,49 @@
     "button_join": "Join the Community",
     "button_explore": "Explore Services",
     "stats": {
-        "farmers_count": "10K+",
-        "farmers_label": "Active Farmers",
-        "advisors_count": "500+",
-        "advisors_label": "Expert Advisors",
-        "success_count": "95%",
-        "success_label": "Success Rate",
-        "ai_support_count": "24/7",
-        "ai_support_label": "AI Support"
+      "farmers_count": "10K+",
+      "farmers_label": "Active Farmers",
+      "advisors_count": "500+",
+      "advisors_label": "Expert Advisors",
+      "success_count": "95%",
+      "success_label": "Success Rate",
+      "ai_support_count": "24/7",
+      "ai_support_label": "AI Support"
     }
-},
-"services_section": {
+  },
+  "services_section": {
     "title": "Empowering Farmers with Smart Solutions",
     "subtitle": "KrishiSanjivni simplifies every aspect of modern agriculture — from soil health to storage and AI assistance.",
     "learn_more": "Learn More",
     "features": {
-        "smart_tools_title": "Smart Farming Tools",
-        "smart_tools_description": "Rent or book modern farming tools and machines easily. From tractors to seeders, access affordable equipment anytime through KrishiSanjivni.",
-        "warehouse_booking_title": "Warehouse Booking & Storage",
-        "warehouse_booking_description": "Book secure, climate-controlled warehouses for safe crop storage. Track your warehouse bookings and manage availability online.",
-        "soil_testing_title": "Soil Health & Fertility Testing",
-        "soil_testing_description": "Submit your soil samples for analysis and receive accurate reports on nutrients, pH, and moisture — helping you plan better crops and fertilizers.",
-        "ai_insights_title": "AI-Based Soil & Crop Insights",
-        "ai_insights_description": "Use our AI-powered Soil Check system to understand soil quality and get real-time recommendations for crop growth and sustainability.",
-        "ai_chatbot_title": "KrishiSanjivni AI Chatbot",
-        "ai_chatbot_description": "Get 24/7 farming assistance — weather updates, government scheme information, loan eligibility, and expert advice right from your chatbot.",
-        "farmer_community_title": "Farmer Community & Support",
-        "farmer_community_description": "Join a growing community of farmers, share experiences, and get help from agricultural experts and peers across the KrishiSanjivni network."
+      "smart_tools_title": "Smart Farming Tools",
+      "smart_tools_description": "Rent or book modern farming tools and machines easily. From tractors to seeders, access affordable equipment anytime through KrishiSanjivni.",
+      "warehouse_booking_title": "Warehouse Booking & Storage",
+      "warehouse_booking_description": "Book secure, climate-controlled warehouses for safe crop storage. Track your warehouse bookings and manage availability online.",
+      "soil_testing_title": "Soil Health & Fertility Testing",
+      "soil_testing_description": "Submit your soil samples for analysis and receive accurate reports on nutrients, pH, and moisture — helping you plan better crops and fertilizers.",
+      "ai_insights_title": "AI-Based Soil & Crop Insights",
+      "ai_insights_description": "Use our AI-powered Soil Check system to understand soil quality and get real-time recommendations for crop growth and sustainability.",
+      "ai_chatbot_title": "KrishiSanjivni AI Chatbot",
+      "ai_chatbot_description": "Get 24/7 farming assistance — weather updates, government scheme information, loan eligibility, and expert advice right from your chatbot.",
+      "farmer_community_title": "Farmer Community & Support",
+      "farmer_community_description": "Join a growing community of farmers, share experiences, and get help from agricultural experts and peers across the KrishiSanjivni network."
     }
-},
-"common": {
+  },
+  "common": {
     "phone": "Contact Phone"
-},
-"soil": {
+  },
+  "soil": {
     "page_title": "Soil Health & Analysis Request",
     "page_subtitle": "Submit your soil parameters or request a lab analysis to receive expert recommendations for maximizing your yield.",
-    
     "feature_analysis_title": "Comprehensive Analysis",
     "feature_analysis_description": "Get detailed insights on pH, NPK levels, moisture, and organic matter content",
     "feature_crop_title": "Crop Recommendations",
     "feature_crop_description": "Receive tailored crop suggestions based on your soil composition",
     "feature_expert_title": "Expert Analysis",
     "feature_expert_description": "Our agricultural experts will review and provide personalized recommendations",
-
     "form_request_title": "Request Soil Analysis",
     "form_request_description": "Fill in the details below to request a comprehensive soil analysis for your farm",
-    
     "farm_info_title": "Farm Information",
     "location": "Location",
     "location_placeholder": "e.g., Punjab, Ludhiana",
@@ -274,14 +282,12 @@
     "crop_placeholder": "e.g., Wheat, Rice, Cotton",
     "soilType": "Soil Type",
     "select_soil_type": "Select soil type",
-    
     "type_clay": "Clay",
     "type_sandy": "Sandy",
     "type_loamy": "Loamy",
     "type_silty": "Silty",
     "type_peaty": "Peaty",
     "type_chalky": "Chalky",
-    
     "parameters_title": "Soil Parameters (Optional)",
     "parameters_subtitle": "If you have existing test results, you can provide them here",
     "ph": "pH Level",
@@ -294,26 +300,23 @@
     "level_high": "High",
     "organicMatter": "Organic Matter (%)",
     "moisture": "Moisture (%)",
-
     "additional_info_title": "Additional Information",
     "sample_count_label": "Number of Samples",
     "notes_label": "Additional Notes",
     "notes_placeholder": "Any additional information about your soil or specific concerns...",
     "phone_placeholder": "e.g., +91 98765 43210",
-    
     "analyze": "Analyze Soil",
     "submitting": "Submitting...",
-
     "toast": {
-        "auth_title": "Authentication Required",
-        "auth_description": "Please sign in to submit a soil check request",
-        "fail_title": "Submission Failed",
-        "fail_description": "Failed to submit soil check request: ",
-        "success_title": "Request Submitted",
-        "success_description": "Your soil analysis request has been submitted successfully. It is now visible to the Admin for review."
+      "auth_title": "Authentication Required",
+      "auth_description": "Please sign in to submit a soil check request",
+      "fail_title": "Submission Failed",
+      "fail_description": "Failed to submit soil check request: ",
+      "success_title": "Request Submitted",
+      "success_description": "Your soil analysis request has been submitted successfully. It is now visible to the Admin for review."
     }
-},
-"common1": {
+  },
+  "common1": {
     "ai": "AI"
   },
   "warehouse": {
@@ -340,7 +343,11 @@
     "features": "Features:",
     "bookNow": "Book Now",
     "noResults": "No warehouses found matching your criteria",
-    "tryAdjust": "Try adjusting your filters or search term."
+    "tryAdjust": "Try adjusting your filters or search term.",
+    "available_status": "Available",
+    "full_status": "Full",
+    "sold": "Sold",
+    "na": "N/A"
   },
   "tools": {
     "title": "Available Tools",
@@ -365,21 +372,17 @@
     "page_title": "Government Schemes & Yojanas",
     "page_subtitle": "Explore central and state government schemes designed to empower Indian farmers 🌾",
     "search_placeholder": "Search schemes by name, description...",
-    
     "filter_select_state": "Select State",
-    
     "label_eligibility": "Eligibility",
     "label_coverage": "Coverage",
     "button_view_website": "View Official Website",
     "no_schemes_found": "No schemes found matching your criteria.",
     "button_load_more": "Load More Schemes ({{remaining}} remaining)",
-    
     "additional_resources_title": "Additional Resources",
     "additional_resources_description": "Official government portals for more information",
     "link_ministry_agri_name": "Ministry of Agriculture",
     "link_pmkisan_name": "PM-KISAN Portal",
     "link_open_gov_data_name": "Open Government Data",
-
     "category_all": "All",
     "category_incomesupport": "Income Support",
     "category_insurance": "Insurance",
@@ -390,7 +393,6 @@
     "category_organicfarming": "Organic Farming",
     "category_technologyadoption": "Technology Adoption",
     "category_sustainableagriculture": "Sustainable Agriculture",
-    
     "state_allstates": "All States",
     "state_allindia": "All India",
     "state_andhrapradesh": "Andhra Pradesh",
@@ -408,8 +410,8 @@
     "state_telangana": "Telangana",
     "state_uttarpradesh": "Uttar Pradesh",
     "state_westbengal": "West Bengal"
-},
-"weather": {
+  },
+  "weather": {
     "title": "Real-time Weather Forecast",
     "subtitle": "Get accurate weather info for better farming decisions",
     "toastSuccess": "Weather data for {{city}} fetched successfully!",
@@ -589,7 +591,6 @@
   "total_cost": "Total Cost",
   "rejection_reason": "Rejection Reason",
   "loading_bookings": "Loading bookings...",
-
   "privacy": {
     "hero": {
       "badge": "Privacy Policy",
@@ -660,7 +661,6 @@
       "desc2": "You will be notified of significant updates through email or platform notifications."
     }
   },
-
   "categories": {
     "sprayer": "Sprayer",
     "transplanter": "Transplanter",
@@ -688,36 +688,34 @@
     "baler": "Baler",
     "trolley": "Trolley"
   },
-
   "locations": {
-  "bangaloreKarnataka": "Bangalore, Karnataka",
-  "srinagarJammuKashmir": "Srinagar, Jammu & Kashmir",
-  "tumkurKarnataka": "Tumkur, Karnataka",
-  "ahmedabadGujarat": "Ahmedabad, Gujarat",
-  "kolkataWestBengal": "Kolkata, West Bengal",
-  "cuttackOdisha": "Cuttack, Odisha",
-  "indoreMadhyaPradesh": "Indore, Madhya Pradesh",
-  "idukkiKerala": "Idukki, Kerala",
-  "karnalHaryana": "Karnal, Haryana",
-  "noida": "Noida",
-  "jaipurRajasthan": "Jaipur, Rajasthan",
-  "rajkotGujarat": "Rajkot, Gujarat",
-  "anandGujarat": "Anand, Gujarat",
-  "jodhpurRajasthan": "Jodhpur, Rajasthan",
-  "chennaiTamilNadu": "Chennai, Tamil Nadu",
-  "gurugramHaryana": "Gurugram, Haryana",
-  "ludhianaPunjab": "Ludhiana, Punjab",
-  "nashikMaharashtra": "Nashik, Maharashtra",
-  "siliguriWestBengal": "Siliguri, West Bengal",
-  "kanpurUttarPradesh": "Kanpur, Uttar Pradesh",
-  "bhubaneswarOdisha": "Bhubaneswar, Odisha",
-  "lucknowUttarPradesh": "Lucknow, Uttar Pradesh",
-  "delhi": "Delhi",
-  "puneMaharashtra": "Pune, Maharashtra",
-  "gunturAndhraPradesh": "Guntur, Andhra Pradesh",
-  "maduraiTamilNadu": "Madurai, Tamil Nadu"
-},
-
+    "bangaloreKarnataka": "Bangalore, Karnataka",
+    "srinagarJammuKashmir": "Srinagar, Jammu & Kashmir",
+    "tumkurKarnataka": "Tumkur, Karnataka",
+    "ahmedabadGujarat": "Ahmedabad, Gujarat",
+    "kolkataWestBengal": "Kolkata, West Bengal",
+    "cuttackOdisha": "Cuttack, Odisha",
+    "indoreMadhyaPradesh": "Indore, Madhya Pradesh",
+    "idukkiKerala": "Idukki, Kerala",
+    "karnalHaryana": "Karnal, Haryana",
+    "noida": "Noida",
+    "jaipurRajasthan": "Jaipur, Rajasthan",
+    "rajkotGujarat": "Rajkot, Gujarat",
+    "anandGujarat": "Anand, Gujarat",
+    "jodhpurRajasthan": "Jodhpur, Rajasthan",
+    "chennaiTamilNadu": "Chennai, Tamil Nadu",
+    "gurugramHaryana": "Gurugram, Haryana",
+    "ludhianaPunjab": "Ludhiana, Punjab",
+    "nashikMaharashtra": "Nashik, Maharashtra",
+    "siliguriWestBengal": "Siliguri, West Bengal",
+    "kanpurUttarPradesh": "Kanpur, Uttar Pradesh",
+    "bhubaneswarOdisha": "Bhubaneswar, Odisha",
+    "lucknowUttarPradesh": "Lucknow, Uttar Pradesh",
+    "delhi": "Delhi",
+    "puneMaharashtra": "Pune, Maharashtra",
+    "gunturAndhraPradesh": "Guntur, Andhra Pradesh",
+    "maduraiTamilNadu": "Madurai, Tamil Nadu"
+  },
   "Your Privacy Matters": "Your Privacy Matters",
   "Privacy Policy": "Privacy Policy",
   "At KrishiSanjivni, we're committed to protecting your personal information and being transparent about how we collect, use, and safeguard your data.": "At KrishiSanjivni, we're committed to protecting your personal information and being transparent about how we collect, use, and safeguard your data.",
@@ -813,19 +811,16 @@
   "Policy Updates": "Policy Updates",
   "We may update this Privacy Policy from time to time to reflect changes in our practices or for legal, regulatory, or operational reasons. When we make significant changes, we'll notify you via email or through a prominent notice on our platform.": "We may update this Privacy Policy from time to time to reflect changes in our practices or for legal, regulatory, or operational reasons. When we make significant changes, we'll notify you via email or through a prominent notice on our platform.",
   "We encourage you to review this Privacy Policy periodically to stay informed about how we're protecting your information.": "We encourage you to review this Privacy Policy periodically to stay informed about how we're protecting your information.",
-
   "Welcome to": "Welcome to",
   "KrishiSanjivni": "KrishiSanjivni",
   "your trusted partner in modern farming solutions.": "your trusted partner in modern farming solutions.",
   "By accessing or using our platform, you agree to these Terms of Service. Please read them carefully to understand your rights and responsibilities.": "By accessing or using our platform, you agree to these Terms of Service. Please read them carefully to understand your rights and responsibilities.",
-  
   "1. Acceptance of Terms": "1. Acceptance of Terms",
   "By creating an account or using KrishiSanjivni services, you acknowledge that:": "By creating an account or using KrishiSanjivni services, you acknowledge that:",
   "You have read and understood these terms": "You have read and understood these terms",
   "You are at least 18 years old or have parental consent": "You are at least 18 years old or have parental consent",
   "You agree to comply with all applicable laws and regulations": "You agree to comply with all applicable laws and regulations",
   "You will use the platform responsibly and ethically": "You will use the platform responsibly and ethically",
-
   "2. User Accounts and Responsibilities": "2. User Accounts and Responsibilities",
   "Your Account:": "Your Account:",
   "Provide accurate and complete registration information": "Provide accurate and complete registration information",
@@ -834,7 +829,6 @@
   "You are responsible for all activities under your account": "You are responsible for all activities under your account",
   "Note:": "Note:",
   "KrishiSanjivni reserves the right to suspend or terminate accounts that violate these terms or engage in fraudulent activity.": "KrishiSanjivni reserves the right to suspend or terminate accounts that violate these terms or engage in fraudulent activity.",
-
   "3. Tool Rental Terms": "3. Tool Rental Terms",
   "3. cookies2": "3. Third Party Cookies",
   "Rental Process:": "Rental Process:",
@@ -846,7 +840,6 @@
   "Renters are responsible for any damage or loss during rental period": "Renters are responsible for any damage or loss during rental period",
   "Use tools according to manufacturer guidelines and safety standards": "Use tools according to manufacturer guidelines and safety standards",
   "Maintain adequate insurance coverage for high-value equipment": "Maintain adequate insurance coverage for high-value equipment",
-
   "4. Warehouse Booking Terms": "4. Warehouse Booking Terms",
   "Storage Guidelines:": "Storage Guidelines:",
   "Book storage space based on accurate capacity requirements": "Book storage space based on accurate capacity requirements",
@@ -857,7 +850,6 @@
   "Hazardous materials without proper permits and notification": "Hazardous materials without proper permits and notification",
   "Illegal substances or stolen goods": "Illegal substances or stolen goods",
   "Perishable goods without appropriate storage arrangements": "Perishable goods without appropriate storage arrangements",
-
   "5. Soil Analysis Services": "5. Soil Analysis Services",
   "Service Details:": "Service Details:",
   "Soil samples must be collected according to provided instructions": "Soil samples must be collected according to provided instructions",
@@ -866,7 +858,6 @@
   "Recommendations should be implemented with professional agricultural guidance": "Recommendations should be implemented with professional agricultural guidance",
   "Disclaimer:": "Disclaimer:",
   "While we strive for accuracy, soil analysis results are advisory. Consult with agricultural experts for critical farming decisions.": "While we strive for accuracy, soil analysis results are advisory. Consult with agricultural experts for critical farming decisions.",
-
   "6. Community Forum Guidelines": "6. Community Forum Guidelines",
   "Be Respectful:": "Be Respectful:",
   "Treat all community members with courtesy and respect": "Treat all community members with courtesy and respect",
@@ -877,7 +868,6 @@
   "False or misleading agricultural information": "False or misleading agricultural information",
   "Personal attacks or inflammatory discussions": "Personal attacks or inflammatory discussions",
   "Sharing personal information of others without consent": "Sharing personal information of others without consent",
-
   "7. Intellectual Property": "7. Intellectual Property",
   "KrishiSanjivni Content:": "KrishiSanjivni Content:",
   "All platform content, logos, and trademarks belong to KrishiSanjivni": "All platform content, logos, and trademarks belong to KrishiSanjivni",
@@ -886,7 +876,6 @@
   "You retain ownership of content you post or share": "You retain ownership of content you post or share",
   "By posting, you grant KrishiSanjivni a license to use, display, and distribute your content": "By posting, you grant KrishiSanjivni a license to use, display, and distribute your content",
   "You warrant that your content does not infringe on others' rights": "You warrant that your content does not infringe on others' rights",
-
   "8. Liability & Disclaimers": "8. Liability & Disclaimers",
   "Service Disclaimer:": "Service Disclaimer:",
   "KrishiSanjivni is a platform connecting farmers and service providers": "KrishiSanjivni is a platform connecting farmers and service providers",
@@ -896,21 +885,18 @@
   "KrishiSanjivni is not liable for indirect, incidental, or consequential damages": "KrishiSanjivni is not liable for indirect, incidental, or consequential damages",
   "Our liability is limited to the amount paid for services in the past 12 months": "Our liability is limited to the amount paid for services in the past 12 months",
   "We are not responsible for losses due to equipment failure, weather, or acts of nature": "We are not responsible for losses due to equipment failure, weather, or acts of nature",
-
   "9. Modifications to Terms": "9. Modifications to Terms",
   "KrishiSanjivni reserves the right to update these Terms of Service at any time. When we make changes:": "KrishiSanjivni reserves the right to update these Terms of Service at any time. When we make changes:",
   "We will post the updated terms with a new \"Last Updated\" date": "We will post the updated terms with a new \"Last Updated\" date",
   "For significant changes, we will notify users via email or platform notification": "For significant changes, we will notify users via email or platform notification",
   "Continued use of the platform after changes constitutes acceptance": "Continued use of the platform after changes constitutes acceptance",
   "If you disagree with changes, you may terminate your account": "If you disagree with changes, you may terminate your account",
-
   "10. Governing Law": "10. Governing Law",
   "These Terms of Service shall be governed by and construed in accordance with applicable agricultural and commercial laws. Any disputes arising from these terms or your use of KrishiSanjivni shall be resolved through:": "These Terms of Service shall be governed by and construed in accordance with applicable agricultural and commercial laws. Any disputes arising from these terms or your use of KrishiSanjivni shall be resolved through:",
   "Good faith negotiation between parties": "Good faith negotiation between parties",
   "Mediation through agricultural dispute resolution services": "Mediation through agricultural dispute resolution services",
   "Binding arbitration if mediation is unsuccessful": "Binding arbitration if mediation is unsuccessful",
   "Litigation as a last resort in appropriate jurisdiction": "Litigation as a last resort in appropriate jurisdiction",
-
   "11. Contact Information": "11. Contact Information",
   "Have questions about these Terms of Service? We're here to help! Reach out to our support team:": "Have questions about these Terms of Service? We're here to help! Reach out to our support team:",
   "Email:": "Email:",
@@ -921,7 +907,6 @@
   "Report Issue": "Report Issue",
   "By using KrishiSanjivni, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.": "By using KrishiSanjivni, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.",
   "Thank you for being part of the KrishiSanjivni community! 🌾": "Thank you for being part of the KrishiSanjivni community! 🌾",
-
   "Examples:": "Examples:",
   "Cookie Policy": "Cookie Policy",
   "We use cookies to enhance your experience on KrishiSanjivni and provide you with personalized services. This policy explains how and why we use cookies on our platform.": "We use cookies to enhance your experience on KrishiSanjivni and provide you with personalized services. This policy explains how and why we use cookies on our platform.",
@@ -932,12 +917,10 @@
   "You have the right to accept or reject cookies. Most web browsers automatically accept cookies, but you can usually modify your browser settings to decline cookies if you prefer.": "You have the right to accept or reject cookies. Most web browsers automatically accept cookies, but you can usually modify your browser settings to decline cookies if you prefer.",
   "1. Types of Cookies We Use": "1. Types of Cookies We Use",
   "KrishiSanjivni uses different types of cookies to serve various purposes. Here's a breakdown of each type:": "KrishiSanjivni uses different types of cookies to serve various purposes. Here's a breakdown of each type:",
- 
   "These cookies are necessary for the website to function properly. Without them, you won't be able to use basic features like logging in, accessing your account, or using our services.": "These cookies are necessary for the website to function properly. Without them, you won't be able to use basic features like logging in, accessing your account, or using our services.",
   "Session authentication cookies": "Session authentication cookies",
   "Security cookies to prevent fraud": "Security cookies to prevent fraud",
   "Load balancing cookies": "Load balancing cookies",
- 
   "These cookies allow us to remember your preferences and choices (like your preferred language, region, or display settings) to provide you with a more personalized experience.": "These cookies allow us to remember your preferences and choices (like your preferred language, region, or display settings) to provide you with a more personalized experience.",
   "Language preference cookies": "Language preference cookies",
   "Theme and display settings": "Theme and display settings",
@@ -961,7 +944,6 @@
   "KrishiSanjivni uses cookies to enhance your experience and provide better services. Here's how we use them:": "KrishiSanjivni uses cookies to enhance your experience and provide better services. Here's how we use them:",
   "Authentication & Security": "Authentication & Security",
   "To keep you logged in securely and protect your account from unauthorized access.": "To keep you logged in securely and protect your account from unauthorized access.",
-  
   "To remember your preferences, settings, and customizations, making your experience more tailored and efficient.": "To remember your preferences, settings, and customizations, making your experience more tailored and efficient.",
   "Analytics & Performance": "Analytics & Performance",
   "To analyze how users interact with our platform, identify popular features, and understand usage patterns to improve our services.": "To analyze how users interact with our platform, identify popular features, and understand usage patterns to improve our services.",
@@ -997,7 +979,6 @@
   "Mozilla Firefox": "Mozilla Firefox",
   "Safari": "Safari",
   "Microsoft Edge": "Microsoft Edge",
-
   "Blocking or deleting cookies may affect your ability to use certain features of KrishiSanjivni. Some functionality may not work properly without cookies enabled.": "Blocking or deleting cookies may affect your ability to use certain features of KrishiSanjivni. Some functionality may not work properly without cookies enabled.",
   "5. Your Consent": "5. Your Consent",
   "By using KrishiSanjivni, you consent to our use of cookies as described in this Cookie Policy.": "By using KrishiSanjivni, you consent to our use of cookies as described in this Cookie Policy.",
@@ -1023,11 +1004,9 @@
   "Contact Our Privacy Team": "Contact Our Privacy Team",
   "Related Policies": "Related Policies",
   "For more information about how we protect your data and our platform terms, please review:": "For more information about how we protect your data and our platform terms, please review:",
-
   "How we handle your data": "How we handle your data",
   "Terms of Service": "Terms of Service",
   "Platform usage terms": "Platform usage terms",
-
   "toast.messageEmpty": "Message cannot be empty!",
   "toast.submitFailed": "Failed to submit: ",
   "toast.submitSuccess": "Message submitted successfully!",
@@ -1045,23 +1024,18 @@
   "form.placeholder": "Write your message...",
   "form.submit": "Send Message",
   "contact.mapTitle": "KrishiSanjivni Location",
-
   "Jalyukta Shivar Abhiyan": "Jalyukta Shivar Abhiyan",
   "Water conservation & micro-irrigation.": "Water conservation & micro-irrigation.",
-
   "Farmers in drought-prone areas": "Farmers in drought-prone areas",
   "Maharashtra Crop Insurance": "Maharashtra Crop Insurance",
   "Covers crop loss due to natural disasters.": "Covers crop loss due to natural disasters.",
-
   "Farmers in Maharashtra": "Farmers in Maharashtra",
   "Maharashtra Income Support": "Maharashtra Income Support",
   "Direct cash support for small farmers.": "Direct cash support for small farmers.",
-
   "Maharashtra Soil Health Program": "Maharashtra Soil Health Program",
   "Maharashtra KCC": "Maharashtra KCC",
   "Maharashtra Mechanization Subsidy": "Maharashtra Mechanization Subsidy",
   "Subsidy for farm machinery & equipment.": "Subsidy for farm machinery & equipment.",
-
   "Farmers & SHGs": "Farmers & SHGs",
   "Maharashtra Organic Farming": "Maharashtra Organic Farming",
   "Promotion of organic farming practices.": "Promotion of organic farming practices.",
@@ -1069,15 +1043,11 @@
   "Modern agri-tech adoption training.": "Modern agri-tech adoption training.",
   "Maharashtra Sustainable Agri Program": "Maharashtra Sustainable Agri Program",
   "Eco-friendly farming & crop rotation.": "Eco-friendly farming & crop rotation.",
-
   "CM Kisan Sahay Yojana": "CM Kisan Sahay Yojana",
   "Compensation for crop loss due to calamities.": "Compensation for crop loss due to calamities.",
   "Farmers cultivating notified crops": "Farmers cultivating notified crops",
-
   "Gujarat Seed Subsidy": "Gujarat Seed Subsidy",
- 
   "Gujarat Income Support": "Gujarat Income Support",
-
   "Gujarat Soil Health Program": "Gujarat Soil Health Program",
   "Soil testing and fertility improvement.": "Soil testing and fertility improvement.",
   "Gujarat KCC": "Gujarat KCC",
@@ -1087,7 +1057,6 @@
   "Gujarat Organic Farming Program": "Gujarat Organic Farming Program",
   "Promotes organic farming clusters.": "Promotes organic farming clusters.",
   "Gujarat Sustainable Agri Program": "Gujarat Sustainable Agri Program",
- 
   "Farmers": "Farmers",
   "Odisha Farmer Assistance": "Odisha Farmer Assistance",
   "Subsidies for seeds, fertilizers, irrigation.": "Subsidies for seeds, fertilizers, irrigation.",
@@ -1114,10 +1083,8 @@
   "TN Micro Irrigation Scheme": "TN Micro Irrigation Scheme",
   "Supports drip & sprinkler irrigation.": "Supports drip & sprinkler irrigation.",
   "TN Soil Health Program": "TN Soil Health Program",
- 
   "TN KCC": "TN KCC",
   "TN Income Support Yojana": "TN Income Support Yojana",
-
   "TN Mechanization Subsidy": "TN Mechanization Subsidy",
   "TN Organic Farming Program": "TN Organic Farming Program",
   "TN Technology Adoption Program": "TN Technology Adoption Program",
@@ -1178,7 +1145,6 @@
   "CG Micro Irrigation": "CG Micro Irrigation",
   "Support for drip & sprinkler systems.": "Support for drip & sprinkler systems.",
   "CG Soil Health Program": "CG Soil Health Program",
- 
   "CG KCC": "CG KCC",
   "CG Income Support": "CG Income Support",
   "CG Mechanization Scheme": "CG Mechanization Scheme",
@@ -1204,7 +1170,6 @@
   "AP Rythu Bima Yojana": "AP Rythu Bima Yojana",
   "Crop insurance & financial assistance.": "Crop insurance & financial assistance.",
   "Farmers in AP": "Farmers in AP",
-
   "AP Micro Irrigation": "AP Micro Irrigation",
   "AP Soil Health Program": "AP Soil Health Program",
   "AP KCC": "AP KCC",
@@ -1225,7 +1190,6 @@
   "Haryana Technology Adoption": "Haryana Technology Adoption",
   "Haryana Sustainable Agriculture": "Haryana Sustainable Agriculture",
   "Promotes eco-friendly & resilient farming.": "Promotes eco-friendly & resilient farming.",
-
   "PM-KISAN": "PM-KISAN",
   "Income support of ₹6,000 per year to farmers.": "Income support of ₹6,000 per year to farmers.",
   "Income Support": "Income Support",
@@ -1290,7 +1254,6 @@
   "Kisan Sarvhit Bima Yojana": "Kisan Sarvhit Bima Yojana",
   "Insurance for accidental death, disability & hospitalization.": "Insurance for accidental death, disability & hospitalization.",
   "Farmer families": "Farmer families",
-
   "UP Seed Subsidy Program": "UP Seed Subsidy Program",
   "Subsidy for certified seeds.": "Subsidy for certified seeds.",
   "All farmers in UP": "All farmers in UP",
@@ -1313,7 +1276,6 @@
   "All land-owning farmers": "All land-owning farmers",
   "Bhavantar Bhugtan Yojana": "Bhavantar Bhugtan Yojana",
   "Price difference compensation for oilseeds & pulses.": "Price difference compensation for oilseeds & pulses.",
-
   "Bihar": "Bihar",
   "Bihar State Crop Insurance Scheme": "Bihar State Crop Insurance Scheme",
   "Insurance coverage for crop loss due to natural disasters.": "Insurance coverage for crop loss due to natural disasters.",
@@ -1327,7 +1289,6 @@
   "Bihar Agricultural Mechanization Support": "Bihar Agricultural Mechanization Support",
   "Subsidy for farm machinery purchase.": "Subsidy for farm machinery purchase.",
   "Bihar Organic Farming Support": "Bihar Organic Farming Support",
-  
   "Bihar Technology Adoption Program": "Bihar Technology Adoption Program",
   "Demonstration of modern agriculture technologies.": "Demonstration of modern agriculture technologies.",
   "Bihar Sustainable Agriculture Initiative": "Bihar Sustainable Agriculture Initiative",
@@ -1342,13 +1303,11 @@
   "Telangana Soil Health Program": "Telangana Soil Health Program",
   "Soil testing and nutrient management support.": "Soil testing and nutrient management support.",
   "Telangana Micro Irrigation Scheme": "Telangana Micro Irrigation Scheme",
-
   "Farmers in Telangana": "Farmers in Telangana",
   "Telangana Kisan Credit Card": "Telangana Kisan Credit Card",
   "Telangana Agricultural Mechanization": "Telangana Agricultural Mechanization",
   "Financial assistance for farm machinery.": "Financial assistance for farm machinery.",
   "Telangana Organic Farming Program": "Telangana Organic Farming Program",
-
   "Telangana Technology Adoption Program": "Telangana Technology Adoption Program",
   "Training in modern agri tech and practices.": "Training in modern agri tech and practices.",
   "Telangana Sustainable Agriculture Program": "Telangana Sustainable Agriculture Program",
@@ -1370,8 +1329,6 @@
   "Karnataka Technology Adoption Program": "Karnataka Technology Adoption Program",
   "Demonstration of modern agriculture tech.": "Demonstration of modern agriculture tech.",
   "Karnataka Sustainable Agriculture Program": "Karnataka Sustainable Agriculture Program",
-
-
   "All": "All",
   "Government Schemes & Yojanas": "Government Schemes & Yojanas",
   "Explore central and state government schemes designed to empower Indian farmers": "Explore central and state government schemes designed to empower Indian farmers",

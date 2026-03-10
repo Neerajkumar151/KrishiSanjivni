@@ -202,6 +202,33 @@ All colors MUST be HSL.
     margin: 0.75rem 0 !important;
     line-height: 1.6 !important;
   }
+
+  /* WhatsApp-style Reply Box for AI Assistant */
+  .chatbot-reply-box,
+  .chatbot-markdown blockquote {
+    background: rgba(var(--primary), 0.05);
+    border-left: 4px solid hsl(var(--primary)) !important;
+    padding: 0.75rem 1rem !important;
+    margin: 0.75rem 0 !important;
+    border-radius: 0 0.5rem 0.5rem 0;
+    font-style: normal !important;
+    color: hsl(var(--muted-foreground)) !important;
+    display: block !important;
+    border-top: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    opacity: 0.9;
+  }
+
+  .chatbot-reply-box strong,
+  .chatbot-markdown blockquote strong {
+    color: hsl(var(--primary)) !important;
+    font-size: 0.85rem !important;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    display: block;
+    margin-bottom: 0.25rem;
+  }
 }
 
 
