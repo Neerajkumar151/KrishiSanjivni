@@ -98,12 +98,36 @@ const Tools: React.FC = () => {
     // Calculate max price for slider
     const prices = data?.map(tool => tool.price_per_day) || [0];
     const max = Math.max(...prices, 4000);
-    setMaxPrice(max);
-    setPriceRange([0, max]);
+
+    setMaxPrice(prevMax => {
+      // If max increased, we update it
+      return max;
+    });
+
+    setPriceRange(prevRange => {
+      // If it was [0, prevMax] or [0, 10000] (initial), update to new max
+      // This ensures the slider expands to show new, more expensive items by default
+      if (prevRange[1] === 10000 || prevRange[1] < max) {
+        return [prevRange[0], max];
+      }
+      return prevRange;
+    });
   };
 
   useEffect(() => {
     fetchTools();
+
+    // Listen for real-time updates (New tools, price changes, etc.)
+    const channel = supabase
+      .channel('public:tools')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'tools' }, () => {
+        fetchTools();
+      })
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   useEffect(() => {
