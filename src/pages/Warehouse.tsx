@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
-import { Search, Warehouse as WarehouseIcon, Loader2 } from 'lucide-react';
+import { Search, Warehouse as WarehouseIcon, MapPin, Ruler, ShieldCheck, Zap, Info, Ban, CheckCircle2, XCircle, Loader2 } from 'lucide-react';
 import { WarehouseBookingDialog } from '@/components/booking/WarehouseBookingDialog';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -35,6 +35,8 @@ interface Warehouse {
   available_space_sqft: number;
   features: string[] | null;
   storage_options: StorageOption[];
+  availability: boolean;
+  is_active: boolean;
 }
 
 const locationKeyMap: Record<string, string> = {
@@ -114,19 +116,18 @@ const Warehouse: React.FC = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const { data, error: fetchError } = await supabase
-        .from('warehouses')
+      const { data, error: fetchError } = await (supabase
+        .from('warehouses') as any)
         .select(`
           *,
           storage_options:warehouse_storage_options(id, storage_type, price_per_sqft_day, price_per_sqft_month)
         `)
-        .eq('availability', true)
-        .gt('available_space_sqft', 0)
+        .eq('is_active', true)
         .order('created_at', { ascending: false });
 
       if (fetchError) throw fetchError;
 
-      const fetchedData = data as Warehouse[] || [];
+      const fetchedData = (data as any) as Warehouse[] || [];
       setWarehouses(fetchedData);
       const uniqueLocations = Array.from(new Set(fetchedData.map(w => w.location).filter(Boolean)));
       setLocations(uniqueLocations);
@@ -324,7 +325,7 @@ const Warehouse: React.FC = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredWarehouses.map(warehouse => (
             <Card key={warehouse.id} className="flex flex-col hover:shadow-xl transition-all duration-300 rounded-xl overflow-hidden cursor-pointer group/card" onClick={() => handleCardClick(warehouse)}>
-              <CardHeader className="p-0 overflow-hidden">
+              <CardHeader className="p-0 overflow-hidden relative">
                 <img
                   src={warehouse.image_url || 'https://placehold.co/600x400/1e293b/f8fafc?text=Warehouse'}
                   alt={warehouse.name}
@@ -332,14 +333,25 @@ const Warehouse: React.FC = () => {
                   onError={(e) => e.currentTarget.src = 'https://placehold.co/600x400/1e293b/f8fafc?text=Warehouse'}
                   className="w-full h-48 object-cover group-hover/card:scale-105 transition-transform duration-500"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute top-4 right-4">
+                  <Badge variant={warehouse.availability ? 'default' : 'secondary'} className="px-3 py-1 text-sm shadow-lg">
+                    {warehouse.availability ? (
+                      <span className="flex items-center gap-1"><CheckCircle2 className="h-3 w-3" /> {t('warehouse.available_status', { defaultValue: 'Available' })}</span>
+                    ) : (
+                      <span className="flex items-center gap-1"><XCircle className="h-3 w-3" /> {t('warehouse.full_status', { defaultValue: 'Full' })}</span>
+                    )}
+                  </Badge>
+                </div>
+                <div className="absolute bottom-6 left-6 right-6 text-white">
+                  <CardTitle className="text-2xl font-bold line-clamp-1">{warehouse.name}</CardTitle>
+                  <CardDescription className="line-clamp-2 text-gray-200 text-sm">
+                    {warehouse.description || t('warehouse.noDescription', { defaultValue: 'No description available' })}
+                  </CardDescription>
+                </div>
               </CardHeader>
               <CardContent className="flex-1 p-4">
-                <CardTitle className="text-lg line-clamp-1">{warehouse.name}</CardTitle>
                 <Badge variant="outline" className="mb-2 bg-slate-100 text-slate-700">{getStorageTypes(warehouse)}</Badge>
-                <CardDescription className="line-clamp-2 mb-4 h-10 text-sm">
-                  {warehouse.description || t('warehouse.noDescription', { defaultValue: 'No description available' })}
-                </CardDescription>
-
                 <div className="space-y-2 text-sm">
                   <div className="flex items-center gap-2 text-muted-foreground">
                     <WarehouseIcon className="h-4 w-4 text-primary" />
@@ -385,8 +397,19 @@ const Warehouse: React.FC = () => {
                 </div>
               </CardContent>
               <CardFooter className="p-4 pt-0">
-                <Button className="w-full" onClick={(e) => { e.stopPropagation(); handleBookClick(warehouse); }}>
-                  {t('warehouse.bookNow', { defaultValue: 'Book Now' })}
+                <Button
+                  className="w-full"
+                  disabled={!warehouse.availability}
+                  onClick={(e) => { e.stopPropagation(); handleBookClick(warehouse); }}
+                >
+                  {warehouse.availability ? (
+                    t('warehouse.bookNow', { defaultValue: 'Book Now' })
+                  ) : (
+                    <span className="flex items-center justify-center gap-2">
+                      <Ban className="h-4 w-4" />
+                      {t('warehouse.sold', { defaultValue: 'Sold' })}
+                    </span>
+                  )}
                 </Button>
               </CardFooter>
             </Card>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { MapPin, Info, Tag, Calendar, CheckCircle2, XCircle } from 'lucide-react';
+import { MapPin, Info, Tag, Calendar, CheckCircle2, XCircle, Ban } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 interface Tool {
@@ -54,7 +54,7 @@ export const ToolDetailsDialog: React.FC<ToolDetailsDialogProps> = ({
                             {tool.availability ? (
                                 <span className="flex items-center gap-1"><CheckCircle2 className="h-3 w-3" /> {t('tools.availability', { defaultValue: 'Available' })}</span>
                             ) : (
-                                <span className="flex items-center gap-1"><XCircle className="h-3 w-3" /> {t('tools.unavailable', { defaultValue: 'Unavailable' })}</span>
+                                <span className="flex items-center gap-1"><XCircle className="h-3 w-3" /> {t('tools.outOfStock', { defaultValue: 'Out of Stock' })}</span>
                             )}
                         </Badge>
                     </div>
@@ -123,7 +123,14 @@ export const ToolDetailsDialog: React.FC<ToolDetailsDialogProps> = ({
                                         disabled={!tool.availability}
                                         onClick={() => { onOpenChange(false); onRentClick(tool); }}
                                     >
-                                        {t('tools.rentNow', { defaultValue: 'Rent Now' })}
+                                        {tool.availability ? (
+                                            t('tools.rentNow', { defaultValue: 'Rent Now' })
+                                        ) : (
+                                            <span className="flex items-center justify-center gap-2">
+                                                <Ban className="h-4 w-4" />
+                                                {t('tools.sold', { defaultValue: 'Sold' })}
+                                            </span>
+                                        )}
                                     </Button>
                                 </div>
                             </div>
@@ -131,7 +138,7 @@ export const ToolDetailsDialog: React.FC<ToolDetailsDialogProps> = ({
                     </div>
                 </div>
             </DialogContent>
-        </Dialog>
+        </Dialog >
     );
 };
 

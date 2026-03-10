@@ -24,6 +24,7 @@ interface Tool {
   availability: boolean;
   location: string | null;
   image_url: string | null;
+  is_active: boolean;
 }
 
 export const AdminTools: React.FC = () => {
@@ -45,7 +46,8 @@ export const AdminTools: React.FC = () => {
     price_per_day: '',
     price_per_month: '',
     price_per_season: '',
-    location: ''
+    location: '',
+    is_active: true
   });
 
   useEffect(() => {
@@ -68,7 +70,7 @@ export const AdminTools: React.FC = () => {
       return;
     }
 
-    setTools(data || []);
+    setTools((data as any) || []);
   };
 
   const handleAddTool = async (e: React.FormEvent) => {
@@ -95,7 +97,8 @@ export const AdminTools: React.FC = () => {
         price_per_season: parseFloat(formData.price_per_season),
         location: formData.location || null,
         owner_id: user.id,
-        availability: true
+        availability: true,
+        is_active: formData.is_active
       });
 
     if (error) {
@@ -122,22 +125,23 @@ export const AdminTools: React.FC = () => {
       price_per_day: '',
       price_per_month: '',
       price_per_season: '',
-      location: ''
+      location: '',
+      is_active: true
     });
     setIsAddDialogOpen(false);
     fetchTools();
   };
 
-  const toggleAvailability = async (toolId: string, currentAvailability: boolean) => {
+  const toggleStatus = async (toolId: string, field: 'availability' | 'is_active', currentValue: boolean) => {
     const { error } = await supabase
       .from('tools')
-      .update({ availability: !currentAvailability })
+      .update({ [field]: !currentValue })
       .eq('id', toolId);
 
     if (error) {
       toast({
         title: 'Error',
-        description: 'Failed to update availability',
+        description: `Failed to update ${field}`,
         variant: 'destructive'
       });
       return;
@@ -145,7 +149,7 @@ export const AdminTools: React.FC = () => {
 
     toast({
       title: 'Success',
-      description: 'Tool availability updated'
+      description: `Tool ${field === 'availability' ? 'Stock' : 'Visibility'} updated`
     });
 
     fetchTools();
@@ -166,7 +170,8 @@ export const AdminTools: React.FC = () => {
         price_per_day: parseFloat(formData.price_per_day),
         price_per_month: parseFloat(formData.price_per_month),
         price_per_season: parseFloat(formData.price_per_season),
-        location: formData.location || null
+        location: formData.location || null,
+        is_active: formData.is_active
       })
       .eq('id', editingTool.id);
 
@@ -199,7 +204,8 @@ export const AdminTools: React.FC = () => {
       price_per_day: tool.price_per_day.toString(),
       price_per_month: tool.price_per_month.toString(),
       price_per_season: tool.price_per_season.toString(),
-      location: tool.location || ''
+      location: tool.location || '',
+      is_active: tool.is_active
     });
     setIsEditDialogOpen(true);
   };
@@ -353,6 +359,15 @@ export const AdminTools: React.FC = () => {
                 />
               </div>
 
+              <div className="flex items-center space-x-2 pt-2">
+                <Switch
+                  id="active"
+                  checked={formData.is_active}
+                  onCheckedChange={(checked) => setFormData({ ...formData, is_active: checked })}
+                />
+                <Label htmlFor="active">Active (Visible to users)</Label>
+              </div>
+
               <div className="flex gap-3 pt-4">
                 <Button type="submit" className="flex-1">Add Tool</Button>
                 <Button type="button" variant="outline" onClick={() => setIsAddDialogOpen(false)}>
@@ -465,6 +480,15 @@ export const AdminTools: React.FC = () => {
                 />
               </div>
 
+              <div className="flex items-center space-x-2 pt-2">
+                <Switch
+                  id="edit-active"
+                  checked={formData.is_active}
+                  onCheckedChange={(checked) => setFormData({ ...formData, is_active: checked })}
+                />
+                <Label htmlFor="edit-active">Active (Visible to users)</Label>
+              </div>
+
               <div className="flex gap-3 pt-4">
                 <Button type="submit" className="flex-1">Update Tool</Button>
                 <Button type="button" variant="outline" onClick={() => setIsEditDialogOpen(false)}>
@@ -493,7 +517,7 @@ export const AdminTools: React.FC = () => {
           <p className="text-muted-foreground text-lg">No tools found. Add your first tool!</p>
         </div>
       ) : (
-        <div className="border rounded-lg">
+        <div className="border rounded-lg overflow-x-auto">
           <Table>
             <TableHeader>
               <TableRow>
@@ -503,7 +527,8 @@ export const AdminTools: React.FC = () => {
                 <TableHead>Price/Day (₹)</TableHead>
                 <TableHead>Price/Month (₹)</TableHead>
                 <TableHead>Location</TableHead>
-                <TableHead>Available</TableHead>
+                <TableHead>In Stock</TableHead>
+                <TableHead>Active</TableHead>
                 <TableHead>Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -525,7 +550,13 @@ export const AdminTools: React.FC = () => {
                   <TableCell>
                     <Switch
                       checked={tool.availability}
-                      onCheckedChange={() => toggleAvailability(tool.id, tool.availability)}
+                      onCheckedChange={() => toggleStatus(tool.id, 'availability', tool.availability)}
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <Switch
+                      checked={tool.is_active}
+                      onCheckedChange={() => toggleStatus(tool.id, 'is_active', tool.is_active)}
                     />
                   </TableCell>
                   <TableCell>

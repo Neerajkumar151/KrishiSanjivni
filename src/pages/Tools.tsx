@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
 import { Input } from '@/components/ui/input';
-import { Bot, Search } from 'lucide-react';
+import { Bot, Search, Ban, CheckCircle2, XCircle } from 'lucide-react';
 import { ToolBookingDialog } from '@/components/booking/ToolBookingDialog';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -28,6 +28,7 @@ interface Tool {
   price_per_season: number;
   availability: boolean;
   location: string | null;
+  is_active: boolean;
 }
 
 const categoryKeyMap: Record<string, string> = {
@@ -81,10 +82,10 @@ const Tools: React.FC = () => {
 
   // Fetch tools from Supabase
   const fetchTools = async () => {
-    const { data, error } = await supabase
-      .from('tools')
+    const { data, error } = await (supabase
+      .from('tools') as any)
       .select('*')
-      .eq('availability', true)
+      .eq('is_active', true)
       .order('created_at', { ascending: false });
 
     if (error) {
@@ -92,24 +93,19 @@ const Tools: React.FC = () => {
       return;
     }
 
-    setTools(data || []);
+    setTools((data as any) || []);
 
     // Extract unique categories
-    const uniqueCategories = Array.from(new Set(data?.map(tool => tool.category) || []));
+    const uniqueCategories = Array.from(new Set(data?.map((tool: any) => tool.category) || [])) as string[];
     setCategories(uniqueCategories);
 
     // Calculate max price for slider
-    const prices = data?.map(tool => tool.price_per_day) || [0];
+    const prices = data?.map((tool: any) => tool.price_per_day) || [0];
     const max = Math.max(...prices, 4000);
 
-    setMaxPrice(prevMax => {
-      // If max increased, we update it
-      return max;
-    });
+    setMaxPrice(max);
 
     setPriceRange(prevRange => {
-      // If it was [0, prevMax] or [0, 10000] (initial), update to new max
-      // This ensures the slider expands to show new, more expensive items by default
       if (prevRange[1] === 10000 || prevRange[1] < max) {
         return [prevRange[0], max];
       }
@@ -120,7 +116,6 @@ const Tools: React.FC = () => {
   useEffect(() => {
     fetchTools();
 
-    // Listen for real-time updates (New tools, price changes, etc.)
     const channel = supabase
       .channel('public:tools')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'tools' }, () => {
@@ -159,7 +154,6 @@ const Tools: React.FC = () => {
     setFilteredTools(filtered);
   };
 
-  // Handle Rent/Booking button click
   const handleRentClick = (tool: Tool) => {
     if (!user) {
       toast({
@@ -168,6 +162,14 @@ const Tools: React.FC = () => {
         variant: 'destructive'
       });
       navigate('/auth');
+      return;
+    }
+    if (!tool.availability) {
+      toast({
+        title: t('tools.outOfStockTitle', { defaultValue: 'Out of Stock' }),
+        description: t('tools.outOfStockDesc', { defaultValue: 'This tool is currently unavailable for rent.' }),
+        variant: 'destructive'
+      });
       return;
     }
     setSelectedTool(tool);
@@ -179,15 +181,12 @@ const Tools: React.FC = () => {
     setToolDetailsDialogOpen(true);
   };
 
-  // Helper to format currency
   const formatCurrency = (value: number) => `₹${value.toLocaleString('en-IN')}`;
 
   return (
     <Layout>
-
       <ChatBot isOpen={isChatOpen} setIsOpen={setIsChatOpen} />
 
-      {/* Floating AI button */}
       {!isChatOpen && (
         <Button
           onClick={() => setIsChatOpen(true)}
@@ -204,7 +203,6 @@ const Tools: React.FC = () => {
           <p className="text-xl text-muted-foreground">{t('tools.subtitle', { defaultValue: 'Find the right tool for your farming needs.' })}</p>
         </div>
 
-        {/* Filters */}
         <div className="mb-8 space-y-4">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -230,7 +228,6 @@ const Tools: React.FC = () => {
                       {t(categoryKeyMap[category] || category)}
                     </SelectItem>
                   ))}
-
                 </SelectContent>
               </Select>
             </div>
@@ -252,7 +249,6 @@ const Tools: React.FC = () => {
           </div>
         </div>
 
-        {/* Tools Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredTools.map(tool => (
             <Card key={tool.id} className="flex flex-col hover:shadow-xl transition-all duration-300 rounded-xl overflow-hidden cursor-pointer group/card" onClick={() => handleCardClick(tool)}>
@@ -268,7 +264,11 @@ const Tools: React.FC = () => {
                 <div className="flex items-start justify-between mb-2">
                   <CardTitle className="text-lg">{tool.name}</CardTitle>
                   <Badge variant={tool.availability ? 'default' : 'secondary'}>
-                    {tool.availability ? t('tools.availability', { defaultValue: 'Available' }) : t('tools.unavailable', { defaultValue: 'Unavailable' })}
+                    {tool.availability ? (
+                      <span className="flex items-center gap-1"><CheckCircle2 className="h-3 w-3" /> {t('tools.availability', { defaultValue: 'Available' })}</span>
+                    ) : (
+                      <span className="flex items-center gap-1"><XCircle className="h-3 w-3" /> {t('tools.outOfStock', { defaultValue: 'Out of Stock' })}</span>
+                    )}
                   </Badge>
                 </div>
                 <Badge variant="outline" className="mb-2">{t(categoryKeyMap[tool.category] || tool.category)}</Badge>
@@ -301,7 +301,14 @@ const Tools: React.FC = () => {
                   disabled={!tool.availability}
                   onClick={(e) => { e.stopPropagation(); handleRentClick(tool); }}
                 >
-                  {t('tools.rentNow', { defaultValue: 'Rent Now' })}
+                  {tool.availability ? (
+                    t('tools.rentNow', { defaultValue: 'Rent Now' })
+                  ) : (
+                    <span className="flex items-center justify-center gap-2">
+                      <Ban className="h-4 w-4" />
+                      {t('tools.sold', { defaultValue: 'Sold' })}
+                    </span>
+                  )}
                 </Button>
               </CardFooter>
             </Card>
@@ -317,7 +324,6 @@ const Tools: React.FC = () => {
         )}
       </div>
 
-      {/* Tool Booking Dialog */}
       {selectedTool && (
         <ToolBookingDialog
           tool={selectedTool}

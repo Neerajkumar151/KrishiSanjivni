@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useAdminCheck } from '@/hooks/useAdminCheck';
 import { supabase } from '@/integrations/supabase/client';
@@ -11,6 +10,7 @@ import { Switch } from '@/components/ui/switch';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
 import { Plus, Trash2, Search, Edit } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useAuth } from '@/contexts/AuthContext';
 import { ImageUpload } from '@/components/ui/image-upload';
@@ -25,6 +25,7 @@ interface Warehouse {
   image_url: string | null;
   features: string[] | null;
   availability: boolean;
+  is_active: boolean;
   created_at?: string;
   updated_at?: string;
 }
@@ -68,13 +69,13 @@ export const AdminWarehouses: React.FC = () => {
     features: '',
     storage_type: 'normal',
     price_per_sqft_day: '',
-    price_per_sqft_month: ''
+    price_per_sqft_month: '',
+    is_active: true
   });
 
   useEffect(() => {
     fetchWarehouses();
 
-    // Setup realtime subscription
     const channel = supabase
       .channel('warehouse-changes')
       .on(
@@ -166,7 +167,8 @@ export const AdminWarehouses: React.FC = () => {
         image_url: formData.image_url || null,
         features: features,
         owner_id: user.id,
-        availability: true
+        availability: true,
+        is_active: formData.is_active
       })
       .select()
       .single();
@@ -218,7 +220,8 @@ export const AdminWarehouses: React.FC = () => {
       features: '',
       storage_type: 'normal',
       price_per_sqft_day: '',
-      price_per_sqft_month: ''
+      price_per_sqft_month: '',
+      is_active: true
     });
     setIsAddDialogOpen(false);
     fetchWarehouses();
@@ -254,7 +257,8 @@ export const AdminWarehouses: React.FC = () => {
         total_space_sqft: totalSpace,
         available_space_sqft: availableSpace,
         image_url: formData.image_url || null,
-        features: features
+        features: features,
+        is_active: formData.is_active
       })
       .eq('id', editingWarehouse.id);
 
@@ -319,6 +323,29 @@ export const AdminWarehouses: React.FC = () => {
     fetchWarehouses();
   };
 
+  const toggleStatus = async (warehouseId: string, field: 'availability' | 'is_active', currentValue: boolean) => {
+    const { error } = await supabase
+      .from('warehouses')
+      .update({ [field]: !currentValue })
+      .eq('id', warehouseId);
+
+    if (error) {
+      toast({
+        title: 'Error',
+        description: `Failed to update ${field}`,
+        variant: 'destructive'
+      });
+      return;
+    }
+
+    toast({
+      title: 'Success',
+      description: `Warehouse ${field === 'availability' ? 'Availability' : 'Visibility'} updated`
+    });
+
+    fetchWarehouses();
+  };
+
   const openEditDialog = (warehouse: WarehouseWithStorage) => {
     const option = (warehouse.storage_options && warehouse.storage_options[0]) || null;
     setEditingWarehouse(warehouse);
@@ -332,32 +359,10 @@ export const AdminWarehouses: React.FC = () => {
       features: warehouse.features?.join(', ') || '',
       storage_type: option?.storage_type || 'normal',
       price_per_sqft_day: option ? option.price_per_sqft_day.toString() : '',
-      price_per_sqft_month: option ? option.price_per_sqft_month.toString() : ''
+      price_per_sqft_month: option ? option.price_per_sqft_month.toString() : '',
+      is_active: warehouse.is_active
     });
     setIsEditDialogOpen(true);
-  };
-
-  const toggleAvailability = async (warehouseId: string, currentAvailability: boolean) => {
-    const { error } = await supabase
-      .from('warehouses')
-      .update({ availability: !currentAvailability })
-      .eq('id', warehouseId);
-
-    if (error) {
-      toast({
-        title: 'Error',
-        description: 'Failed to update availability',
-        variant: 'destructive'
-      });
-      return;
-    }
-
-    toast({
-      title: 'Success',
-      description: 'Warehouse availability updated'
-    });
-
-    fetchWarehouses();
   };
 
   const deleteWarehouse = async (warehouseId: string) => {
@@ -566,6 +571,15 @@ export const AdminWarehouses: React.FC = () => {
                 </div>
               </div>
 
+              <div className="flex items-center space-x-2 pt-2">
+                <Switch
+                  id="active"
+                  checked={formData.is_active}
+                  onCheckedChange={(checked) => setFormData({ ...formData, is_active: checked })}
+                />
+                <Label htmlFor="active">Active (Visible to users)</Label>
+              </div>
+
               <div className="flex gap-3 pt-4">
                 <Button type="submit" className="flex-1">Add Warehouse</Button>
                 <Button type="button" variant="outline" onClick={() => setIsAddDialogOpen(false)}>
@@ -704,6 +718,15 @@ export const AdminWarehouses: React.FC = () => {
                 </div>
               </div>
 
+              <div className="flex items-center space-x-2 pt-2">
+                <Switch
+                  id="edit-active"
+                  checked={formData.is_active}
+                  onCheckedChange={(checked) => setFormData({ ...formData, is_active: checked })}
+                />
+                <Label htmlFor="edit-active">Active (Visible to users)</Label>
+              </div>
+
               <div className="flex gap-3 pt-4">
                 <Button type="submit" className="flex-1">Update Warehouse</Button>
                 <Button type="button" variant="outline" onClick={() => setIsEditDialogOpen(false)}>
@@ -777,7 +800,7 @@ export const AdminWarehouses: React.FC = () => {
           <p className="text-muted-foreground text-lg">No warehouses found. Add your first warehouse!</p>
         </div>
       ) : (
-        <div className="border rounded-lg">
+        <div className="border rounded-lg overflow-x-auto">
           <Table>
             <TableHeader>
               <TableRow>
@@ -791,6 +814,7 @@ export const AdminWarehouses: React.FC = () => {
                 <TableHead>Price/Sqft (Month)</TableHead>
                 <TableHead>Features</TableHead>
                 <TableHead>Available</TableHead>
+                <TableHead>Active</TableHead>
                 <TableHead>Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -806,24 +830,38 @@ export const AdminWarehouses: React.FC = () => {
                   </TableCell>
                   <TableCell className="font-medium">{warehouse.name}</TableCell>
                   <TableCell>{warehouse.location}</TableCell>
-                  <TableCell>{warehouse.total_space_sqft.toLocaleString('en-IN')}</TableCell>
-                  <TableCell>{warehouse.available_space_sqft.toLocaleString('en-IN')}</TableCell>
-                  <TableCell>
-                    <span className="text-sm capitalize">{getStorageType(warehouse)}</span>
-                  </TableCell>
+                  <TableCell>{warehouse.total_space_sqft.toLocaleString()}</TableCell>
+                  <TableCell>{warehouse.available_space_sqft.toLocaleString()}</TableCell>
+                  <TableCell>{getStorageType(warehouse)}</TableCell>
                   <TableCell>{getPriceDay(warehouse)}</TableCell>
                   <TableCell>{getPriceMonth(warehouse)}</TableCell>
-                  <TableCell>
-                    <div className="text-sm">
-                      {warehouse.features && warehouse.features.length > 0
-                        ? warehouse.features.slice(0, 2).join(', ')
-                        : 'N/A'}
+                  <TableCell className="max-w-[200px]">
+                    <div className="flex flex-wrap gap-1">
+                      {warehouse.features?.[0] && (
+                        <Badge
+                          variant="secondary"
+                          className="text-[10px] truncate max-w-[150px] font-normal"
+                        >
+                          {warehouse.features[0]}
+                        </Badge>
+                      )}
+                      {warehouse.features && warehouse.features.length > 1 && (
+                        <Badge variant="outline" className="text-[10px] font-normal">
+                          +{warehouse.features.length - 1}
+                        </Badge>
+                      )}
                     </div>
                   </TableCell>
                   <TableCell>
                     <Switch
                       checked={warehouse.availability}
-                      onCheckedChange={() => toggleAvailability(warehouse.id, warehouse.availability)}
+                      onCheckedChange={() => toggleStatus(warehouse.id, 'availability', warehouse.availability)}
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <Switch
+                      checked={warehouse.is_active}
+                      onCheckedChange={() => toggleStatus(warehouse.id, 'is_active', warehouse.is_active)}
                     />
                   </TableCell>
                   <TableCell>

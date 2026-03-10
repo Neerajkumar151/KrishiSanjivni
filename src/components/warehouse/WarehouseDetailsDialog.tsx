@@ -2,7 +2,7 @@ import React from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Warehouse as WarehouseIcon, MapPin, Ruler, ShieldCheck, Zap, Info } from 'lucide-react';
+import { Warehouse as WarehouseIcon, MapPin, Ruler, ShieldCheck, Zap, Info, Ban, CheckCircle2, XCircle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 interface StorageOption {
@@ -22,6 +22,7 @@ interface Warehouse {
     available_space_sqft: number;
     features: string[] | null;
     storage_options: StorageOption[];
+    availability: boolean;
 }
 
 interface WarehouseDetailsDialogProps {
@@ -53,6 +54,15 @@ export const WarehouseDetailsDialog: React.FC<WarehouseDetailsDialogProps> = ({
                         className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                    <div className="absolute top-4 right-4">
+                        <Badge variant={warehouse.availability ? 'default' : 'secondary'} className="px-3 py-1 text-sm shadow-lg">
+                            {warehouse.availability ? (
+                                <span className="flex items-center gap-1"><CheckCircle2 className="h-3 w-3" /> {t('warehouse.available_status', { defaultValue: 'Available' })}</span>
+                            ) : (
+                                <span className="flex items-center gap-1"><XCircle className="h-3 w-3" /> {t('warehouse.full_status', { defaultValue: 'Full' })}</span>
+                            )}
+                        </Badge>
+                    </div>
                     <div className="absolute bottom-6 left-6 right-6 text-white">
                         <h2 className="text-3xl font-bold mb-2">{warehouse.name}</h2>
                         <div className="flex items-center gap-2 opacity-90">
@@ -76,8 +86,8 @@ export const WarehouseDetailsDialog: React.FC<WarehouseDetailsDialogProps> = ({
 
                     {/* Stats Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <Card variant="stat" icon={<Ruler className="h-5 w-5" />} label={t('warehouse.available_space', { defaultValue: 'Available Space' })} value={`${warehouse.available_space_sqft.toLocaleString('en-IN')} sqft`} />
-                        <Card variant="stat" icon={<WarehouseIcon className="h-5 w-5" />} label={t('warehouse.total_capacity', { defaultValue: 'Total Capacity' })} value={`${warehouse.total_space_sqft.toLocaleString('en-IN')} sqft`} />
+                        <Card variant="stat" icon={<WarehouseIcon className="h-5 w-5" />} label={t('warehouse.available_space', { defaultValue: 'Available Space' })} value={`${warehouse.available_space_sqft.toLocaleString('en-IN')} sqft`} />
+                        <Card variant="stat" icon={<Ruler className="h-5 w-5" />} label={t('warehouse.total_capacity', { defaultValue: 'Total Capacity' })} value={`${warehouse.total_space_sqft.toLocaleString('en-IN')} sqft`} />
                     </div>
 
                     {/* Features Section */}
@@ -122,8 +132,19 @@ export const WarehouseDetailsDialog: React.FC<WarehouseDetailsDialogProps> = ({
 
                     {/* Action Footer */}
                     <div className="pt-4 flex gap-3">
-                        <Button className="flex-1 py-6 text-lg rounded-xl shadow-lg shadow-green-200" onClick={() => { onOpenChange(false); onBookClick(warehouse); }}>
-                            {t('warehouse.bookNow', { defaultValue: 'Proceed to Booking' })}
+                        <Button
+                            className="flex-1 py-6 text-lg rounded-xl shadow-lg shadow-green-200"
+                            disabled={!warehouse.availability}
+                            onClick={() => { onOpenChange(false); onBookClick(warehouse); }}
+                        >
+                            {warehouse.availability ? (
+                                t('warehouse.bookNow', { defaultValue: 'Proceed to Booking' })
+                            ) : (
+                                <span className="flex items-center justify-center gap-2">
+                                    <Ban className="h-5 w-5" />
+                                    {t('warehouse.sold', { defaultValue: 'Sold' })}
+                                </span>
+                            )}
                         </Button>
                         <Button variant="outline" className="py-6 rounded-xl" onClick={() => onOpenChange(false)}>
                             {t('common.close', { defaultValue: 'Close' })}
