@@ -266,11 +266,41 @@ export const ChatPage: React.FC = () => {
 
     const handleDeleteMessage = async (messageId: number) => {
         try {
+            // 1. Fetch the message first to see if it has a file
+            const { data: messageData, error: fetchError } = await supabase
+                .from('messages')
+                .select('file_url')
+                .eq('id', messageId)
+                .single();
+
+            if (fetchError) throw fetchError;
+
+            // 2. If it has a file_url, delete from storage
+            if (messageData?.file_url) {
+                try {
+                    // Extract path from public URL
+                    // URL format: .../storage/v1/object/public/chat_uploads/userId/filename
+                    const urlParts = messageData.file_url.split('/chat_uploads/');
+                    if (urlParts.length > 1) {
+                        const filePath = urlParts[1];
+                        const { error: storageError } = await supabase.storage
+                            .from('chat_uploads')
+                            .remove([filePath]);
+                        if (storageError) console.error("Storage deletion error:", storageError);
+                    }
+                } catch (err) {
+                    console.error("Failed to parse/delete file from storage:", err);
+                }
+            }
+
+            // 3. Delete from database
             const { error } = await supabase.from('messages').delete().eq('id', messageId);
             if (error) throw error;
+
             setMessages(currentMessages => currentMessages.filter(msg => msg.id !== messageId));
             toast({ title: t('chat.message_deleted', 'Message deleted') });
         } catch (error: any) {
+            console.error("Delete Error:", error);
             toast({ title: t('error.delete_failed', 'Failed to delete message'), description: error.message, variant: 'destructive' });
         }
     };
