@@ -213,6 +213,7 @@ const Tools: React.FC = () => {
                 step={100}
                 value={priceRange}
                 onValueChange={setPriceRange}
+                minStepsBetweenThumbs={1}
                 className="mt-2"
               />
             </div>
