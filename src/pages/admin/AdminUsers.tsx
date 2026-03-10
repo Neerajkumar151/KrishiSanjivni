@@ -73,9 +73,17 @@ export const AdminUsers: React.FC = () => {
         .filter((role: any) => role.user_id === profile.user_id)
         .map((role: any) => role.role);
 
+      // Use user_roles as the primary source of truth
+      let finalRoles = [...userRoles];
+
+      // If no roles specified in user_roles, default to farmer
+      if (finalRoles.length === 0) {
+        finalRoles.push('farmer');
+      }
+
       return {
         ...profile,
-        roles: userRoles,
+        roles: finalRoles,
         status: (profile as any).status || 'active'
       };
     });

@@ -5,7 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, AlertTriangle, Shield, Ban, UserCircle, Check } from 'lucide-react';
+import { CheckCircle, AlertTriangle, Shield, Ban, UserCircle, Check, Trash2 } from 'lucide-react';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -173,6 +173,29 @@ export const AdminModerationAlerts: React.FC = () => {
         }
     };
 
+    const handleDeleteLog = async (id: string) => {
+        try {
+            const { error } = await supabase
+                .from('moderation_logs' as any)
+                .delete()
+                .eq('id', id);
+
+            if (error) throw error;
+
+            setItems(current => current.filter(item => item.id !== id));
+            toast({
+                title: '🗑️ Log deleted',
+                description: 'The moderation log has been removed successfully.',
+            });
+        } catch (error: any) {
+            toast({
+                title: 'Deletion failed',
+                description: error.message,
+                variant: 'destructive'
+            });
+        }
+    };
+
     if (authLoading || loading) {
         return <div className="flex items-center justify-center h-screen">Loading...</div>;
     }
@@ -299,6 +322,30 @@ export const AdminModerationAlerts: React.FC = () => {
                                                             className={item.user_status === 'banned' ? "" : "bg-destructive text-destructive-foreground hover:bg-destructive/90"}
                                                         >
                                                             {item.user_status === 'banned' ? 'Yes, Unban User' : 'Yes, Ban User'}
+                                                        </AlertDialogAction>
+                                                    </AlertDialogFooter>
+                                                </AlertDialogContent>
+                                            </AlertDialog>
+                                            <AlertDialog>
+                                                <AlertDialogTrigger asChild>
+                                                    <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-muted-foreground hover:text-destructive">
+                                                        <Trash2 className="h-4 w-4" />
+                                                    </Button>
+                                                </AlertDialogTrigger>
+                                                <AlertDialogContent>
+                                                    <AlertDialogHeader>
+                                                        <AlertDialogTitle>Delete Moderation Log?</AlertDialogTitle>
+                                                        <AlertDialogDescription>
+                                                            This will permanently remove this moderation log from the system. This action cannot be undone.
+                                                        </AlertDialogDescription>
+                                                    </AlertDialogHeader>
+                                                    <AlertDialogFooter>
+                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                        <AlertDialogAction
+                                                            onClick={() => handleDeleteLog(item.id)}
+                                                            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                                                        >
+                                                            Delete
                                                         </AlertDialogAction>
                                                     </AlertDialogFooter>
                                                 </AlertDialogContent>

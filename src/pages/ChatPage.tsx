@@ -7,7 +7,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Send, Paperclip, XCircle, Loader2, Trash2, UserX } from 'lucide-react';
+import { Send, Paperclip, XCircle, Loader2, Trash2, UserX, CheckSquare, Square, Trash } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useToast } from '@/hooks/use-toast';
@@ -75,6 +75,10 @@ export const ChatPage: React.FC = () => {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const messageInputRef = useRef<HTMLInputElement>(null);
     const [isAIMentioned, setIsAIMentioned] = useState(false);
+
+    // Selection State
+    const [isSelectionMode, setIsSelectionMode] = useState(false);
+    const [selectedMessageIds, setSelectedMessageIds] = useState<Set<number>>(new Set());
 
     // AI Queuing State
     const [aiQueue, setAiQueue] = useState<QueueItem[]>([]);
@@ -393,6 +397,68 @@ export const ChatPage: React.FC = () => {
         }
     };
 
+    const handleDeleteMultipleMessages = async () => {
+        if (selectedMessageIds.size === 0) return;
+
+        const idsToDelete = Array.from(selectedMessageIds);
+        try {
+            // 1. Get file URLs for storage cleanup
+            const { data: messagesWithFiles } = await supabase
+                .from('messages')
+                .select('file_url')
+                .in('id', idsToDelete)
+                .not('file_url', 'is', null);
+
+            // 2. Delete files from storage
+            if (messagesWithFiles && messagesWithFiles.length > 0) {
+                const filePaths = messagesWithFiles
+                    .map(m => {
+                        const urlParts = m.file_url?.split('/chat_uploads/');
+                        return urlParts && urlParts.length > 1 ? urlParts[1] : null;
+                    })
+                    .filter(Boolean) as string[];
+
+                if (filePaths.length > 0) {
+                    await supabase.storage.from('chat_uploads').remove(filePaths);
+                }
+            }
+
+            // 3. Delete from database
+            const { error } = await supabase
+                .from('messages')
+                .delete()
+                .in('id', idsToDelete);
+
+            if (error) throw error;
+
+            // 4. Update UI
+            setMessages(prev => prev.filter(msg => !selectedMessageIds.has(msg.id)));
+            setSelectedMessageIds(new Set());
+            setIsSelectionMode(false);
+            toast({
+                title: t('chat.messages_deleted', `Deleted ${idsToDelete.length} messages`),
+                description: t('chat.batch_delete_success', 'Batch deletion completed successfully.')
+            });
+        } catch (error: any) {
+            console.error("Batch Delete Error:", error);
+            toast({
+                title: t('error.batch_delete_failed', 'Failed to delete messages'),
+                description: error.message,
+                variant: 'destructive'
+            });
+        }
+    };
+
+    const toggleMessageSelection = (id: number) => {
+        const next = new Set(selectedMessageIds);
+        if (next.has(id)) {
+            next.delete(id);
+        } else {
+            next.add(id);
+        }
+        setSelectedMessageIds(next);
+    };
+
     const handleBanUser = async (targetUserId: string, targetUserName: string) => {
         try {
             // 1. Ban the user in profiles
@@ -422,14 +488,57 @@ export const ChatPage: React.FC = () => {
     return (
         <Layout>
             <div className="container mx-auto h-[calc(100vh-80px)] flex flex-col p-4">
-                <h1 className="text-2xl font-bold mb-4 border-b pb-2">{t('chat.general_chat', 'General Chat')}</h1>
+                <div className="flex items-center justify-between mb-4 border-b pb-2">
+                    <h1 className="text-2xl font-bold">{t('chat.general_chat', 'General Chat')}</h1>
+                    {isAdmin && (
+                        <div className="flex gap-2">
+                            {isSelectionMode ? (
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => {
+                                        setIsSelectionMode(false);
+                                        setSelectedMessageIds(new Set());
+                                    }}
+                                >
+                                    {t('common.cancel', 'Cancel')}
+                                </Button>
+                            ) : (
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => setIsSelectionMode(true)}
+                                    className="gap-2"
+                                >
+                                    <CheckSquare className="h-4 w-4" />
+                                    {t('chat.select_messages', 'Select')}
+                                </Button>
+                            )}
+                        </div>
+                    )}
+                </div>
                 <ScrollArea className="flex-grow mb-4 pr-4" ref={scrollAreaRef}>
                     <div className="space-y-4">
                         {loading && <p className="text-center text-muted-foreground">{t('common.loading', 'Loading chat...')}</p>}
                         {messages.map((msg) => {
                             const isCurrentUser = msg.user_id === user?.id && !msg.is_ai_message;
+                            const isSelected = selectedMessageIds.has(msg.id);
+
                             return (
-                                <div key={msg.id} className={`flex items-start gap-3 ${isCurrentUser ? 'justify-end' : ''}`}>
+                                <div
+                                    key={msg.id}
+                                    className={`flex items-start gap-3 ${isCurrentUser ? 'justify-end' : ''} ${isSelectionMode ? 'cursor-pointer hover:bg-muted/50 rounded-lg p-1 transition-colors' : ''} ${isSelected ? 'bg-primary/10' : ''}`}
+                                    onClick={() => isSelectionMode && toggleMessageSelection(msg.id)}
+                                >
+                                    {isSelectionMode && (
+                                        <div className="flex items-center self-center mr-1">
+                                            {isSelected ? (
+                                                <CheckSquare className="h-5 w-5 text-primary" />
+                                            ) : (
+                                                <Square className="h-5 w-5 text-muted-foreground" />
+                                            )}
+                                        </div>
+                                    )}
                                     {!isCurrentUser && (
                                         <Avatar className="h-8 w-8">
                                             <AvatarImage src={msg.profiles?.avatar_url} />
@@ -522,6 +631,49 @@ export const ChatPage: React.FC = () => {
                         })}
                     </div>
                 </ScrollArea>
+                {/* Batch Selection Action Bar */}
+                {isSelectionMode && selectedMessageIds.size > 0 && (
+                    <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 flex items-center gap-4 px-6 py-3 bg-background border border-primary/20 rounded-full shadow-2xl animate-in slide-in-from-bottom-5 duration-300">
+                        <span className="text-sm font-medium">
+                            {selectedMessageIds.size} {selectedMessageIds.size === 1 ? t('chat.message_selected', 'message selected') : t('chat.messages_selected_count', 'messages selected')}
+                        </span>
+                        <div className="h-4 w-[1px] bg-border mx-2" />
+                        <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                                <Button variant="destructive" size="sm" className="gap-2 rounded-full px-4">
+                                    <Trash className="h-4 w-4" />
+                                    {t('common.delete', 'Delete')}
+                                </Button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                                <AlertDialogHeader>
+                                    <AlertDialogTitle>{t('chat.confirm_batch_delete_title', 'Delete Multiple Messages')}</AlertDialogTitle>
+                                    <AlertDialogDescription>
+                                        {t('chat.confirm_batch_delete_desc', 'Are you sure you want to delete the selected messages? This will also remove any attached files. This action cannot be undone.')}
+                                    </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                    <AlertDialogCancel>{t('common.cancel', 'Cancel')}</AlertDialogCancel>
+                                    <AlertDialogAction onClick={handleDeleteMultipleMessages} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+                                        {t('common.delete', 'Delete All')}
+                                    </AlertDialogAction>
+                                </AlertDialogFooter>
+                            </AlertDialogContent>
+                        </AlertDialog>
+                        <Button
+                            variant="ghost"
+                            size="sm"
+                            className="rounded-full"
+                            onClick={() => {
+                                setIsSelectionMode(false);
+                                setSelectedMessageIds(new Set());
+                            }}
+                        >
+                            {t('common.cancel', 'Cancel')}
+                        </Button>
+                    </div>
+                )}
+
                 {user ? (
                     isBanned ? (
                         <div className="p-4 bg-destructive/10 border border-destructive/20 rounded-md text-center text-destructive">
