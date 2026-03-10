@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
 import Footer from '@/components/Footer';
 import { ChatBot } from '@/components/ChatBot';
+import { ToolDetailsDialog } from '@/components/tools/ToolDetailsDialog';
 
 interface Tool {
   id: string;
@@ -75,6 +76,8 @@ const Tools: React.FC = () => {
   const [selectedTool, setSelectedTool] = useState<Tool | null>(null);
   const [bookingDialogOpen, setBookingDialogOpen] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [toolDetailsDialogOpen, setToolDetailsDialogOpen] = useState(false);
+  const [selectedToolDetails, setSelectedToolDetails] = useState<Tool | null>(null);
 
   // Fetch tools from Supabase
   const fetchTools = async () => {
@@ -171,6 +174,11 @@ const Tools: React.FC = () => {
     setBookingDialogOpen(true);
   };
 
+  const handleCardClick = (tool: Tool) => {
+    setSelectedToolDetails(tool);
+    setToolDetailsDialogOpen(true);
+  };
+
   // Helper to format currency
   const formatCurrency = (value: number) => `₹${value.toLocaleString('en-IN')}`;
 
@@ -247,13 +255,13 @@ const Tools: React.FC = () => {
         {/* Tools Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredTools.map(tool => (
-            <Card key={tool.id} className="flex flex-col hover:shadow-lg transition-shadow">
-              <CardHeader className="p-0">
+            <Card key={tool.id} className="flex flex-col hover:shadow-xl transition-all duration-300 rounded-xl overflow-hidden cursor-pointer group/card" onClick={() => handleCardClick(tool)}>
+              <CardHeader className="p-0 overflow-hidden">
                 <img
                   src={tool.image_url || '/placeholder.svg'}
                   alt={tool.name}
                   loading="lazy"
-                  className="w-full h-48 object-cover rounded-t-lg"
+                  className="w-full h-48 object-cover group-hover/card:scale-105 transition-transform duration-500"
                 />
               </CardHeader>
               <CardContent className="flex-1 p-4">
@@ -291,7 +299,7 @@ const Tools: React.FC = () => {
                 <Button
                   className="w-full"
                   disabled={!tool.availability}
-                  onClick={() => handleRentClick(tool)}
+                  onClick={(e) => { e.stopPropagation(); handleRentClick(tool); }}
                 >
                   {t('tools.rentNow', { defaultValue: 'Rent Now' })}
                 </Button>
@@ -317,6 +325,14 @@ const Tools: React.FC = () => {
           onOpenChange={setBookingDialogOpen}
         />
       )}
+
+      <ToolDetailsDialog
+        tool={selectedToolDetails}
+        open={toolDetailsDialogOpen}
+        onOpenChange={setToolDetailsDialogOpen}
+        onRentClick={handleRentClick}
+        categoryKeyMap={categoryKeyMap}
+      />
 
       <Footer />
     </Layout>
