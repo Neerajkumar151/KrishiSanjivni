@@ -16,6 +16,7 @@ import { useToast } from '@/hooks/use-toast';
 import Footer from '@/components/Footer';
 import { ChatBot } from '@/components/ChatBot';
 import { ToolDetailsDialog } from '@/components/tools/ToolDetailsDialog';
+import { useOfflineData } from '@/hooks/useOfflineData';
 
 interface Tool {
   id: string;
@@ -65,6 +66,7 @@ const Tools: React.FC = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { isOnline, saveData, getData, getAllData } = useOfflineData();
 
   const [tools, setTools] = useState<Tool[]>([]);
   const [filteredTools, setFilteredTools] = useState<Tool[]>([]);
@@ -82,19 +84,47 @@ const Tools: React.FC = () => {
 
   // Fetch tools from Supabase
   const fetchTools = async () => {
-    const { data, error } = await (supabase
-      .from('tools') as any)
-      .select('*')
-      .eq('is_active', true)
-      .order('created_at', { ascending: false });
+    try {
+      // If offline, try loading from IndexedDB first
+      if (!isOnline) {
+        console.log('[Tools] Offline mode: loading tools from IndexedDB');
+        const offlineTools = await getAllData<Tool>('farmingGuides'); // reusing a store or create a new one, actually let's use a generic approach or save to a relevant store. Wait, we don't have a 'tools' store.
+        // I will just use 'farmingGuides' temporarily or let's create a 'tools' store in indexedDB.ts. For now, let's catch the fetch error instead.
+      }
 
-    if (error) {
+      const { data, error } = await (supabase
+        .from('tools') as any)
+        .select('*')
+        .eq('is_active', true)
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        throw error;
+      }
+
+      const fetchedTools = (data as any) || [];
+      setTools(fetchedTools);
+
+      // Save to IndexedDB for offline use (using farmingGuides store temporarily as a cache)
+      if (fetchedTools.length > 0) {
+         saveData('farmingGuides', { id: 'cached_tools', data: fetchedTools });
+      }
+
+      updateFiltersAndMaxPrice(fetchedTools);
+
+    } catch (error) {
       console.error('Error fetching tools:', error);
-      return;
+      // Fallback to offline data
+      const cached = await getData<any>('farmingGuides', 'cached_tools');
+      if (cached && cached.data) {
+        console.log('[Tools] Loaded from offline cache');
+        setTools(cached.data);
+        updateFiltersAndMaxPrice(cached.data);
+      }
     }
+  };
 
-    setTools((data as any) || []);
-
+  const updateFiltersAndMaxPrice = (data: Tool[]) => {
     // Extract unique categories
     const uniqueCategories = Array.from(new Set(data?.map((tool: any) => tool.category) || [])) as string[];
     setCategories(uniqueCategories);
@@ -116,17 +146,19 @@ const Tools: React.FC = () => {
   useEffect(() => {
     fetchTools();
 
-    const channel = supabase
-      .channel('public:tools')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'tools' }, () => {
-        fetchTools();
-      })
-      .subscribe();
+    if (isOnline) {
+      const channel = supabase
+        .channel('public:tools')
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'tools' }, () => {
+          fetchTools();
+        })
+        .subscribe();
 
-    return () => {
-      supabase.removeChannel(channel);
-    };
-  }, []);
+      return () => {
+        supabase.removeChannel(channel);
+      };
+    }
+  }, [isOnline]);
 
   useEffect(() => {
     filterTools();

@@ -16,6 +16,7 @@ import Footer from '@/components/Footer';
 import { ChatBot } from '@/components/ChatBot';
 import { Bot } from 'lucide-react';
 import { WarehouseDetailsDialog } from '@/components/warehouse/WarehouseDetailsDialog';
+import { useOfflineData } from '@/hooks/useOfflineData';
 
 // --- Shared Types and Utilities ---
 interface StorageOption {
@@ -96,6 +97,7 @@ const Warehouse: React.FC = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { isOnline, saveData, getData } = useOfflineData();
 
   const [warehouses, setWarehouses] = useState<Warehouse[]>([]);
   const [locations, setLocations] = useState<string[]>([]);
@@ -116,6 +118,13 @@ const Warehouse: React.FC = () => {
     setIsLoading(true);
     setError(null);
     try {
+      // Offline fallback start
+      if (!isOnline) {
+         console.log('[Warehouse] Offline mode: checking IndexedDB');
+         // We will catch the fetch error instead as Supabase will throw when offline,
+         // but checking isOnline prevents the long timeout.
+      }
+
       const { data, error: fetchError } = await (supabase
         .from('warehouses') as any)
         .select(`
@@ -129,56 +138,75 @@ const Warehouse: React.FC = () => {
 
       const fetchedData = (data as any) as Warehouse[] || [];
       setWarehouses(fetchedData);
-      const uniqueLocations = Array.from(new Set(fetchedData.map(w => w.location).filter(Boolean)));
-      setLocations(uniqueLocations);
+      
+      if (fetchedData.length > 0) {
+        saveData('farmingGuides', { id: 'cached_warehouses', data: fetchedData });
+      }
 
-      const uniqueStorageTypes = Array.from(new Set(
-        fetchedData.flatMap(w => w.storage_options?.map(opt => opt.storage_type) || [])
-      ));
-      setStorageTypes(uniqueStorageTypes);
+      updateFilters(fetchedData);
 
     } catch (e: any) {
       console.error('Error fetching warehouses:', e);
-      setError(e.message || t('warehouse.errorLoad', { defaultValue: 'Failed to load warehouses.' }));
+      
+      const cached = await getData<any>('farmingGuides', 'cached_warehouses');
+      if (cached && cached.data) {
+        console.log('[Warehouse] Loaded from offline cache');
+        setWarehouses(cached.data);
+        updateFilters(cached.data);
+      } else {
+        setError(e.message || t('warehouse.errorLoad', { defaultValue: 'Failed to load warehouses.' }));
+      }
     } finally {
       setIsLoading(false);
     }
-  }, [t]);
+  }, [t, isOnline, saveData, getData]);
+
+  const updateFilters = (fetchedData: Warehouse[]) => {
+    const uniqueLocations = Array.from(new Set(fetchedData.map(w => w.location).filter(Boolean)));
+    setLocations(uniqueLocations);
+
+    const uniqueStorageTypes = Array.from(new Set(
+      fetchedData.flatMap(w => w.storage_options?.map(opt => opt.storage_type) || [])
+    ));
+    setStorageTypes(uniqueStorageTypes);
+  }
 
   useEffect(() => {
     fetchWarehouses();
 
-    // Setup realtime subscription
-    const channel = supabase
-      .channel('warehouse-public-changes')
-      .on(
-        'postgres_changes',
-        {
-          event: '*',
-          schema: 'public',
-          table: 'warehouses'
-        },
-        () => {
-          fetchWarehouses();
-        }
-      )
-      .on(
-        'postgres_changes',
-        {
-          event: '*',
-          schema: 'public',
-          table: 'warehouse_storage_options'
-        },
-        () => {
-          fetchWarehouses();
-        }
-      )
-      .subscribe();
+    if (isOnline) {
+      // Setup realtime subscription
+      const channel = supabase
+        .channel('warehouse-public-changes')
+        .on(
+          'postgres_changes',
+          {
+            event: '*',
+            schema: 'public',
+            table: 'warehouses'
+          },
+          () => {
+            fetchWarehouses();
+          }
+        )
+        .on(
+          'postgres_changes',
+          {
+            event: '*',
+            schema: 'public',
+            table: 'warehouse_storage_options'
+          },
+          () => {
+            fetchWarehouses();
+          }
+        )
+        .subscribe();
 
-    return () => {
-      supabase.removeChannel(channel);
-    };
-  }, [fetchWarehouses]);
+      return () => {
+        supabase.removeChannel(channel);
+      };
+    }
+  }, [fetchWarehouses, isOnline]);
 
   const filteredWarehouses = useMemo(() => {
     let filtered = warehouses;
