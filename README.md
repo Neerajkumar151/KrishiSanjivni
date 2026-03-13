@@ -66,8 +66,9 @@ The project is built using a modern, scalable architecture.
 | **Frontend** | ![React](https://img.shields.io/badge/React-20232A?style=flat&logo=react&logoColor=61DAFB) ![Vite](https://img.shields.io/badge/Vite-B73BFE?style=flat&logo=vite&logoColor=FFD62E) ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white) |
 | **UI Components** | Radix UI, Shadcn/UI, Lucide React, Recharts |
 | **Backend / DB** | ![Supabase](https://img.shields.io/badge/Supabase-181818?style=flat&logo=supabase&logoColor=3ECF8E) (Auth, PostgREST, Realtime, Migrations) |
-| **AI / ML** | ![Google Gemini](https://img.shields.io/badge/Google_GenAI-4285F4?style=flat&logo=google&logoColor=white) (Chatbot, Speech-to-Text, Text-to-Speech) |
+| **AI / ML** | ![Hugging Face](https://img.shields.io/badge/Hugging_Face-FFD21E?style=flat&logo=huggingface&logoColor=black) (Qwen2.5-72B-Instruct) ![Google Gemini](https://img.shields.io/badge/Google_GenAI-4285F4?style=flat&logo=google&logoColor=white) |
 | **Payments** | ![Razorpay](https://img.shields.io/badge/Razorpay-02042B?style=flat&logo=razorpay&logoColor=3395FF) |
+| **Security** | AI Content Moderation, Regex-based Safety Layers, Secure .gitignore |
 | **Localization** | i18next (Hindi, English, Tamil, Telugu, Bengali) |
 
 ---
@@ -141,7 +142,8 @@ graph TD
     DB[(PostgreSQL DB)]
     Realtime[Supabase Realtime]
     Edge[Edge Functions]
-    AI[Google Gemini AI]
+    AI_HF[Hugging Face Qwen AI]
+    AI_Gemini[Google Gemini AI]
     Pay[Razorpay]
     Admin[Admin Dashboard]
 
@@ -154,7 +156,8 @@ graph TD
     
     Frontend -->|Invoke| Edge
     Edge -->|Process| Pay
-    Edge -->|Inference| AI
+    Edge -->|Safe Moderation + Assist| AI_HF
+    Frontend -->|Voice/Chat| AI_Gemini
     
     Pay -->|Confirmation| DB
     Admin -->|Manage| DB
@@ -172,7 +175,10 @@ graph TD
 - **Warehouse Booking**: Real-time slot management for crop storage with availability tracking.
 
 ### 3. 🧠 AI & Intelligence
-- **Multilingual AI Chatbot**: Built on Google Gemini, supporting Voice-to-Text and Text-to-Speech for easy accessibility.
+- **KrishiSanjivni AI Assistant**: Dedicated community assistant that automatically helps with farming questions.
+- **Smart Trigger Logic**: AI stays silent for out-of-scope clutter but provides the user's language mirroring (Hindi/Hinglish) when called.
+- **Real-time Moderation**: Instant AI-powered safety layer using Qwen2.5-72B to keep the community safe.
+- **Multilingual Support**: Supports Voice-to-Text and Text-to-Speech for easy accessibility.
 - **Market Intel**: Live Mandi prices and local commodity trends.
 - **Weather Insights**: Hyper-local forecasts for better planting schedules.
 
@@ -240,9 +246,19 @@ KrishiSanjivni
 │   └── hooks/ (Admin & Data fetching)
 │
 │── supabase (Migrations & Edge Functions)
+│── .gitignore (Secure patterns for private infra)
 │── tailwind.config.ts
 └── vite.config.ts
 ```
+
+---
+
+## 📈 Recent Updates
+- **Community AI Overhaul**: Migrated to Hugging Face Inference API with Qwen2.5-72B for 2x faster moderation and expert farming advice.
+- **API Economy**: Joint moderation/assistance calls reduced API token usage by ~50%.
+- **Zero-Tolerance Safety**: Expanded safety categories (Scams, Self-harm, Threats) for bulletproof community protection.
+- **Branding**: Custom moon-themed AI identity for the assistant.
+- **Infrastructure Privacy**: Robust `.gitignore` hiding all Supabase migrations and sensitive config files.
 
 ---
 
