@@ -1,12 +1,11 @@
 import { supabase } from '@/integrations/supabase/client';
 import { checkProfanity } from './profanityFilter';
 import { checkRateLimit } from './rateLimiter';
-import { checkToxicity } from './toxicityDetector';
 
 export interface ModerationResult {
     allowed: boolean;
     reason?: string;
-    type?: 'rate_limit' | 'profanity' | 'toxicity';
+    type?: 'rate_limit' | 'profanity';
 }
 
 /**
@@ -24,12 +23,14 @@ async function logViolation(userId: string, message: string, reason: string) {
 
 // createAlert function removed as everything is now unified in moderation_logs.
 /**
- * Run the full moderation pipeline on a message.
+ * Run the synchronous moderation pipeline before a message is allowed to be sent.
  * 
  * Pipeline order (fastest checks first):
  * 1. Rate Limit Check (DB query, fast)
- * 2. Profanity Filter (in-memory, instant)
- * 3. AI Toxicity Detection (model inference, ~200ms)
+ * 2. Profanity Filter (Regex + Dictionary, < 2ms)
+ * 
+ * Note: AI Toxicity (Perspective API) is handled asynchronously AFTER the message is sent
+ * to prevent blocking the UI.
  * 
  * Returns whether the message is allowed or blocked.
  */
@@ -64,18 +65,8 @@ export async function moderateMessage(
         };
     }
 
-    // === STEP 3: AI Toxicity Detection ===
-    const toxicityResult = await checkToxicity(message);
-    if (toxicityResult.isToxic) {
-        const reason = `AI Detection — ${toxicityResult.reason}`;
-        await logViolation(userId, message, reason);
-        return {
-            allowed: false,
-            reason: 'Your message was flagged as potentially harmful. Please keep conversations respectful.',
-            type: 'toxicity',
-        };
-    }
-
-    // === ALL CHECKS PASSED ===
+    // === ALL SYNCHRONOUS CHECKS PASSED ===
+    // Message will be allowed to send. The View layer will then 
+    // fire an async check to the Perspective API if it passes these.
     return { allowed: true };
 }

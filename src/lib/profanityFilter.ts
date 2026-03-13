@@ -1,4 +1,7 @@
 import { Filter } from 'bad-words';
+import { normalizeText } from './textNormalization';
+import { checkRegexProfanity } from './regexFilter';
+import { moderationConfig } from '../config/moderationConfig';
 
 // Initialize the filter with default English profanity list
 const filter = new Filter();
@@ -60,7 +63,7 @@ const customBannedWords = [
     "p0rn", "pr0n", "xxxsite", "adultsite", "onlyfans", "sugar daddy", "sugar mommy",
     "dick", "dicks", "cock", "cocks", "boob", "boobs", "tits", "titties", "vagina", "penis",
     "dildo", "masturbate", "masturbating", "blowjob", "handjob", "sex", "sexy", "sex video",
-    "nudes", "send nudes", "strip", "camgirl", "escort", "call girl", "hooker", "prostitute",
+    "nude", "nudes", "send nudes", "strip", "camgirl", "escort", "call girl", "hooker", "prostitute",
     "orgasm", "clitoris", "sperm", "cum", "cumming", "ejaculate", "horny", "fetish", "bdsm",
     "gandi video", "asleel", "muthal", "hila le", "nangi", "nanga", "chudai", "choot", "chut",
     "bur", "bund", "kothewali", "tawaif", "randaap", "raand", "chodna", "chod", "chudakkad",
@@ -82,7 +85,8 @@ const customBannedWords = [
     "ugly", "shut the fuck up", "gtfo", "dumb", "creep", "pervert", "pedophile", "pedo", "incel",
     "retard", "retarded", "faggot", "fag", "nigger", "nigga", "chink", "spic", "piss off",
     "screw you", "go to hell", "suck my", "lick my", "kiss my ass", "craphead", "moron", "moronic",
-    "f.u.c.k", "f*ck", "b*tch", "s.h.i.t", "a.s.s", "c.u.n.t",
+    "f.u.c.k", "f*ck", "b*tch", "s.h.i.t", "a.s.s", "c.u.n.t", "kill", "die", "bloody", "poison",
+    "ज़हर", "ज़हर",
 
     // ==========================================
     // 6. HINGLISH SLANGS & TOXICITY (Massive Variations)
@@ -136,15 +140,38 @@ export interface ProfanityResult {
  */
 export function checkProfanity(message: string): ProfanityResult {
     try {
-        if (filter.isProfane(message)) {
+        // Step 1: Text Normalization (if enabled)
+        // Defeats obfuscation tricks like g@ndu, f.u.c.k, whitespace insertion
+        const normalizedMessage = moderationConfig.enableNormalization 
+            ? normalizeText(message) 
+            : message;
+
+        // Step 2: Custom Regex Layer (if enabled)
+        // Checks normalized text against high-toxicity Hinglish/Hindi stems and deep obfuscation
+        if (moderationConfig.enableRegexFilter) {
+            const regexResult = checkRegexProfanity(normalizedMessage);
+            if (regexResult.isProfane) {
+                console.debug("[Moderation] Regex Pattern Match Detect:", regexResult.matchedPattern);
+                return {
+                    isProfane: true,
+                    reason: regexResult.reason || 'Message contains inappropriate or abusive language.',
+                };
+            }
+        }
+
+        // Step 3: Base Dictionary Filter (bad-words + massive custom list)
+        // Uses normalized text so bypassing via symbols doesn't fool the standard dictionary check
+        if (moderationConfig.enableDictionaryFilter && filter.isProfane(normalizedMessage)) {
+             console.debug("[Moderation] Dictionary Match Detect");
             return {
                 isProfane: true,
                 reason: 'Message contains inappropriate or abusive language.',
             };
         }
+
         return { isProfane: false, reason: '' };
     } catch {
-        // If the filter fails for any reason, allow the message
+        // If the filter pipeline fails for any reason, allow the message (fail-open)
         return { isProfane: false, reason: '' };
     }
 }

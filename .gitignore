@@ -4,14 +4,16 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-pnpm-lock.yaml
-yarn.lock
+bun-debug.log*
 
 # Build output
 dist/
 build/
 out/
 .eslintcache
+.prettiercache
+.stylelintcache
+*.tsbuildinfo
 
 # Vite
 .vite/
@@ -19,14 +21,9 @@ vite.config.ts.timestamp*
 
 # Environment files
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# Supabase keys (⚠️ sensitive)
-supabase/.env
-supabase/functions/**/.env
+.env.*
+!.env.example
+*.env
 
 # Editor & system files
 .DS_Store
@@ -39,6 +36,9 @@ Thumbs.db
 *.sln
 *.sw?
 *.log
+.history/
+.pnpm-store/
+.npm/
 
 # Coverage and testing
 coverage/
@@ -52,9 +52,30 @@ jest-stare/
 temp/
 tmp/
 
-# Supabase Infrastructure (Privacy)
+# Supabase Infrastructure (Privacy & Cache)
+.supabase/
+supabase/.temp/
+supabase/.branches/
+supabase/.storage/
+supabase/.env*
+supabase/functions/**/.env*
 supabase/migrations/
 supabase/functions/
+# Hide all SQL migration files
+*_migration.sql
+migrations/
+*.migration.sql
 supabase/config.toml
-supabase/.temp/
-.supabase/
+supabase/seed.sql
+supabase/docker/
+supabase/docker-compose.yml
+# ignore any local logs or snapshots
+supabase/snapshots/
+supabase/logs/
+
+# AI Artifacts
+.gemini/
+brain/
+**/task.md
+**/implementation_plan.md
+**/walkthrough.md

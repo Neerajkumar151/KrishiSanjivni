@@ -23,6 +23,7 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { moderateMessage } from '@/lib/moderationPipeline';
+import { moderateWithAI } from '@/lib/aiModeration';
 import { preloadModel } from '@/lib/toxicityDetector';
 import { shouldAIRespond } from '@/lib/ai/intentDetection';
 import { canAIReply, getCooldownRemaining, COOLDOWN_MS } from '@/lib/ai/aiCooldown';
@@ -40,12 +41,15 @@ interface Message {
         avatar_url?: string;
     } | null;
     is_ai_message?: boolean;
+    is_flagged?: boolean; // Added to support AI toxicity blurring
 }
 
 interface QueueItem {
     message: string;
     userName: string;
     userId: string;
+    wasMentioned: boolean; // Track if the user explicitly called the AI
+    moderationPromise?: Promise<any>;
 }
 
 // Helper component to render uploaded files
@@ -190,7 +194,43 @@ export const ChatPage: React.FC = () => {
             const current = aiQueue[0];
 
             try {
-                const aiReplyText = await generateAIResponse(current.message);
+                // 1. Wait for the consolidated Moderation/Assistant API result
+                console.debug("[Assistant] Awaiting consolidated safety/reply result...");
+                const modResult = await current.moderationPromise;
+
+                if (!modResult) {
+                    setIsAIProcessing(false);
+                    return;
+                }
+
+                // Safety Check: If moderation flagged/blocked the message, do NOT send the assistant reply
+                if (modResult.isToxic || modResult.action !== 'allow') {
+                    console.warn("[Assistant] Discarding AI response: Trigger message was flagged/blocked.");
+                    setAiQueue(prev => prev.slice(1));
+                    setIsAIProcessing(false);
+                    return;
+                }
+
+                // Scope Check: If out-of-scope AND untagged, STAY SILENT.
+                if (modResult.isOutOfScope && !current.wasMentioned) {
+                    console.debug("[Assistant] Silent Mode: Out-of-scope and untagged. Skipping reply.");
+                    setAiQueue(prev => prev.slice(1));
+                    setIsAIProcessing(false);
+                    return;
+                }
+
+                // 2. Use the pre-calculated reply from the consolidated API call
+                let aiReplyText = modResult.reply;
+
+                // Fallback: If for some reason 'reply' is missing but needed, we could generate it 
+                // but we prefer to save API calls.
+                if (!aiReplyText) {
+                    console.debug("[Assistant] Consolidated call had no reply. Saving tokens/credits by skipping.");
+                    setAiQueue(prev => prev.slice(1));
+                    setIsAIProcessing(false);
+                    return;
+                }
+
                 const userFirstName = current.userName?.split(' ')[0] || 'User';
                 const messageSnippet = current.message.length > 60
                     ? current.message.substring(0, 60) + "..."
@@ -218,7 +258,7 @@ export const ChatPage: React.FC = () => {
                     ...insertedAIMessage,
                     profiles: {
                         full_name: "Krishisanjivni AI",
-                        avatar_url: "/ai-avatar.png", // Or whatever AI avatar you use
+                        avatar_url: "/ai-avatar.png",
                     }
                 };
                 setMessages(prev => [...prev, optimisticAI]);
@@ -325,23 +365,51 @@ export const ChatPage: React.FC = () => {
             // Refocus the input field after sending
             setTimeout(() => messageInputRef.current?.focus(), 0);
 
-            // === AI ASSISTANT PIPELINE ===
-            // Strip the mention prefix to get the actual question for the AI
-            const actualQuestion = messageToInsert.message.startsWith(AI_MENTION_PREFIX.trim())
-                ? messageToInsert.message.slice(AI_MENTION_PREFIX.trim().length).trim()
-                : messageToInsert.message;
+            // === CONSOLIDATED AI PIPELINE (MODERATION + ASSISTANT) ===
+            const messageText = messageToInsert.message;
+            if (messageText) {
+                const actualQuestion = messageText.startsWith(AI_MENTION_PREFIX.trim())
+                    ? messageText.slice(AI_MENTION_PREFIX.trim().length).trim()
+                    : messageText;
 
-            // Force-queue if user used @mention, otherwise use normal detection
-            const shouldQueue = wasMentioned
-                ? !!actualQuestion
-                : (messageToInsert.message && shouldAIRespond(messageToInsert.message));
+                // Smart Assistant Logic: 
+                // 1. Tagged (@KrishiSanjivni AI): AI ALWAYS processes (to answer or politely refuse).
+                // 2. Untagged: AI ONLY processes if the local intent detector (shouldAIRespond) identifies a likely farming question.
+                const isAssistantNeeded = wasMentioned || (actualQuestion && shouldAIRespond(actualQuestion));
+                
+                // Fire ONE joint moderation/assistant call to save API credits
+                const apiPromise = moderateWithAI(messageText, isAssistantNeeded ? 'assistant' : 'moderate').then(async (result) => {
+                    if (result.isToxic) {
+                        try {
+                            if (result.action === 'block') {
+                                console.warn(`AI Blocked: ${result.toxicCategory}. Deleting...`);
+                                await supabase.from('messages').delete().eq('id', insertedMessage.id);
+                                toast({
+                                    title: 'Message Removed',
+                                    description: `Removed for community safety (${result.toxicCategory}).`,
+                                    variant: 'destructive',
+                                });
+                            } else if (result.action === 'flag') {
+                                console.warn(`AI Flagged: ${result.toxicCategory}. Blurring...`);
+                                await supabase.from('messages').update({ is_flagged: true }).eq('id', insertedMessage.id);
+                            }
+                        } catch (err) {
+                            console.error("Moderation action failure:", err);
+                        }
+                    }
+                    return result;
+                });
 
-            if (shouldQueue) {
-                setAiQueue(prev => [...prev, {
-                    message: actualQuestion,
-                    userName: profile.full_name || 'User',
-                    userId: user.id
-                }]);
+                if (isAssistantNeeded && actualQuestion) {
+                    console.debug("[Assistant] Queueing shared API result...");
+                    setAiQueue(prev => [...prev, {
+                        message: actualQuestion,
+                        userName: profile.full_name || 'User',
+                        userId: user.id,
+                        wasMentioned: wasMentioned, // Pass the mention status to the worker
+                        moderationPromise: apiPromise // This will now contain the 'reply' too
+                    }]);
+                }
             }
 
         } catch (error: any) {
@@ -545,7 +613,12 @@ export const ChatPage: React.FC = () => {
                                             <AvatarFallback>{msg.profiles?.full_name?.charAt(0).toUpperCase() || 'U'}</AvatarFallback>
                                         </Avatar>
                                     )}
-                                    <div className={`max-w-xs md:max-w-md p-3 rounded-lg ${msg.is_ai_message ? 'bg-green-100 text-green-900 border border-green-300' : isCurrentUser ? 'bg-primary text-primary-foreground' : 'bg-muted'} relative group`}>
+                                    <div className={`max-w-xs md:max-w-md p-3 rounded-lg ${msg.is_ai_message ? 'bg-green-100 text-green-900 border border-green-300' : isCurrentUser ? 'bg-primary text-primary-foreground' : 'bg-muted'} relative group ${msg.is_flagged ? 'blur-sm hover:blur-none transition-all duration-300' : ''}`}>
+                                        {msg.is_flagged && (
+                                            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-destructive text-destructive-foreground text-[10px] px-2 py-0.5 rounded-full whitespace-nowrap z-10 opacity-100 pointer-events-none shadow-sm">
+                                                Flagged content - Hover to view
+                                            </div>
+                                        )}
                                         {msg.is_ai_message && (
                                             <div className="flex items-center gap-2 mb-2 pb-1 border-b border-green-200 font-semibold text-green-800 text-sm">
                                                 <span className="text-lg">🌾</span> KrishiSanjivni AI

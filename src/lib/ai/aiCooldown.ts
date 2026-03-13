@@ -1,6 +1,6 @@
-// Cooldown to prevent API spam (10 seconds)
+// Cooldown to prevent API spam (3 seconds)
 let lastAIReply = 0;
-export const COOLDOWN_MS = 10000;
+export const COOLDOWN_MS = 3000;
 
 export function canAIReply(): boolean {
     const now = Date.now();
