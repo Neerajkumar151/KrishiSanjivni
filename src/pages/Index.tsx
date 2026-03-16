@@ -1,6 +1,6 @@
 
 // src/pages/Index.tsx - Fully Internationalized
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Leaf, ChevronRight, Smartphone, BarChart3, MessageSquareMore, Award, Target, Shield, CloudRain, CreditCard, Wrench, FlaskConical, TrendingUp, Bot, ArrowRight, Star, Tractor, Warehouse, TestTube, Users, Sprout } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -35,6 +35,15 @@ const Index: React.FC = () => {
 
     const [videoLoaded, setVideoLoaded] = useState(false);
     const [isChatOpen, setIsChatOpen] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const mql = window.matchMedia('(max-width: 768px)');
+        setIsMobile(mql.matches);
+        const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+        mql.addEventListener('change', handler);
+        return () => mql.removeEventListener('change', handler);
+    }, []);
 
     // Placeholder data using translation keys (assuming corresponding image assets exist)
     const rawTestimonialData = [
@@ -77,28 +86,30 @@ const Index: React.FC = () => {
             {/* Hero Section */}
             <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-[#0a1a0a]">
 
-                {/* Poster image for instant LCP, video loads lazily */}
+                {/* Poster image for instant LCP, video loads lazily on desktop */}
                 <img
                     src="src/assets/hero-farm.webp"
                     alt="Lush green farmland landscape showcasing modern agriculture at FarmHive"
                     width={1920}
                     height={1080}
-                    className={`absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-1000 ${videoLoaded ? 'opacity-0' : 'opacity-100'}`}
+                    className={`absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-1000 ${!isMobile && videoLoaded ? 'opacity-0' : 'opacity-100'}`}
                     fetchPriority="high"
                 />
-                <video
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    onLoadedData={() => setVideoLoaded(true)}
-                    preload="none"
-                    poster="/bg.webp"
-                    className={`absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-1000 ${videoLoaded ? 'opacity-100' : 'opacity-0'}`}
-                >
-                    <source src="/bg.webm" type="video/webm" />
-                    <track kind="captions" />
-                </video>
+                {!isMobile && (
+                    <video
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        onLoadedData={() => setVideoLoaded(true)}
+                        preload="none"
+                        poster="/bg.webp"
+                        className={`absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-1000 ${videoLoaded ? 'opacity-100' : 'opacity-0'}`}
+                    >
+                        <source src="/bg.webm" type="video/webm" />
+                        <track kind="captions" />
+                    </video>
+                )}
 
                 {/* Dark Overlay */}
                 <div className="absolute inset-0 bg-black/20 z-0 pointer-events-none" />
