@@ -26,6 +26,7 @@ import avatarSunita from '@/assets/avatar-sunita.webp';
 import avatarAmit from '@/assets/avatar-amit.webp';
 import avatarPriya from '@/assets/avatar-priya.webp';
 import avatarRajesh from '@/assets/avatar-rajesh.webp';
+import heroFarmImg from '@/assets/hero-farm.webp';
 
 
 const Index: React.FC = () => {
@@ -88,7 +89,7 @@ const Index: React.FC = () => {
 
                 {/* Poster image for instant LCP, video loads lazily on desktop */}
                 <img
-                    src="src/assets/hero-farm.webp"
+                    src={heroFarmImg}
                     alt="Lush green farmland landscape showcasing modern agriculture at FarmHive"
                     width={1920}
                     height={1080}
