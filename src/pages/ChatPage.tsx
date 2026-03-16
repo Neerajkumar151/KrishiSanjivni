@@ -56,7 +56,7 @@ interface QueueItem {
 const renderFileContent = (url: string) => {
     const fileType = url.split('.').pop()?.toLowerCase() || '';
     if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(fileType)) {
-        return <img src={url} alt="Uploaded content" loading="lazy" className="mt-2 rounded-lg max-w-xs md:max-w-sm cursor-pointer" onClick={() => window.open(url, '_blank')} />;
+        return <img src={url} alt="User uploaded image in chat" loading="lazy" className="mt-2 rounded-lg max-w-xs md:max-w-sm cursor-pointer" onClick={() => window.open(url, '_blank')} />;
     }
     if (['mp4', 'webm', 'mov'].includes(fileType)) {
         return <video src={url} controls className="mt-2 rounded-lg max-w-xs md:max-w-sm" />;
@@ -258,7 +258,7 @@ export const ChatPage: React.FC = () => {
                     ...insertedAIMessage,
                     profiles: {
                         full_name: "Krishisanjivni AI",
-                        avatar_url: "/ai-avatar.png",
+                        avatar_url: "/ai-avatar.webp",
                     }
                 };
                 setMessages(prev => [...prev, optimisticAI]);
@@ -757,7 +757,7 @@ export const ChatPage: React.FC = () => {
                             {/* AI Mention Tag Badge */}
                             {isAIMentioned && (
                                 <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/30 dark:to-teal-950/30 border border-emerald-200 dark:border-emerald-800 rounded-lg text-sm animate-in slide-in-from-bottom-2 duration-200">
-                                    <img src="/chat-gpt.webp" alt="AI" className="h-5 w-5 flex-shrink-0 rounded-full object-contain" />
+                                    <img src="/chat-gpt.webp" alt="KrishiSanjivni AI assistant icon" className="h-5 w-5 flex-shrink-0 rounded-full object-contain" />
                                     <span className="font-semibold text-emerald-700 dark:text-emerald-300">@KrishiSanjivni AI</span>
                                     <span className="text-emerald-600/70 dark:text-emerald-400/70 text-xs">will answer your question</span>
                                     <Button
@@ -822,7 +822,7 @@ export const ChatPage: React.FC = () => {
                                     }
                                     title="Tag @KrishiSanjivni AI"
                                 >
-                                    <img src="/chat-gpt.webp" alt="AI" className="h-5 w-5 rounded-full object-contain" />
+                                    <img src="/chat-gpt.webp" alt="KrishiSanjivni AI assistant icon" className="h-5 w-5 rounded-full object-contain" />
                                 </Button>
                                 <Input
                                     ref={messageInputRef}

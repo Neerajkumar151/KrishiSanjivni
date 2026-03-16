@@ -55,7 +55,7 @@ export default function Community() {
                                 <div className="relative h-56 overflow-hidden">
                                     <img
                                         src={feature.image}
-                                        alt={t(titleKey)}
+                                        alt={`${t(titleKey)} - FarmHive community feature`}
                                         loading="lazy"
                                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                                     />

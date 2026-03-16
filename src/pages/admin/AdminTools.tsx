@@ -538,7 +538,7 @@ export const AdminTools: React.FC = () => {
                   <TableCell>
                     <img loading="lazy"
                       src={tool.image_url || '/placeholder.svg'}
-                      alt={tool.name}
+                      alt={`${tool.name} - ${tool.category} farming tool`}
                       className="w-16 h-16 object-cover rounded"
                     />
                   </TableCell>

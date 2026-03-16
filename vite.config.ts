@@ -53,19 +53,19 @@ export default defineConfig(({ mode }) => ({
         background_color: '#ffffff',
         icons: [
           {
-            src: '/pwa-192x192.png',
+            src: '/pwa-192x192.webp',
             sizes: '192x192',
-            type: 'image/png',
+            type: 'image/webp',
           },
           {
-            src: '/pwa-512x512.png',
+            src: '/pwa-512x512.webp',
             sizes: '512x512',
-            type: 'image/png',
+            type: 'image/webp',
           },
           {
-            src: '/pwa-512x512.png',
+            src: '/pwa-512x512.webp',
             sizes: '512x512',
-            type: 'image/png',
+            type: 'image/webp',
             purpose: 'maskable',
           },
         ],
@@ -173,6 +173,20 @@ export default defineConfig(({ mode }) => ({
       },
     }),
   ].filter(Boolean),
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+          'vendor-query': ['@tanstack/react-query'],
+          'vendor-supabase': ['@supabase/supabase-js'],
+          'vendor-i18n': ['i18next', 'react-i18next'],
+        },
+      },
+    },
+    target: 'es2020',
+    cssCodeSplit: true,
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

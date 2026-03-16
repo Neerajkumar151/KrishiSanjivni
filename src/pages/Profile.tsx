@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { loadRazorpay } from '@/lib/loadRazorpay';
 import { Layout } from '@/components/layout/Layout';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
@@ -140,14 +141,8 @@ const Profile: React.FC = () => {
     }
   };
 
-  /* ---------- Load Razorpay ONCE ---------- */
-  useEffect(() => {
-    if (document.getElementById('razorpay-script')) return;
-    const s = document.createElement('script');
-    s.id = 'razorpay-script';
-    s.src = 'https://checkout.razorpay.com/v1/checkout.js';
-    document.body.appendChild(s);
-  }, []);
+  /* ---------- Load Razorpay on demand ---------- */
+  // Razorpay is loaded lazily via loadRazorpay() before opening checkout
 
   /* ---------- Fetch Data ---------- */
   const fetchAll = async () => {
@@ -219,6 +214,7 @@ const Profile: React.FC = () => {
       const order = await orderRes.json();
       if (!orderRes.ok) throw new Error(order.error || 'Order creation failed');
 
+      await loadRazorpay();
       const rzp = new (window as any).Razorpay({
         key: 'rzp_test_RU7Ssjpxs3pyhT',
         order_id: order.id,

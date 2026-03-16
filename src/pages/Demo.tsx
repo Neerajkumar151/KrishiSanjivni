@@ -42,7 +42,6 @@ const [playing, setPlaying] = useState(false);
       transition: { 
         staggerChildren: 0.08, 
         delayChildren: 0.2,
-        ease: [0.16, 1, 0.3, 1]
       },
     },
   };
@@ -54,7 +53,7 @@ const [playing, setPlaying] = useState(false);
       y: 0,
       transition: { 
         duration: 0.8, 
-        ease: [0.16, 1, 0.3, 1] 
+        ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
       },
     },
   };
@@ -68,7 +67,7 @@ const [playing, setPlaying] = useState(false);
       transition: {
         duration: 0.8,
         delay: i * 0.02,
-        ease: [0.16, 1, 0.3, 1],
+        ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
       },
     }),
   };
@@ -281,7 +280,7 @@ const [playing, setPlaying] = useState(false);
               className="w-full h-full max-w-7xl max-h-[85vh] aspect-video bg-black rounded-3xl overflow-hidden relative shadow-2xl shadow-emerald-900/10"
             >
               <video
-                src="/assets/demo.mp4"
+                src="/assets/demo.webm"
                 controls
                 autoPlay
                 className="w-full h-full object-contain"

@@ -50,7 +50,7 @@ export const WarehouseDetailsDialog: React.FC<WarehouseDetailsDialogProps> = ({
                 <div className="relative h-64 md:h-80 w-full">
                     <img
                         src={warehouse.image_url || 'https://placehold.co/800x600/1e293b/f8fafc?text=Warehouse'}
-                        alt={warehouse.name}
+                        alt={`${warehouse.name} warehouse storage facility`}
                         className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />

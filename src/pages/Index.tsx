@@ -77,17 +77,27 @@ const Index: React.FC = () => {
             {/* Hero Section */}
             <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-[#0a1a0a]">
 
-                {/* Video Background */}
+                {/* Poster image for instant LCP, video loads lazily */}
+                <img
+                    src="src/assets/hero-farm.webp"
+                    alt="Lush green farmland landscape showcasing modern agriculture at FarmHive"
+                    width={1920}
+                    height={1080}
+                    className={`absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-1000 ${videoLoaded ? 'opacity-0' : 'opacity-100'}`}
+                    fetchPriority="high"
+                />
                 <video
                     autoPlay
                     loop
                     muted
                     playsInline
                     onLoadedData={() => setVideoLoaded(true)}
-                    preload="auto"
+                    preload="none"
+                    poster="/bg.webp"
                     className={`absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-1000 ${videoLoaded ? 'opacity-100' : 'opacity-0'}`}
                 >
                     <source src="/bg.webm" type="video/webm" />
+                    <track kind="captions" />
                 </video>
 
                 {/* Dark Overlay */}
@@ -148,7 +158,7 @@ const Index: React.FC = () => {
                                     {t('explore_now')} <ChevronRight className="w-5 h-5" />
                                 </button></Link>
                                 <button className="bg-white text-green-700 border-2 border-green-600 px-10 py-5 rounded-full hover:bg-green-50 transition-all hover:shadow-xl font-bold text-lg">
-                                    <a href="/assets/demo.mp4" target="_blank" rel="noopener noreferrer">
+                                    <a href="/assets/demo.webm" target="_blank" rel="noopener noreferrer">
                                         {t('watch_demo')}
                                     </a>
                                 </button>
@@ -306,7 +316,7 @@ const Index: React.FC = () => {
                                     {[...Array(item.rating)].map((_, starIndex) => <Star key={starIndex} className="h-6 w-6 text-yellow-400 fill-current" />)}
                                     {[...Array(5 - item.rating)].map((_, starIndex) => <Star key={starIndex + item.rating} className="h-6 w-6 text-gray-300" />)}
                                 </div>
-                                <img src={item.avatar} alt={t(item.nameKey)} loading="lazy" className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-4 border-primary/20 group-hover:border-primary transition-all duration-300" />
+                                <img src={item.avatar} alt={`${t(item.nameKey)}, ${t(item.roleKey)} - FarmHive testimonial`} loading="lazy" width={96} height={96} className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-4 border-primary/20 group-hover:border-primary transition-all duration-300" />
                                 <p className="text-muted-foreground mb-4 text-sm italic">"{t(item.feedbackKey)}"</p>
                                 <div className="absolute inset-x-0 bottom-0 bg-primary/80 text-white py-2 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out">
                                     <h4 className="text-lg font-semibold">{t(item.nameKey)}</h4>
@@ -323,7 +333,7 @@ const Index: React.FC = () => {
                                     {[...Array(item.rating)].map((_, starIndex) => <Star key={starIndex} className="h-6 w-6 text-yellow-400 fill-current" />)}
                                     {[...Array(5 - item.rating)].map((_, starIndex) => <Star key={starIndex + item.rating} className="h-6 w-6 text-gray-300" />)}
                                 </div>
-                                <img src={item.avatar} alt={t(item.nameKey)} loading="lazy" className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-4 border-primary/20 group-hover:border-primary transition-all duration-300" />
+                                <img src={item.avatar} alt={`${t(item.nameKey)}, ${t(item.roleKey)} - FarmHive testimonial`} loading="lazy" width={96} height={96} className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-4 border-primary/20 group-hover:border-primary transition-all duration-300" />
                                 <p className="text-muted-foreground mb-4 text-sm italic">"{t(item.feedbackKey)}"</p>
                                 <div className="absolute inset-x-0 bottom-0 bg-primary/80 text-white py-2 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out">
                                     <h4 className="text-lg font-semibold">{t(item.nameKey)}</h4>

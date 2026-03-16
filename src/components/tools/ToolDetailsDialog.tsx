@@ -45,7 +45,7 @@ export const ToolDetailsDialog: React.FC<ToolDetailsDialogProps> = ({
                 <div className="relative h-64 md:h-80 w-full">
                     <img
                         src={tool.image_url || '/placeholder.svg'}
-                        alt={tool.name}
+                        alt={`${tool.name} - ${tool.category} farming equipment`}
                         className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />

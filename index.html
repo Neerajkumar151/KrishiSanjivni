@@ -20,17 +20,24 @@
   <meta name="apple-mobile-web-app-title" content="KrishiSanjivni" />
 
   <link rel="icon" type="image/webp" href="/logo.webp" />
-  <link rel="apple-touch-icon" href="/pwa-192x192.png" />
+  <link rel="apple-touch-icon" href="/pwa-192x192.webp" />
   <link rel="manifest" href="/manifest.webmanifest" />
 
-  <link rel="preload" as="video" href="/bg.webm" type="video/webm" />
-</head>
+  <!-- Preconnect to critical origins -->
+  <link rel="preconnect" href="https://xfeeizryotmnopvgevmf.supabase.co" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://checkout.razorpay.com" />
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 
+  <!-- Poster image preload for hero video LCP -->
+  <link rel="preload" as="image" href="/bg.webp" />
+</head>
 
 <body>
   <div id="root"></div>
 
-  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <!-- Razorpay loaded on-demand via src/lib/loadRazorpay.ts -->
 
   <script type="module" src="/src/main.tsx"></script>
 </body>

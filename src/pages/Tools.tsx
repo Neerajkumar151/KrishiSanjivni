@@ -287,7 +287,7 @@ const Tools: React.FC = () => {
               <CardHeader className="p-0 overflow-hidden">
                 <img
                   src={tool.image_url || '/placeholder.svg'}
-                  alt={tool.name}
+                  alt={`${tool.name} - ${tool.category} farming tool available for rent`}
                   loading="lazy"
                   className="w-full h-48 object-cover group-hover/card:scale-105 transition-transform duration-500"
                 />

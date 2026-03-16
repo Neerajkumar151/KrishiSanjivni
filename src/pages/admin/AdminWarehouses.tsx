@@ -824,7 +824,7 @@ export const AdminWarehouses: React.FC = () => {
                   <TableCell>
                     <img loading="lazy"
                       src={warehouse.image_url || '/placeholder.svg'}
-                      alt={warehouse.name}
+                      alt={`${warehouse.name} warehouse in ${warehouse.location}`}
                       className="w-16 h-16 object-cover rounded"
                     />
                   </TableCell>

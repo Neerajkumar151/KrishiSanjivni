@@ -270,7 +270,7 @@ export default function Weather() {
                   <div className="flex items-center gap-6 bg-gradient-to-r from-cyan-50 to-blue-50 p-6 rounded-xl shadow-lg">
                     <img loading="lazy"
                       src={getWeatherIcon(weatherData.icon)}
-                      alt={weatherData.description}
+                      alt={`Current weather in ${weatherData.location}: ${weatherData.description}`}
                       className="w-28 h-28 drop-shadow-xl"
                     />
                     <div>
@@ -332,7 +332,7 @@ export default function Weather() {
                         <p className="font-semibold text-sm mb-2">{day.date}</p>
                         <img loading="lazy"
                           src={getWeatherIcon(day.icon)}
-                          alt={day.description}
+                          alt={`Weather forecast for ${day.date}: ${day.description}`}
                           className="w-16 h-16 mx-auto drop-shadow-md"
                         />
                         <p className="text-xs text-gray-500 capitalize mb-2">

@@ -39,12 +39,14 @@ export const WarehouseBookingDialog: React.FC<WarehouseBookingDialogProps> = ({
   const { user } = useAuth();
   const { toast } = useToast();
   const [selectedStorageOption, setSelectedStorageOption] = useState<string>('');
-  const [spaceSqft, setSpaceSqft] = useState<number>(100);
+  const [spaceSqft, setSpaceSqft] = useState<string>('100');
   const [startDate, setStartDate] = useState<Date>();
   const [endDate, setEndDate] = useState<Date>();
   const [contactPhone, setContactPhone] = useState('');
   const [notes, setNotes] = useState('');
   const [loading, setLoading] = useState(false);
+  const [startDateOpen, setStartDateOpen] = useState(false);
+  const [endDateOpen, setEndDateOpen] = useState(false);
 
   const getSelectedOption = () => {
     return warehouse.storage_options?.find(opt => opt.id === selectedStorageOption);
@@ -58,10 +60,10 @@ export const WarehouseBookingDialog: React.FC<WarehouseBookingDialogProps> = ({
     const days = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
     
     if (days <= 30) {
-      return spaceSqft * option.price_per_sqft_day * days;
+      return (parseInt(spaceSqft) || 0) * option.price_per_sqft_day * days;
     } else {
       const months = Math.ceil(days / 30);
-      return spaceSqft * option.price_per_sqft_month * months;
+      return (parseInt(spaceSqft) || 0) * option.price_per_sqft_month * months;
     }
   };
 
@@ -104,7 +106,8 @@ export const WarehouseBookingDialog: React.FC<WarehouseBookingDialogProps> = ({
       return;
     }
 
-    if (spaceSqft > warehouse.available_space_sqft) {
+    const spaceValue = parseInt(spaceSqft) || 0;
+    if (spaceValue > warehouse.available_space_sqft) {
       toast({
         title: 'Error',
         description: `Only ${warehouse.available_space_sqft} sqft available`,
@@ -121,7 +124,7 @@ export const WarehouseBookingDialog: React.FC<WarehouseBookingDialogProps> = ({
         .insert({
           warehouse_storage_option_id: selectedStorageOption,
           user_id: user.id,
-          space_sqft: spaceSqft,
+          space_sqft: spaceValue,
           start_date: format(startDate, 'yyyy-MM-dd'),
           end_date: format(endDate, 'yyyy-MM-dd'),
           total_cost: calculateTotalCost(),
@@ -143,7 +146,7 @@ export const WarehouseBookingDialog: React.FC<WarehouseBookingDialogProps> = ({
       setEndDate(undefined);
       setContactPhone('');
       setNotes('');
-      setSpaceSqft(100);
+      setSpaceSqft('100');
       setSelectedStorageOption('');
     } catch (error: any) {
       toast({
@@ -190,7 +193,7 @@ export const WarehouseBookingDialog: React.FC<WarehouseBookingDialogProps> = ({
               min="1"
               max={warehouse.available_space_sqft}
               value={spaceSqft}
-              onChange={(e) => setSpaceSqft(Number(e.target.value))}
+              onChange={(e) => setSpaceSqft(e.target.value)}
               placeholder="Enter space in sqft"
             />
             <p className="text-sm text-muted-foreground">
@@ -201,7 +204,7 @@ export const WarehouseBookingDialog: React.FC<WarehouseBookingDialogProps> = ({
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label>Start Date</Label>
-              <Popover>
+              <Popover open={startDateOpen} onOpenChange={setStartDateOpen}>
                 <PopoverTrigger asChild>
                   <Button variant="outline" className="w-full justify-start text-left font-normal">
                     <CalendarIcon className="mr-2 h-4 w-4" />
@@ -212,7 +215,7 @@ export const WarehouseBookingDialog: React.FC<WarehouseBookingDialogProps> = ({
                   <Calendar
                     mode="single"
                     selected={startDate}
-                    onSelect={setStartDate}
+                    onSelect={(date) => { setStartDate(date); setStartDateOpen(false); }}
                     disabled={(date) => date < new Date()}
                   />
                 </PopoverContent>
@@ -221,7 +224,7 @@ export const WarehouseBookingDialog: React.FC<WarehouseBookingDialogProps> = ({
 
             <div className="space-y-2">
               <Label>End Date</Label>
-              <Popover>
+              <Popover open={endDateOpen} onOpenChange={setEndDateOpen}>
                 <PopoverTrigger asChild>
                   <Button variant="outline" className="w-full justify-start text-left font-normal">
                     <CalendarIcon className="mr-2 h-4 w-4" />
@@ -232,7 +235,7 @@ export const WarehouseBookingDialog: React.FC<WarehouseBookingDialogProps> = ({
                   <Calendar
                     mode="single"
                     selected={endDate}
-                    onSelect={setEndDate}
+                    onSelect={(date) => { setEndDate(date); setEndDateOpen(false); }}
                     disabled={(date) => date < new Date() || (startDate ? date < startDate : false)}
                   />
                 </PopoverContent>

@@ -356,7 +356,7 @@ const Warehouse: React.FC = () => {
               <CardHeader className="p-0 overflow-hidden relative">
                 <img
                   src={warehouse.image_url || 'https://placehold.co/600x400/1e293b/f8fafc?text=Warehouse'}
-                  alt={warehouse.name}
+                  alt={`${warehouse.name} warehouse in ${warehouse.location}`}
                   loading="lazy"
                   onError={(e) => e.currentTarget.src = 'https://placehold.co/600x400/1e293b/f8fafc?text=Warehouse'}
                   className="w-full h-48 object-cover group-hover/card:scale-105 transition-transform duration-500"
