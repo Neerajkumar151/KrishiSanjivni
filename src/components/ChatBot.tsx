@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
-import { MessageSquare, X, Send, Mic, MicOff, Trash2, AlertTriangle } from 'lucide-react'; // Added AlertTriangle
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { MessageSquare, X, Send, Mic, MicOff, Trash2, AlertTriangle, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -49,6 +49,12 @@ export const ChatBot: React.FC<ChatBotProps> = ({ isOpen, setIsOpen }) => {
     const mediaRecorderRef = useRef<MediaRecorder | null>(null);
     const audioChunksRef = useRef<Blob[]>([]);
     const audioRef = useRef<HTMLAudioElement | null>(null);
+    const canvasRef = useRef<HTMLCanvasElement | null>(null);
+    const analyserRef = useRef<AnalyserNode | null>(null);
+    const audioContextRef = useRef<AudioContext | null>(null);
+    const animationFrameRef = useRef<number | null>(null);
+    const streamRef = useRef<MediaStream | null>(null);
+    const isCancelledRef = useRef(false);
 
     useEffect(() => {
         const checkUser = async () => {
@@ -257,9 +263,82 @@ export const ChatBot: React.FC<ChatBotProps> = ({ isOpen, setIsOpen }) => {
         }
     };
 
+    // --- Waveform drawing ---
+    const drawWaveform = useCallback(() => {
+        const canvas = canvasRef.current;
+        const analyser = analyserRef.current;
+        if (!canvas || !analyser) return;
+
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+
+        const bufferLength = analyser.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
+
+        const draw = () => {
+            animationFrameRef.current = requestAnimationFrame(draw);
+            analyser.getByteTimeDomainData(dataArray);
+
+            ctx.fillStyle = '#2d2d2d';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = '#ffffff';
+            ctx.beginPath();
+
+            const sliceWidth = canvas.width / bufferLength;
+            let x = 0;
+
+            for (let i = 0; i < bufferLength; i++) {
+                const v = dataArray[i] / 128.0;
+                const y = (v * canvas.height) / 2;
+
+                if (i === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+                x += sliceWidth;
+            }
+
+            ctx.lineTo(canvas.width, canvas.height / 2);
+            ctx.stroke();
+        };
+
+        draw();
+    }, []);
+
+    const cleanupRecording = useCallback(() => {
+        if (animationFrameRef.current) {
+            cancelAnimationFrame(animationFrameRef.current);
+            animationFrameRef.current = null;
+        }
+        if (audioContextRef.current) {
+            audioContextRef.current.close().catch(() => {});
+            audioContextRef.current = null;
+        }
+        analyserRef.current = null;
+        if (streamRef.current) {
+            streamRef.current.getTracks().forEach(track => track.stop());
+            streamRef.current = null;
+        }
+    }, []);
+
     const startRecording = async () => {
         try {
+            isCancelledRef.current = false;
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            streamRef.current = stream;
+
+            // Set up audio analyser for waveform
+            const audioContext = new AudioContext();
+            audioContextRef.current = audioContext;
+            const source = audioContext.createMediaStreamSource(stream);
+            const analyser = audioContext.createAnalyser();
+            analyser.fftSize = 2048;
+            source.connect(analyser);
+            analyserRef.current = analyser;
+
             const mediaRecorder = new MediaRecorder(stream);
             mediaRecorderRef.current = mediaRecorder;
             audioChunksRef.current = [];
@@ -271,6 +350,12 @@ export const ChatBot: React.FC<ChatBotProps> = ({ isOpen, setIsOpen }) => {
             };
 
             mediaRecorder.onstop = async () => {
+                // If cancelled, just cleanup and return
+                if (isCancelledRef.current) {
+                    cleanupRecording();
+                    return;
+                }
+
                 const recordingDuration = Date.now() - recordingStartTime;
 
                 if (recordingDuration < 500) {
@@ -279,7 +364,7 @@ export const ChatBot: React.FC<ChatBotProps> = ({ isOpen, setIsOpen }) => {
                         description: 'Please speak for at least 1 second',
                         variant: 'destructive'
                     });
-                    stream.getTracks().forEach(track => track.stop());
+                    cleanupRecording();
                     return;
                 }
 
@@ -321,11 +406,14 @@ export const ChatBot: React.FC<ChatBotProps> = ({ isOpen, setIsOpen }) => {
                 };
 
                 reader.readAsDataURL(audioBlob);
-                stream.getTracks().forEach(track => track.stop());
+                cleanupRecording();
             };
 
             mediaRecorder.start();
             setIsRecording(true);
+
+            // Start waveform drawing after a small delay for canvas to mount
+            setTimeout(() => drawWaveform(), 100);
         } catch (error) {
             toast({
                 title: t('chatbot.error_title', 'Error'),
@@ -335,12 +423,29 @@ export const ChatBot: React.FC<ChatBotProps> = ({ isOpen, setIsOpen }) => {
         }
     };
 
-    const stopRecording = () => {
+    const cancelRecording = () => {
+        isCancelledRef.current = true;
         if (mediaRecorderRef.current && isRecording) {
+            mediaRecorderRef.current.stop();
+        }
+        cleanupRecording();
+        setIsRecording(false);
+    };
+
+    const submitRecording = () => {
+        if (mediaRecorderRef.current && isRecording) {
+            isCancelledRef.current = false;
             mediaRecorderRef.current.stop();
             setIsRecording(false);
         }
     };
+
+    // Cleanup on unmount
+    useEffect(() => {
+        return () => {
+            cleanupRecording();
+        };
+    }, [cleanupRecording]);
 
     return (
         <>
@@ -461,38 +566,107 @@ export const ChatBot: React.FC<ChatBotProps> = ({ isOpen, setIsOpen }) => {
                     </ScrollArea>
 
                     <div className="p-4 border-t border-border">
-                        <div className="flex gap-2">
-                            <Textarea
-                                value={input}
-                                onChange={(e) => setInput(e.target.value)}
-                                onKeyPress={(e) => {
-                                    if (e.key === 'Enter' && !e.shiftKey) {
-                                        e.preventDefault();
-                                        sendMessage(input);
-                                    }
+                        {isRecording ? (
+                            /* --- ChatGPT-style recording UI --- */
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '12px',
+                                    backgroundColor: '#2d2d2d',
+                                    borderRadius: '12px',
+                                    padding: '10px 14px',
                                 }}
-                                placeholder={t('chatbot.input_placeholder', 'Type your message...')}
-                                className="resize-none"
-                                rows={2}
-                                disabled={isLoading}
-                            />
-                            <div className="flex flex-col gap-2 ">
-                                <Button className="bg-gradient-to-r from-green-600 to-emerald-700"
-                                    onClick={() => sendMessage(input)}
-                                    disabled={isLoading || !input.trim()}
-                                    size="icon"
+                            >
+                                <canvas
+                                    ref={canvasRef}
+                                    width={220}
+                                    height={40}
+                                    style={{
+                                        flex: 1,
+                                        borderRadius: '6px',
+                                        display: 'block',
+                                    }}
+                                />
+                                <button
+                                    onClick={cancelRecording}
+                                    title="Cancel recording"
+                                    style={{
+                                        width: '36px',
+                                        height: '36px',
+                                        borderRadius: '50%',
+                                        border: 'none',
+                                        backgroundColor: 'transparent',
+                                        color: '#ccc',
+                                        cursor: 'pointer',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        transition: 'color 0.2s',
+                                    }}
+                                    onMouseEnter={(e) => (e.currentTarget.style.color = '#ff5555')}
+                                    onMouseLeave={(e) => (e.currentTarget.style.color = '#ccc')}
                                 >
-                                    <Send className="h-4 w-4 " />
-                                </Button>
-                                <Button
-                                    onClick={isRecording ? stopRecording : startRecording}
-                                    variant={isRecording ? 'destructive' : 'outline'}
-                                    size="icon"
+                                    <X className="h-5 w-5" />
+                                </button>
+                                <button
+                                    onClick={submitRecording}
+                                    title="Submit recording"
+                                    style={{
+                                        width: '36px',
+                                        height: '36px',
+                                        borderRadius: '50%',
+                                        border: 'none',
+                                        backgroundColor: 'transparent',
+                                        color: '#ccc',
+                                        cursor: 'pointer',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        transition: 'color 0.2s',
+                                    }}
+                                    onMouseEnter={(e) => (e.currentTarget.style.color = '#50fa7b')}
+                                    onMouseLeave={(e) => (e.currentTarget.style.color = '#ccc')}
                                 >
-                                    {isRecording ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
-                                </Button>
+                                    <Check className="h-5 w-5" />
+                                </button>
                             </div>
-                        </div>
+                        ) : (
+                            /* --- Normal input UI --- */
+                            <div className="flex gap-2">
+                                <Textarea
+                                    value={input}
+                                    onChange={(e) => setInput(e.target.value)}
+                                    onKeyPress={(e) => {
+                                        if (e.key === 'Enter' && !e.shiftKey) {
+                                            e.preventDefault();
+                                            sendMessage(input);
+                                        }
+                                    }}
+                                    placeholder={t('chatbot.input_placeholder', 'Type your message...')}
+                                    className="resize-none"
+                                    rows={2}
+                                    disabled={isLoading}
+                                />
+                                <div className="flex flex-col gap-2">
+                                    <Button className="bg-gradient-to-r from-green-600 to-emerald-700"
+                                        onClick={() => sendMessage(input)}
+                                        disabled={isLoading || !input.trim()}
+                                        size="icon"
+                                    >
+                                        <Send className="h-4 w-4" />
+                                    </Button>
+                                    <Button
+                                        onClick={startRecording}
+                                        variant="outline"
+                                        size="icon"
+                                        disabled={isLoading}
+                                    >
+                                        <Mic className="h-4 w-4" />
+                                    </Button>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             )}
