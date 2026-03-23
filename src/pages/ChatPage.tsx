@@ -56,10 +56,10 @@ interface QueueItem {
 const renderFileContent = (url: string) => {
     const fileType = url.split('.').pop()?.toLowerCase() || '';
     if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(fileType)) {
-        return <img src={url} alt="User uploaded image in chat" loading="lazy" className="mt-2 rounded-lg max-w-xs md:max-w-sm cursor-pointer" onClick={() => window.open(url, '_blank')} />;
+        return <img src={url} alt="User uploaded image in chat" loading="lazy" className="mt-2 rounded-lg max-w-full w-full cursor-pointer" onClick={() => window.open(url, '_blank')} />;
     }
     if (['mp4', 'webm', 'mov'].includes(fileType)) {
-        return <video src={url} controls className="mt-2 rounded-lg max-w-xs md:max-w-sm" />;
+        return <video src={url} controls className="mt-2 rounded-lg max-w-full w-full" />;
     }
     return <a href={url} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline mt-2 block">Download File</a>;
 };
@@ -613,7 +613,7 @@ export const ChatPage: React.FC = () => {
                                             <AvatarFallback>{msg.profiles?.full_name?.charAt(0).toUpperCase() || 'U'}</AvatarFallback>
                                         </Avatar>
                                     )}
-                                    <div className={`max-w-xs md:max-w-md p-3 rounded-lg ${msg.is_ai_message ? 'bg-green-100 text-green-900 border border-green-300' : isCurrentUser ? 'bg-primary text-primary-foreground' : 'bg-muted'} relative group ${msg.is_flagged ? 'blur-sm hover:blur-none transition-all duration-300' : ''}`}>
+                                    <div className={`max-w-[75vw] sm:max-w-xs md:max-w-md p-3 rounded-lg ${msg.is_ai_message ? 'bg-green-100 text-green-900 border border-green-300' : isCurrentUser ? 'bg-primary text-primary-foreground' : 'bg-muted'} relative group ${msg.is_flagged ? 'blur-sm hover:blur-none transition-all duration-300' : ''}`}>
                                         {msg.is_flagged && (
                                             <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-destructive text-destructive-foreground text-[10px] px-2 py-0.5 rounded-full whitespace-nowrap z-10 opacity-100 pointer-events-none shadow-sm">
                                                 Flagged content - Hover to view
@@ -627,7 +627,7 @@ export const ChatPage: React.FC = () => {
                                         {!isCurrentUser && !msg.is_ai_message && <p className="text-xs font-bold mb-1">{msg.profiles?.full_name || 'User'}</p>}
                                         {msg.message && (
                                             msg.is_ai_message ? (
-                                                <div className="prose prose-sm prose-green max-w-none break-words">
+                                                <div className="prose prose-sm prose-green max-w-full break-words overflow-hidden">
                                                     <ReactMarkdown remarkPlugins={[remarkGfm]}>
                                                         {msg.message}
                                                     </ReactMarkdown>

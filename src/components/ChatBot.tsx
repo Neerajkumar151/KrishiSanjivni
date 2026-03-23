@@ -450,7 +450,7 @@ export const ChatBot: React.FC<ChatBotProps> = ({ isOpen, setIsOpen }) => {
     return (
         <>
             {isOpen && (
-                <div className="fixed bottom-6 right-6 w-96 h-[600px] bg-background border border-border rounded-lg shadow-2xl flex flex-col z-50 overflow-hidden">
+                <div className="fixed bottom-2 sm:bottom-6 right-2 sm:right-6 w-[calc(100vw-1rem)] sm:w-96 h-[85vh] sm:h-[600px] max-h-[600px] bg-background border border-border rounded-lg shadow-2xl flex flex-col z-50 overflow-hidden">
 
                     {/* --- NEW CUSTOM DELETE OVERLAY --- */}
                     {showDeleteConfirm && (
