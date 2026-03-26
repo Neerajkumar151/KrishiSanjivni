@@ -27,6 +27,7 @@ import avatarAmit from '@/assets/avatar-amit.webp';
 import avatarPriya from '@/assets/avatar-priya.webp';
 import avatarRajesh from '@/assets/avatar-rajesh.webp';
 import heroFarmImg from '@/assets/hero-farm.webp';
+import mobileHomepageImg from '@/assets/mobile-homepage.png';
 
 
 const Index: React.FC = () => {
@@ -37,13 +38,23 @@ const Index: React.FC = () => {
     const [videoLoaded, setVideoLoaded] = useState(false);
     const [isChatOpen, setIsChatOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
+    const [isSmallScreen, setIsSmallScreen] = useState(false);
 
     useEffect(() => {
         const mql = window.matchMedia('(max-width: 768px)');
         setIsMobile(mql.matches);
         const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
         mql.addEventListener('change', handler);
-        return () => mql.removeEventListener('change', handler);
+
+        const smql = window.matchMedia('(max-width: 450px)');
+        setIsSmallScreen(smql.matches);
+        const smallHandler = (e: MediaQueryListEvent) => setIsSmallScreen(e.matches);
+        smql.addEventListener('change', smallHandler);
+
+        return () => {
+            mql.removeEventListener('change', handler);
+            smql.removeEventListener('change', smallHandler);
+        };
     }, []);
 
     // Placeholder data using translation keys (assuming corresponding image assets exist)
@@ -89,12 +100,12 @@ const Index: React.FC = () => {
 
                 {/* Poster image for instant LCP, video loads lazily on desktop */}
                 <img
-                    src={heroFarmImg}
+                    src={isSmallScreen ? mobileHomepageImg : heroFarmImg}
                     alt="Lush green farmland landscape showcasing modern agriculture at FarmHive"
                     width={1920}
                     height={1080}
                     className={`absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-1000 ${!isMobile && videoLoaded ? 'opacity-0' : 'opacity-100'}`}
-                    fetchpriority="high"
+                    {...({ fetchpriority: "high" } as any)}
                 />
                 {!isMobile && (
                     <video
@@ -113,7 +124,7 @@ const Index: React.FC = () => {
                 )}
 
                 {/* Dark Overlay */}
-                <div className="absolute inset-0 bg-black/20 z-0 pointer-events-none" />
+                <div className="absolute inset-0 bg-black/10 z-0 pointer-events-none" />
 
 
                 <div className="relative z-10 container mx-auto px-4 text-center text-white">
