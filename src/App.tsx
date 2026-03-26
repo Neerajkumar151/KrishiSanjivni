@@ -139,7 +139,12 @@ const AppRoutes: React.FC = () => {
 // Main App Component
 const App: React.FC = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter
+      future={{
+        v7_startTransition: true,
+        v7_relativeSplatPath: true,
+      }}
+    >
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <AuthProvider>

@@ -94,7 +94,7 @@ const Index: React.FC = () => {
                     width={1920}
                     height={1080}
                     className={`absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-1000 ${!isMobile && videoLoaded ? 'opacity-0' : 'opacity-100'}`}
-                    fetchPriority="high"
+                    fetchpriority="high"
                 />
                 {!isMobile && (
                     <video
