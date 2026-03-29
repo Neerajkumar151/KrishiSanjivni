@@ -543,7 +543,7 @@ export const ChatBot: React.FC<ChatBotProps> = ({ isOpen, setIsOpen }) => {
                                         {msg.role === 'user' ? (
                                             <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
                                         ) : (
-                                            <div className="chatbot-markdown text-sm">
+                                            <div className="chatbot-markdown text-sm break-words overflow-hidden">
                                                 <ReactMarkdown>{msg.content}</ReactMarkdown>
                                             </div>
                                         )}
